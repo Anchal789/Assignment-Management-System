@@ -1,0 +1,92 @@
+.teachersignup-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .teachersignup-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .teachersignup-group {
+    margin-bottom: 15px;
+  }
+  
+  .teachersignup-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .teachersignup-teacher-id {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  
+  .teachersignup-group input[type="text"],
+  .teachersignup-group input[type="email"],
+  .teachersignup-group input[type="password"],
+  .teachersignup-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .teachersignup-error {
+    color: red;
+    margin-top: 5px;
+  }
+  
+  .teachersignup-class-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+  
+  .teachersignup-delete-btn {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .teachersignup-add-class-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .teachersignup-signup-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Media Query for responsiveness */
+  @media (max-width: 768px) {
+    .teachersignup-container {
+      width: 90%;
+    }
+  
+    .teachersignup-class-group {
+      flex-direction: column;
+    }
+  
+    .teachersignup-delete-btn {
+      margin-left: 0;
+      margin-top: 5px;
+    }
+  }
+  
