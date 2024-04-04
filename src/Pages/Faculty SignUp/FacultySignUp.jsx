@@ -61,7 +61,7 @@ const TeacherSignUp = () => {
     }
 
     if (!stream) {
-      newErrors.subjectName = "Stream is required";
+      newErrors.stream = "Stream is required";
     }
 
     if (Object.keys(newErrors).length === 0) {
@@ -102,7 +102,7 @@ const TeacherSignUp = () => {
                 id="teachersignup-name"
                 value={name}
                 onChange={handleNameChange}
-                placeholder="Enter your name"
+                placeholder="ex: John Doe"
               />
               {errors.name && (
                 <div className="teachersignup-error">{errors.name}</div>
@@ -115,7 +115,7 @@ const TeacherSignUp = () => {
                 id="teachersignup-email"
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email"
+                placeholder="ex: ex@gmail.com"
               />
               {errors.email && (
                 <div className="teachersignup-error">{errors.email}</div>
@@ -128,7 +128,7 @@ const TeacherSignUp = () => {
                 id="teachersignup-password"
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder="Password"
+                placeholder="*****"
               />
               {errors.password && (
                 <div className="teachersignup-error">{errors.password}</div>
@@ -143,7 +143,7 @@ const TeacherSignUp = () => {
                 id="teachersignup-Branch"
                 value={stream}
                 onChange={(e) => setStream(e.target.value)}
-                placeholder="Enter your Stream"
+                placeholder="ex: CS"
               />
               {errors.stream && (
                 <div className="teachersignup-error">{errors.stream}</div>
@@ -156,7 +156,7 @@ const TeacherSignUp = () => {
                 id="teachersignup-SubjectName"
                 value={subjectName}
                 onChange={(e) => setSubjectName(e.target.value)}
-                placeholder="Enter your Subject"
+                placeholder="ex: DBMS"
               />
               {errors.subjectName && (
                 <div className="teachersignup-error">{errors.subjectName}</div>
