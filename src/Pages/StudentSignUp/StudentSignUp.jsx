@@ -1,172 +1,221 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Validator from "validator";
-import { set, ref, getDatabase } from "firebase/database";
-import {app} from "../../Firebase/firebase";
+import { set, ref, getDatabase, child, get } from "firebase/database";
+import { app } from "../../Firebase/firebase";
+import "../Faculty SignUp/FacultySignUp.css"
 
 const StudentSignUp = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [semester, setSemester] = useState("");
-    const [subjectName, setSubjectName] = useState("");
-    const [errors, setErrors] = useState({});
-    const database = getDatabase(app);
-  
-    const handleNameChange = (e) => {
-      setName(e.target.value);
-    };
-  
-    const handleEmailChange = (e) => {
-      setEmail(e.target.value);
-    };
-  
-    const handlePasswordChange = (e) => {
-      const newPassword = e.target.value;
-      if (
-        newPassword === "" ||
-        (Validator.isNumeric(newPassword) && newPassword.length <= 5)
-      ) {
-        setPassword(newPassword);
-      }
-    };
-  
-    const handleSemesterChange = (e) => {
-      setSemester(e.target.value);
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const newErrors = {};
-  
-      if (!Validator.isLength(name, { min: 3, max: 25 })) {
-        newErrors.name = "Name must be between 3 and 25 characters";
-      }
-  
-      if (!Validator.isEmail(email)) {
-        newErrors.email = "Invalid email format";
-      }
-  
-      if (!Validator.isNumeric(password) || password.length !== 5) {
-        newErrors.password = "Password must be a 5-digit number";
-      }
-  
-      if (!semester) {
-        newErrors.semester = "Please select a semester";
-      }
-  
-      if (!subjectName) {
-        newErrors.subjectName = "Subject Name is required";
-      }
-  
-      if (Object.keys(newErrors).length === 0) {
-        const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
-        if (confirmSubmit) {
-          console.log("Form submitted");
-          console.table(name, email, password, semester, subjectName); // You can use this ID as needed
-          set(ref(database, `${semester}/${subjectName}/facultyInfo`), {
-            name,
-            email,
-            password,
-            semester,
-            subjectName,
-          })
-          // Reset form data and errors after successful submission
-          setName("");
-          setEmail("");
-          setPassword("");
-          setSemester("");
-          setSubjectName("");
-          setErrors({});
-        }
-      } else {
-        setErrors(newErrors);
-      }
-    };
-  
-    return (
-      <div className="teachersignup-container">
-        <form onSubmit={handleSubmit} className="teachersignup-form">
-          <div className="teachersignup-group">
-            <label htmlFor="teachersignup-name">Name:</label>
-            <input
-              type="text"
-              id="teachersignup-name"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="Enter your name"
-            />
-            {errors.name && (
-              <div className="teachersignup-error">{errors.name}</div>
-            )}
-          </div>
-          <div className="teachersignup-group">
-            <label htmlFor="teachersignup-email">Email:</label>
-            <input
-              type="email"
-              id="teachersignup-email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Enter your email"
-            />
-            {errors.email && (
-              <div className="teachersignup-error">{errors.email}</div>
-            )}
-          </div>
-          <div className="teachersignup-group">
-            <label htmlFor="teachersignup-password">Password:</label>
-            <input
-              type="password"
-              id="teachersignup-password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Password"
-            />
-            {errors.password && (
-              <div className="teachersignup-error">{errors.password}</div>
-            )}
-          </div>
-          <div className="teachersignup-group">
-            <label htmlFor="teachersignup-SubjectName">Subject:</label>
-            <input
-              type="text"
-              id="teachersignup-SubjectName"
-              value={subjectName}
-              onChange={(e) => setSubjectName(e.target.value)}
-              placeholder="Enter your Subject"
-            />
-            {errors.subjectName && (
-              <div className="teachersignup-error">{errors.subjectName}</div>
-            )}
-          </div>
-          <div className="teachersignup-group">
-            <label htmlFor="teachersignup-semester">Semester:</label>
-            <select
-              id="teachersignup-semester"
-              value={semester}
-              onChange={handleSemesterChange}
-            >
-              <option value="">Select Semester</option>
-              <option value="1st Sem">1st Semester</option>
-              <option value="2nd Sem">2nd Semester</option>
-              <option value="3rd Sem">3rd Semester</option>
-              <option value="4th Sem">4th Semester</option>
-              <option value="5th Sem">5th Semester</option>
-              <option value="6th Sem">6th Semester</option>
-              <option value="7th Sem">7th Semester</option>
-              <option value="8th Sem">8th Semester</option>
-            </select>
-            {errors.semester && (
-              <div className="teachersignup-error">{errors.semester}</div>
-            )}
-          </div>
-          <div className="teachersignup-group">
-            <button type="submit" className="teachersignup-signup-btn">
-              Signup
-            </button>
-          </div>
-        </form>
-      </div>
-    );
-}
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [semester, setSemester] = useState("");
+  const [stream, setStream] = useState("");
+  const [subjectName, setSubjectName] = useState("");
+  const [errors, setErrors] = useState({});
+  const [semesterOptions, setSemesterOptions] = useState([]);
+  const [streamOptions, setStreamOptions] = useState([]);
+  const [subjectOptions, setSubjectOptions] = useState([]);
+  const database = getDatabase(app);
 
-export default StudentSignUp
+  // Load semester options on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      const semesterSnapshot = await get(child(ref(database), "semesters"));
+      if (semesterSnapshot.exists()) {
+        const semesters = [];
+        semesterSnapshot.forEach((semester) => {
+          semesters.push(semester.key);
+        });
+        setSemesterOptions(semesters);
+      }
+    };
+    fetchData();
+  }, [database]);
+
+  // Load stream options when semester changes
+  useEffect(() => {
+    if (semester) {
+      const fetchData = async () => {
+        const streamSnapshot = await get(
+          child(ref(database), `semesters/${semester}/streams`)
+        );
+        if (streamSnapshot.exists()) {
+          const streams = [];
+          streamSnapshot.forEach((stream) => {
+            streams.push(stream.key);
+          });
+          setStreamOptions(streams);
+        }
+      };
+      fetchData();
+    }
+  }, [semester, database]);
+
+  // Load subject options when stream changes
+  useEffect(() => {
+    if (stream) {
+      const fetchData = async () => {
+        const subjectSnapshot = await get(
+          child(ref(database), `semesters/${semester}/streams/${stream}/subjects`)
+        );
+        if (subjectSnapshot.exists()) {
+          const subjects = [];
+          subjectSnapshot.forEach((subject) => {
+            subjects.push(subject.key);
+          });
+          setSubjectOptions(subjects);
+        }
+      };
+      fetchData();
+    }
+  }, [stream, semester, database]);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    if (
+      newPassword === "" ||
+      (Validator.isNumeric(newPassword) && newPassword.length <= 5)
+    ) {
+      setPassword(newPassword);
+    }
+  };
+
+  const handleSemesterChange = (e) => {
+    setSemester(e.target.value);
+    setStream(""); // Reset stream when semester changes
+    setSubjectName(""); // Reset subject when semester changes
+  };
+
+  const handleStreamChange = (e) => {
+    setStream(e.target.value);
+    setSubjectName(""); // Reset subject when stream changes
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    // Validation code
+
+    if (Object.keys(newErrors).length === 0) {
+      // Form submission logic
+    } else {
+      setErrors(newErrors);
+    }
+  };
+
+  return (
+    <div className="studentsignup-container">
+      <form onSubmit={handleSubmit} className="studentsignup-form">
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-name">Name:</label>
+          <input
+            type="text"
+            id="studentsignup-name"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="ex: John Doe"
+          />
+          {errors.name && (
+            <div className="studentsignup-error">{errors.name}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-email">Email:</label>
+          <input
+            type="email"
+            id="studentsignup-email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="ex: ex@gmail.com"
+          />
+          {errors.email && (
+            <div className="studentsignup-error">{errors.email}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-password">Password:</label>
+          <input
+            type="password"
+            id="studentsignup-password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="*****"
+          />
+          {errors.password && (
+            <div className="studentsignup-error">{errors.password}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-semester">Semester:</label>
+          <select
+            id="studentsignup-semester"
+            value={semester}
+            onChange={handleSemesterChange}
+          >
+            <option value="">Select Semester</option>
+            {semesterOptions.map((sem) => (
+              <option key={sem} value={sem}>
+                {sem}
+              </option>
+            ))}
+          </select>
+          {errors.semester && (
+            <div className="studentsignup-error">{errors.semester}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-stream">Stream:</label>
+          <select
+            id="studentsignup-stream"
+            value={stream}
+            onChange={handleStreamChange}
+          >
+            <option value="">Select Stream</option>
+            {streamOptions.map((str) => (
+              <option key={str} value={str}>
+                {str}
+              </option>
+            ))}
+          </select>
+          {errors.stream && (
+            <div className="studentsignup-error">{errors.stream}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-subject">Subject:</label>
+          <select
+            id="studentsignup-subject"
+            value={subjectName}
+            onChange={(e) => setSubjectName(e.target.value)}
+          >
+            <option value="">Select Subject</option>
+            {subjectOptions.map((subj) => (
+              <option key={subj} value={subj}>
+                {subj}
+              </option>
+            ))}
+          </select>
+          {errors.subjectName && (
+            <div className="studentsignup-error">{errors.subjectName}</div>
+          )}
+        </div>
+        <div className="studentsignup-group">
+          <button type="submit" className="studentsignup-signup-btn">
+            Signup
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default StudentSignUp;
