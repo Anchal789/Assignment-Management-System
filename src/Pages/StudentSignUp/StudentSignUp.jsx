@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Validator from "validator";
 import { set, ref, getDatabase, child, get } from "firebase/database";
 import { app } from "../../Firebase/firebase";
-import "../Faculty SignUp/FacultySignUp.css"
 
 const StudentSignUp = () => {
   const [name, setName] = useState("");
@@ -20,7 +19,7 @@ const StudentSignUp = () => {
   // Load semester options on component mount
   useEffect(() => {
     const fetchData = async () => {
-      const semesterSnapshot = await get(child(ref(database), "semesters"));
+      const semesterSnapshot = await get(child(ref(database), "/"));
       if (semesterSnapshot.exists()) {
         const semesters = [];
         semesterSnapshot.forEach((semester) => {
@@ -37,7 +36,7 @@ const StudentSignUp = () => {
     if (semester) {
       const fetchData = async () => {
         const streamSnapshot = await get(
-          child(ref(database), `semesters/${semester}/streams`)
+          child(ref(database), `/${semester}/`)
         );
         if (streamSnapshot.exists()) {
           const streams = [];
@@ -56,7 +55,7 @@ const StudentSignUp = () => {
     if (stream) {
       const fetchData = async () => {
         const subjectSnapshot = await get(
-          child(ref(database), `semesters/${semester}/streams/${stream}/subjects`)
+          child(ref(database), `/${semester}/${stream}/`)
         );
         if (subjectSnapshot.exists()) {
           const subjects = [];
