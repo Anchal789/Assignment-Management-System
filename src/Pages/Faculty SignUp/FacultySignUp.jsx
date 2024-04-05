@@ -5,6 +5,7 @@ import { set, ref, getDatabase } from "firebase/database";
 import { app } from "../../Firebase/firebase";
 
 const TeacherSignUp = () => {
+  const [subjectCode, setSubjectCode] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,6 +37,10 @@ const TeacherSignUp = () => {
     setSemester(e.target.value);
   };
 
+  const handleSubjectCodeChange = (e)=>{
+    setSubjectCode(e.target.value);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -45,7 +50,7 @@ const TeacherSignUp = () => {
     }
 
     if (!Validator.isEmail(email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = "Invalid email";
     }
 
     if (!Validator.isNumeric(password) || password.length !== 5) {
@@ -53,7 +58,7 @@ const TeacherSignUp = () => {
     }
 
     if (!semester) {
-      newErrors.semester = "Please select a semester";
+      newErrors.semester = "Select a semester";
     }
 
     if (!subjectName) {
@@ -63,18 +68,23 @@ const TeacherSignUp = () => {
     if (!stream) {
       newErrors.stream = "Stream is required";
     }
+    if (!subjectCode) {
+      newErrors.subjectCode = "Subject Code is required";
+    }
 
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
         console.log("Form submitted");
-        console.table(name, email, password, semester, subjectName, stream); // You can use this ID as needed
         set(ref(database, `${semester}/${stream}/${subjectName}/facultyInfo`), {
           name,
           email,
-          password,
           semester,
           subjectName,
+          subjectCode
+        });
+        set(ref(database, `loginCredentials/faculty/${subjectName}`), {
+          password,
         });
         // Reset form data and errors after successful submission
         setName("");
@@ -83,6 +93,7 @@ const TeacherSignUp = () => {
         setSemester("");
         setSubjectName("");
         setStream("");
+        setSubjectCode("");
         setErrors({});
       }
     } else {
@@ -93,10 +104,23 @@ const TeacherSignUp = () => {
   return (
     <div className="teachersignup-container">
       <form onSubmit={handleSubmit} className="teachersignup-form">
+        <div className="teachersignup-group">
+          <label htmlFor="teachersignup-subject-codde">Subject Code</label>
+          <input
+            type="text"
+            id="teachersignup-subject-code"
+            value={subjectCode}
+            onChange={handleSubjectCodeChange}
+            placeholder="ex: R2041011"
+          />
+          {errors.subjectCode && (
+            <div className="teachersignup-error">{errors.subjectCode}</div>
+          )}
+        </div>
         <div className="faculty-sections">
           <div className="faculty-personal-details">
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-name">Name:</label>
+              <label htmlFor="teachersignup-name">Name</label>
               <input
                 type="text"
                 id="teachersignup-name"
@@ -109,7 +133,7 @@ const TeacherSignUp = () => {
               )}
             </div>
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-email">Email:</label>
+              <label htmlFor="teachersignup-email">Email</label>
               <input
                 type="email"
                 id="teachersignup-email"
@@ -122,7 +146,7 @@ const TeacherSignUp = () => {
               )}
             </div>
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-password">Password:</label>
+              <label htmlFor="teachersignup-password">Password</label>
               <input
                 type="password"
                 id="teachersignup-password"
@@ -137,20 +161,20 @@ const TeacherSignUp = () => {
           </div>
           <div className="faculty-subject-details">
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-Stream">Stream:</label>
+              <label htmlFor="teachersignup-Stream">Stream</label>
               <input
                 type="text"
                 id="teachersignup-Branch"
                 value={stream}
                 onChange={(e) => setStream(e.target.value)}
-                placeholder="ex: CS"
+                placeholder="ex: CSE"
               />
               {errors.stream && (
                 <div className="teachersignup-error">{errors.stream}</div>
               )}
             </div>
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-SubjectName">Subject:</label>
+              <label htmlFor="teachersignup-SubjectName">Subject</label>
               <input
                 type="text"
                 id="teachersignup-SubjectName"
@@ -163,7 +187,7 @@ const TeacherSignUp = () => {
               )}
             </div>
             <div className="teachersignup-group">
-              <label htmlFor="teachersignup-semester">Semester:</label>
+              <label htmlFor="teachersignup-semester">Semester</label>
               <select
                 id="teachersignup-semester"
                 value={semester}

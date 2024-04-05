@@ -1,0 +1,106 @@
+.studentsignup-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+.student-sections{
+    display: grid;
+    grid-template-columns: auto auto;
+    
+}
+
+.studentsignup-form {
+    padding: 20px;
+    border: 1px solid #9f9f9f;
+    border-radius: 5px;
+    background-color: #dbdbdb;
+}
+
+.studentsignup-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.studentsignup-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.studentsignup-teacher-id {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+.studentsignup-group input[type="text"],
+.studentsignup-group input[type="email"],
+.studentsignup-group input[type="password"],
+.studentsignup-group select {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+}
+
+.studentsignup-error {
+    color: red;
+    margin-top: 5px;
+}
+
+.studentsignup-class-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.studentsignup-signup-btn {
+    margin-top: 20px;
+    padding: 10px 60px;
+    background-color: #ad13c7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: medium;
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+    .studentsignup-container {
+        width: 90%;
+    }
+
+    .studentsignup-class-group {
+        flex-direction: column;
+    }
+
+    .studentsignup-delete-btn {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .studentsignup-group input[type="text"],
+    .studentsignup-group input[type="email"],
+    .studentsignup-group input[type="password"],
+    .studentsignup-group select {
+        width: 100%;
+
+    }
+
+}
