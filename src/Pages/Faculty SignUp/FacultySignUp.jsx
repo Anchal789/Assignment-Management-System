@@ -81,7 +81,8 @@ const TeacherSignUp = () => {
           email,
           semester,
           subjectName,
-          subjectCode
+          subjectCode,
+          stream
         });
         set(ref(database, `loginCredentials/faculty/${subjectName}`), {
           password,
@@ -160,6 +161,27 @@ const TeacherSignUp = () => {
             </div>
           </div>
           <div className="faculty-subject-details">
+          <div className="teachersignup-group">
+              <label htmlFor="teachersignup-semester">Semester</label>
+              <select
+                id="teachersignup-semester"
+                value={semester}
+                onChange={handleSemesterChange}
+              >
+                <option value="">Select Semester</option>
+                <option value="1st Sem">1st Semester</option>
+                <option value="2nd Sem">2nd Semester</option>
+                <option value="3rd Sem">3rd Semester</option>
+                <option value="4th Sem">4th Semester</option>
+                <option value="5th Sem">5th Semester</option>
+                <option value="6th Sem">6th Semester</option>
+                <option value="7th Sem">7th Semester</option>
+                <option value="8th Sem">8th Semester</option>
+              </select>
+              {errors.semester && (
+                <div className="teachersignup-error">{errors.semester}</div>
+              )}
+            </div>
             <div className="teachersignup-group">
               <label htmlFor="teachersignup-Stream">Stream</label>
               <input
@@ -186,27 +208,7 @@ const TeacherSignUp = () => {
                 <div className="teachersignup-error">{errors.subjectName}</div>
               )}
             </div>
-            <div className="teachersignup-group">
-              <label htmlFor="teachersignup-semester">Semester</label>
-              <select
-                id="teachersignup-semester"
-                value={semester}
-                onChange={handleSemesterChange}
-              >
-                <option value="">Select Semester</option>
-                <option value="1st Sem">1st Semester</option>
-                <option value="2nd Sem">2nd Semester</option>
-                <option value="3rd Sem">3rd Semester</option>
-                <option value="4th Sem">4th Semester</option>
-                <option value="5th Sem">5th Semester</option>
-                <option value="6th Sem">6th Semester</option>
-                <option value="7th Sem">7th Semester</option>
-                <option value="8th Sem">8th Semester</option>
-              </select>
-              {errors.semester && (
-                <div className="teachersignup-error">{errors.semester}</div>
-              )}
-            </div>
+           
           </div>
         </div>
 

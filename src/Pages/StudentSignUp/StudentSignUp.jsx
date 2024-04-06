@@ -25,9 +25,9 @@ const StudentSignUp = () => {
       if (semesterSnapshot.exists()) {
         const semesters = [];
         semesterSnapshot.forEach((semester) => {
-            if(semester.key !== "loginCredentials"){
-                semesters.push(semester.key);
-            }
+          if (semester.key !== "loginCredentials") {
+            semesters.push(semester.key);
+          }
         });
         setSemesterOptions(semesters);
       }
@@ -110,32 +110,32 @@ const StudentSignUp = () => {
 
     // Validation code
     if (!Validator.isLength(name, { min: 3, max: 25 })) {
-        newErrors.name = "Name must be between 3 and 25 characters";
-      }
-  
-      if (!Validator.isEmail(email)) {
-        newErrors.email = "Invalid email format";
-      }
-  
-      if (!Validator.isNumeric(password) || password.length !== 5) {
-        newErrors.password = "Password must be a 5-digit number";
-      }
-  
-      if (!semester) {
-        newErrors.semester = "Please select a semester";
-      }
-  
-      if (!subjectName) {
-        newErrors.subjectName = "Subject Name is required";
-      }
-  
-      if (!stream) {
-        newErrors.stream = "Stream is required";
-      }
+      newErrors.name = "Name must be between 3 and 25 characters";
+    }
 
-      if (!rollNo) {
-        newErrors.rollNo = "Roll No is required";
-      }
+    if (!Validator.isEmail(email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!Validator.isNumeric(password) || password.length !== 5) {
+      newErrors.password = "Password must be a 5-digit number";
+    }
+
+    if (!semester) {
+      newErrors.semester = "Please select a semester";
+    }
+
+    if (!subjectName) {
+      newErrors.subjectName = "Subject Name is required";
+    }
+
+    if (!stream) {
+      newErrors.stream = "Stream is required";
+    }
+
+    if (!rollNo) {
+      newErrors.rollNo = "Roll No is required";
+    }
 
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
@@ -152,17 +152,17 @@ const StudentSignUp = () => {
             email,
             semester,
             subjectName,
+            stream,
+            rollNo,
           }
         );
-        set(
-            ref(
-              database,
-              `loginCredentials//${rollNo}`
-            ),
-            {
-              password
-            }
-          );
+        set(ref(database, `loginCredentials/students/${rollNo}`), {
+          password,
+          semester,
+          subjectName,
+          stream,
+          rollNo,
+        });
         // Reset form data and errors after successful submission
         setName("");
         setEmail("");
@@ -181,19 +181,19 @@ const StudentSignUp = () => {
   return (
     <div className="studentsignup-container">
       <form onSubmit={handleSubmit} className="studentsignup-form">
-      <div className="studentsignup-group">
-              <label htmlFor="studentsignup-rollNo">Roll No</label>
-              <input
-                type="text"
-                id="studentsignup-rollNo"
-                value={rollNo}
-                onChange={handleRollNoChange}
-                placeholder="Roll No"
-              />
-              {errors.rollNo && (
-                <div className="studentsignup-error">{errors.rollNo}</div>
-              )}
-            </div>
+        <div className="studentsignup-group">
+          <label htmlFor="studentsignup-rollNo">Roll No</label>
+          <input
+            type="text"
+            id="studentsignup-rollNo"
+            value={rollNo}
+            onChange={handleRollNoChange}
+            placeholder="Roll No"
+          />
+          {errors.rollNo && (
+            <div className="studentsignup-error">{errors.rollNo}</div>
+          )}
+        </div>
         <div className="student-sections">
           <div className="student-personal-details">
             <div className="studentsignup-group">
