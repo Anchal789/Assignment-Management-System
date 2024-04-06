@@ -86,6 +86,10 @@ const TeacherSignUp = () => {
         });
         set(ref(database, `loginCredentials/faculty/${subjectName}`), {
           password,
+          semester,
+          subjectName,
+          subjectCode,
+          stream
         });
         // Reset form data and errors after successful submission
         setName("");

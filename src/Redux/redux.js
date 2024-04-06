@@ -28,9 +28,14 @@ export const authSlice = createSlice({
         studentlogin : (state, action) => {
             state.studentProfile = action.payload
             state.authentication = true
+        },
+        facultylogin : (state, action) => {
+            state.facultyProfile = action.payload
+            state.authentication = true
         }
+        
     }
 })
 
-export const {studentlogin} = authSlice.actions
+export const {studentlogin, facultylogin} = authSlice.actions
 export default authSlice.reducer

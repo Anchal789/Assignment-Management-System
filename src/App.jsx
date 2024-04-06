@@ -8,6 +8,7 @@ import StudentLogin from "./Pages/Student Login/StudentLogin";
 import StudentSignUp from "./Pages/StudentSignUp/StudentSignUp";
 import TeacherSignUp from "./Pages/Faculty SignUp/FacultySignUp";
 import { Route, Routes } from "react-router-dom";
+import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/faculty login" element={<FacultyLogin/>}/>
         <Route path="/student login" element={<StudentLogin/>}/>
         <Route path="/student home" element={<StudentHome/>}/>
-        <Route path="/faulty home" element={<FacultyHome/>}/>
+        <Route path="/faculty home" element={<FacultyHome/>}/>
+        <Route path="/*" element={<InvaildURL/>}/>
       </Routes>
       </div>
     </ErrorBoundry>
