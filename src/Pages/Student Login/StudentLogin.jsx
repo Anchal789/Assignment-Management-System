@@ -39,7 +39,8 @@ const StudentLogin = () => {
             )
           ).then((value) => {
             console.log(value.val());
-            dispatch(studentlogin(value.val()))
+            const result = value.val()
+            dispatch(studentlogin(result));
           });
           // navigate("/student home");
           // setRollNo("");
