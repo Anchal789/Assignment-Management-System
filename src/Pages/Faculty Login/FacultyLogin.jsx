@@ -39,9 +39,9 @@ const FacultyLogin = () => {
               }/facultyInfo/`
             )
           ).then((value) => {
-            console.log(value.val());
             const result = value.val();
             dispatch(facultylogin(result));
+            localStorage.setItem("authentication", true);
             navigate("/faculty home");
           });
         }

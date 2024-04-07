@@ -42,9 +42,9 @@ const StudentLogin = () => {
             const result = value.val()
             dispatch(studentlogin(result));
           });
-          // navigate("/student home");
-          // setRollNo("");
-          // setPassword("");
+          navigate("/student home");
+          setRollNo("");
+          setPassword("");
         } else {
           setError("Invalid credentials");
         }

@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     facultyProfile: {
@@ -17,25 +17,43 @@ const initialState = {
         stream: "",
         subjectName: "",
     },
-    authentication: "",
+    authentication: false,
     error: "",
 }
 
 export const authSlice = createSlice({
-    name : "auth",
+    name: "auth",
     initialState,
-    reducers : {
-        studentlogin : (state, action) => {
+    reducers: {
+        studentlogin: (state, action) => {
             state.studentProfile = action.payload
             state.authentication = true
         },
-        facultylogin : (state, action) => {
+        facultylogin: (state, action) => {
             state.facultyProfile = action.payload
             state.authentication = true
-        }
-        
+        },
+        logout: (state) => {
+            state.authentication = false
+            state.studentProfile = {
+                email: "",
+                name: "",
+                rollNo: "",
+                semester: "",
+                stream: "",
+                subjectName: "",
+            }
+            state.facultyProfile = {
+                email: "",
+                name: "",
+                semester: "",
+                subjectName: "",
+                subjectCode: "",
+                stream: "",
+            }
+        },
     }
 })
 
-export const {studentlogin, facultylogin} = authSlice.actions
+export const { studentlogin, facultylogin, logout } = authSlice.actions
 export default authSlice.reducer
