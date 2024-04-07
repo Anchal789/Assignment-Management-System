@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import { child, get, getDatabase, ref } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 import { app } from "../../Firebase/firebase";
 
 const CreateAssignment = () => {
@@ -18,21 +18,23 @@ const CreateAssignment = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      get(
+      await get(
         child(
           ref(database),
           `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
         )
       ).then((value) => {
         const result = value.val();
-        if(result[0] === "No Assignment"){
-            console.log(result[0]);
-            setAssignmentId()
+        if (result[0] === "No Assignment") {
+          setAssignmentId(`${facultyInfo.subjectName}-` + 1);
+          console.log(assignmentId);
+        } else {
+          setAssignmentId(result.length + 1);
         }
       });
     };
     fetchData();
-  },[]);
+  }, [facultyInfo, database]);
 
   const handleDateChange = (date) => {
     if (date) {
@@ -58,6 +60,21 @@ const CreateAssignment = () => {
 
   const handleCreate = (e) => {
     e.preventDefault();
+    if (!assignmentName || !assignmentDescription || !submissionDate) {
+      alert("Please fill all the fields");
+    } else {
+      set(
+        ref(
+          database,
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}`
+        ),
+        {
+          assignmentName: assignmentName,
+          assignmentDescription: assignmentDescription,
+          submissionDate: submissionDate,
+        }
+      );
+    }
   };
   return (
     <div className="create-assignment">

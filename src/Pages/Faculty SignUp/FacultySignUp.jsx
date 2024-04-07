@@ -39,9 +39,9 @@ const TeacherSignUp = () => {
     setSemester(e.target.value);
   };
 
-  const handleSubjectCodeChange = (e)=>{
+  const handleSubjectCodeChange = (e) => {
     setSubjectCode(e.target.value);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,20 +84,32 @@ const TeacherSignUp = () => {
           semester,
           subjectName,
           subjectCode,
-          stream
+          stream,
         });
-        set(ref(database, `${semester}/${stream}/${subjectName}/assignments/active`), {
-         0 : "No Assignment"
-        });
-        set(ref(database, `${semester}/${stream}/${subjectName}/assignments/inactive`), {
-         0 : "No Assignment"
-        });
+        set(
+          ref(
+            database,
+            `${semester}/${stream}/${subjectName}/assignments/active`
+          ),
+          {
+            0: "No Assignment",
+          }
+        );
+        set(
+          ref(
+            database,
+            `${semester}/${stream}/${subjectName}/assignments/inactive`
+          ),
+          {
+            0: "No Assignment",
+          }
+        );
         set(ref(database, `loginCredentials/faculty/${subjectName}`), {
           password,
           semester,
           subjectName,
           subjectCode,
-          stream
+          stream,
         });
         // Reset form data and errors after successful submission
         setName("");
@@ -173,7 +185,7 @@ const TeacherSignUp = () => {
             </div>
           </div>
           <div className="faculty-subject-details">
-          <div className="teachersignup-group">
+            <div className="teachersignup-group">
               <label htmlFor="teachersignup-semester">Semester</label>
               <select
                 id="teachersignup-semester"
@@ -220,7 +232,6 @@ const TeacherSignUp = () => {
                 <div className="teachersignup-error">{errors.subjectName}</div>
               )}
             </div>
-           
           </div>
         </div>
 
