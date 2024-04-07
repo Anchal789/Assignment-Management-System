@@ -3,6 +3,7 @@ import Validator from "validator";
 import "./FacultySignUp.css"; // Import CSS file for styles
 import { set, ref, getDatabase } from "firebase/database";
 import { app } from "../../Firebase/firebase";
+import { useNavigate } from "react-router";
 
 const TeacherSignUp = () => {
   const [subjectCode, setSubjectCode] = useState("");
@@ -14,6 +15,7 @@ const TeacherSignUp = () => {
   const [subjectName, setSubjectName] = useState("");
   const [errors, setErrors] = useState({});
   const database = getDatabase(app);
+  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -83,6 +85,9 @@ const TeacherSignUp = () => {
           subjectName,
           subjectCode,
           stream
+        });
+        set(ref(database, `${semester}/${stream}/${subjectName}/assignments`), {
+         0 : "No Assignment"
         });
         set(ref(database, `loginCredentials/faculty/${subjectName}`), {
           password,
@@ -222,6 +227,8 @@ const TeacherSignUp = () => {
           </button>
         </div>
       </form>
+      <p>Already have an account?</p>
+      <button onClick={() => navigate("/faculty login")}>Login</button>
     </div>
   );
 };

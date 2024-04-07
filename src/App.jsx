@@ -7,12 +7,13 @@ import StudentHome from "./Pages/Home/StudentHome";
 import StudentLogin from "./Pages/Student Login/StudentLogin";
 import StudentSignUp from "./Pages/StudentSignUp/StudentSignUp";
 import TeacherSignUp from "./Pages/Faculty SignUp/FacultySignUp";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Check Assignment/CheckAssignment";
 
 function App() {
+ 
   return (
     <ErrorBoundry>
       <div className="App">

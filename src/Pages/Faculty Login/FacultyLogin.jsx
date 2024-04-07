@@ -75,6 +75,10 @@ const FacultyLogin = () => {
           Login
         </button>
       </form>
+      <div className="new-user">
+        <h4>New User?</h4>
+        <button onClick={()=>{navigate("/faculty signup")}}>Register</button>
+      </div>
     </div>
   );
 };
