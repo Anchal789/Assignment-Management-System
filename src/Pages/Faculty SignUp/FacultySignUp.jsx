@@ -86,7 +86,10 @@ const TeacherSignUp = () => {
           subjectCode,
           stream
         });
-        set(ref(database, `${semester}/${stream}/${subjectName}/assignments`), {
+        set(ref(database, `${semester}/${stream}/${subjectName}/assignments/active`), {
+         0 : "No Assignment"
+        });
+        set(ref(database, `${semester}/${stream}/${subjectName}/assignments/inactive`), {
          0 : "No Assignment"
         });
         set(ref(database, `loginCredentials/faculty/${subjectName}`), {

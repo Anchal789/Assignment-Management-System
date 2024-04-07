@@ -21,19 +21,18 @@ const CreateAssignment = () => {
       get(
         child(
           ref(database),
-          `${facultyInfo.semester}/${facultyInfo.stream}/${
-            facultyInfo.subjectName
-          }/assignments`
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
         )
       ).then((value) => {
-        const result = Object.keys(value.val()).length;
+        const result = value.val();
         if(result[0] === "No Assignment"){
-            console.log(result);
+            console.log(result[0]);
+            setAssignmentId()
         }
       });
     };
-    fetchData()
-  });
+    fetchData();
+  },[]);
 
   const handleDateChange = (date) => {
     if (date) {
