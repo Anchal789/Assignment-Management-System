@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
@@ -16,9 +16,8 @@ const CreateAssignment = () => {
   const navigate = useNavigate();
   const database = getDatabase(app);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await get(
+  const fetchData = useCallback(async () => {
+    await get(
         child(
           ref(database),
           `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
@@ -27,14 +26,15 @@ const CreateAssignment = () => {
         const result = value.val();
         if (result[0] === "No Assignment") {
           setAssignmentId(`${facultyInfo.subjectName}-` + 1);
-          console.log(assignmentId);
         } else {
           setAssignmentId(result.length + 1);
         }
       });
-    };
+  });
+
+  useEffect(() => {
     fetchData();
-  }, [facultyInfo, database]);
+  }, []);
 
   const handleDateChange = (date) => {
     if (date) {
