@@ -11,9 +11,10 @@ import { Route, Routes} from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Check Assignment/CheckAssignment";
+import { useSelector } from "react-redux";
 
 function App() {
- 
+ const facultyInfo = useSelector(state=>state.facultyProfile);
   return (
     <ErrorBoundry>
       <div className="App">
@@ -24,9 +25,9 @@ function App() {
         <Route path="/faculty login" element={<FacultyLogin/>}/>
         <Route path="/student login" element={<StudentLogin/>}/>
         <Route path="/student home" element={<StudentHome/>}/>
-        <Route path="/faculty home" element={<FacultyHome/>}/>
-        <Route path="/create assignment" element={<CreateAssignment/>}/>
-        <Route path="/check assignment" element={<CheckAssignment/>}/>
+        <Route path={`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`} element={<FacultyHome/>}/>
+        <Route path={`/create assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`} element={<CreateAssignment/>}/>
+        <Route path={`/check assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`} element={<CheckAssignment/>}/>
         <Route path="/*" element={<InvaildURL/>}/>
       </Routes>
       </div>

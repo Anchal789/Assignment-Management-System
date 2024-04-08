@@ -18,19 +18,28 @@ const CreateAssignment = () => {
 
   const fetchData = useCallback(async () => {
     await get(
-        child(
-          ref(database),
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
-        )
-      ).then((value) => {
-        const result = value.val();
-        if (result[0] === "No Assignment") {
-          setAssignmentId(`${facultyInfo.subjectName}-` + 1);
-        } else {
-          setAssignmentId(result.length + 1);
-        }
-      });
-  });
+      child(
+        ref(database),
+        `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
+      )
+    ).then((value) => {
+      const result = value.val();
+      const assignmentCount = Object.keys(result).length;
+      if (assignmentCount === 1 && "0" in result) {
+        // If there's only one entry and it's "No assignment", start with DBMS-1
+        setAssignmentId(`${facultyInfo.subjectName}-1`);
+      } else {
+        // Get the last assignment ID
+        const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
+        // Extract the numeric part of the ID
+        const lastAssignmentNumber = parseInt(lastAssignmentId);
+        // Calculate the next assignment number
+        const nextAssignmentNumber = lastAssignmentNumber + 1;
+        // Set the next assignment ID
+        setAssignmentId(`${facultyInfo.subjectName}-${nextAssignmentNumber}`);
+      }
+    });
+  },[]);
 
   useEffect(() => {
     fetchData();
@@ -66,14 +75,29 @@ const CreateAssignment = () => {
       set(
         ref(
           database,
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}`
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId.split("-")[1]}`
         ),
         {
           assignmentName: assignmentName,
           assignmentDescription: assignmentDescription,
           submissionDate: submissionDate,
+          status: "active",
         }
       );
+      set(
+        ref(
+          database,
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId.split("-")[1]}/submissions`
+        ),
+        {
+            0: "No Submission Yet",
+        }
+      );
+      setSubmissionDate(null);
+      setAssignmentId("");
+      setAssignmentName("");
+      setAssignmentDescription("");
+        navigate("/faculty home");
     }
   };
   return (

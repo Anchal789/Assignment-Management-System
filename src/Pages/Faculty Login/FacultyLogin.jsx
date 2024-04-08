@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { app } from "../../Firebase/firebase";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { facultylogin } from "../../Redux/redux";
 
 const FacultyLogin = () => {
@@ -12,6 +12,7 @@ const FacultyLogin = () => {
   const database = getDatabase(app);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const facultyInfo = useSelector((state) => state.facultyProfile);
 
   const handleSubjectNameChange = (e) => {
     setSubjectName(e.target.value);
@@ -42,7 +43,7 @@ const FacultyLogin = () => {
             const result = value.val();
             dispatch(facultylogin(result));
             localStorage.setItem("authentication", true);
-            navigate("/faculty home");
+            navigate(`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`);
           });
         }
       }

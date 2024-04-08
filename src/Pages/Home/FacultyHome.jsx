@@ -12,18 +12,18 @@ const FacultyHome = () => {
     if(!result){
         navigate("/faculty login");
     }
-    console.log(result)
   },[authentication, navigate])
+  const facultyInfo = useSelector((state) => state.facultyProfile);
   return (
     <div className="faculty-home">
       <h1 className="faculty-home-heading">Faculty Dashboard</h1>
       <button onClick={()=>{dispatch(logout()); navigate("/");localStorage.setItem("authentication",false)}}>Logout</button>
       <div className="faculty-home-div">
         <div className="faculty-home-buttons">
-          <button onClick={()=>{navigate("/create assignment")}}>Create Assignment</button>
+          <button onClick={()=>{navigate(`/create assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`)}}>Create Assignment</button>
         </div>
         <div className="faculty-home-buttons">
-          <button>Check Assignment</button>
+          <button onClick={()=>{navigate(`/check assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`)}}>Check Assignment</button>
         </div>
       </div>
 
