@@ -12,6 +12,7 @@ import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Check Assignment/CheckAssignment";
 import { useSelector } from "react-redux";
+import { StudentList } from "./Pages/Student List/StudentList";
 
 function App() {
  const facultyInfo = useSelector(state=>state.facultyProfile);
@@ -28,6 +29,7 @@ function App() {
         <Route path={`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`} element={<FacultyHome/>}/>
         <Route path={`/create assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`} element={<CreateAssignment/>}/>
         <Route path={`/check assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`} element={<CheckAssignment/>}/>
+        <Route path={`/students/${facultyInfo.semester}/${facultyInfo.subjectName}`} element={<StudentList/>}/>
         <Route path="/*" element={<InvaildURL/>}/>
       </Routes>
       </div>
