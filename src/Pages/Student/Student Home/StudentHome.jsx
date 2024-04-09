@@ -1,18 +1,31 @@
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import SubmitAssignment from "../../../Components/Student Components/Submit Assigment/SubmitAssignment";
+import { useNavigate } from "react-router";
+import { logout } from "../../../Redux/redux";
 
 const StudentHome = () => {
   const [activeAssignemnts, setActiveAssignemnts] = useState();
   const [inactiveAssignemnts, setInActiveAssignemnts] = useState();
   const [showSubmitAssignment, setShowSubmitAssignment] = useState(false);
-  const [submitAssignmentInfo, setSubmitAssignmentInfo] = useState({
-    
-  });
+  const [submitAssignmentInfo, setSubmitAssignmentInfo] = useState({});
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const authentication = useSelector((state) => state.authentication);
+
+  useEffect(() => {
+    let result =
+      authentication ||
+      Boolean(localStorage.getItem("authentication") === true);
+    if (!result) {
+      navigate("/student login");
+    }
+  }, [authentication, navigate]);
+
   const fetchActiveAssignmentData = async () => {
     await get(
       child(
@@ -49,14 +62,26 @@ const StudentHome = () => {
     e.preventDefault();
     setShowSubmitAssignment(true);
     setSubmitAssignmentInfo(assignmentId);
-  }
+  };
 
   useEffect(() => {
-    fetchActiveAssignmentData();
-    fetchInActiveAssignmentData();
+    if (authentication) {
+      fetchActiveAssignmentData();
+      fetchInActiveAssignmentData();
+    }
   }, []);
+
   return (
     <div className="student-home">
+      <button
+        onClick={() => {
+          dispatch(logout());
+          navigate("/");
+          localStorage.setItem("authentication", false);
+        }}
+      >
+        Logout
+      </button>
       <div className="student-home-left-section">
         <div className="active assignment">
           {activeAssignemnts &&
@@ -70,9 +95,7 @@ const StudentHome = () => {
                   <p>{key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
                   <p>{key?.submissionDate}</p>
-                  <button
-                  onClick={handleSubmitAssignment(key?.assignmentId)}
-                  >
+                  <button onClick={handleSubmitAssignment(key?.assignmentId)}>
                     Submit
                   </button>
                 </div>
@@ -81,7 +104,7 @@ const StudentHome = () => {
             })}
         </div>
         <div className="inactive assignment">
-        {inactiveAssignemnts &&
+          {inactiveAssignemnts &&
             Object.values(inactiveAssignemnts).map((key, index) => {
               if (index === 0 || inactiveAssignemnts === "No Assignments Yet") {
                 return null;
@@ -92,11 +115,7 @@ const StudentHome = () => {
                   <p>{key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
                   <p>{key?.submissionDate}</p>
-                  <button
-                  onClick={() =>
-                    setShowSubmitAssignment(true)
-                  }
-                  >
+                  <button onClick={() => setShowSubmitAssignment(true)}>
                     Submit
                   </button>
                 </div>
@@ -105,7 +124,9 @@ const StudentHome = () => {
         </div>
       </div>
       <div className="student-home-right-section">
-            {showSubmitAssignment && <SubmitAssignment assignmentId={submitAssignmentInfo}/>}
+        {showSubmitAssignment && (
+          <SubmitAssignment assignmentId={submitAssignmentInfo} />
+        )}
       </div>
     </div>
   );
