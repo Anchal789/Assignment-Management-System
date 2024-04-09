@@ -67,7 +67,7 @@ const CheckAssignment = () => {
                   <p>{key?.assignmentDescription}</p>
                   <p>{key?.submissionDate}</p>
                   <p>{key?.status}</p>
-                  <Link to={`/show submission/${key?.assignmentId}`}>Check</Link>
+                  <Link to={`/show submission/${key?.status}/${key?.assignmentId}`}>Check</Link>
                 </div>
               );
             })}

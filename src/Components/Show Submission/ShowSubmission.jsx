@@ -1,13 +1,14 @@
-import React from 'react'
-import { useParams } from 'react-router'
+import React, { useEffect } from "react";
+import { useParams } from "react-router";
 
 const ShowSubmission = () => {
-    const assignmentId = useParams();
+  const assignmentId = useParams();
+  
   return (
     <div>
-        <p>{assignmentId}</p>
+      <p>{assignmentId.id}</p>
     </div>
-  )
-}
+  );
+};
 
-export default ShowSubmission
+export default ShowSubmission;
