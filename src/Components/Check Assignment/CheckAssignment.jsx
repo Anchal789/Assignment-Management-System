@@ -14,7 +14,8 @@ const CheckAssignment = () => {
   const [submissionInfo, setSubmissionInfo] = useState({
     assignmentId : "",
     status : ""
-  })
+  });
+  const [showSubmission, setShowSubmission] = useState(false);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const navigate = useNavigate();
   const database = getDatabase(app);
@@ -54,6 +55,13 @@ const CheckAssignment = () => {
     fetchActiveData();
     fetchInActiveData();
   }, []);
+
+  const handleCheckSubmission = (assignmentId, status) => {
+    setSubmissionInfo({ assignmentId, status });
+    setShowSubmission(true); // Set showSubmission to true to display the ShowSubmission component
+    console.log(showSubmission);
+  };
+
   return (
     <div>
       <h1>All Assignments</h1>
@@ -72,7 +80,7 @@ const CheckAssignment = () => {
                   <p>{key?.assignmentDescription}</p>
                   <p>{key?.submissionDate}</p>
                   <p>{key?.status}</p>
-                 <button onClick={()=>{setSubmissionInfo({assignmentId : key?.assignmentId, status : key?.status})}}>Check</button>
+                  <button onClick={()=>handleCheckSubmission(key?.assignmentId, key?.status)}>Check</button>
                 </div>
               );
             })}
@@ -91,14 +99,14 @@ const CheckAssignment = () => {
                   <p>Description : {key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
                   <p>Last Date : {key?.submissionDate}</p>
-                  <button onClick={()=>{setSubmissionInfo({assignmentId : key?.assignmentId, status : key?.status})}}>Check</button>
+                  <button onClick={()=>handleCheckSubmission(key?.assignmentId, key?.status)}>Check</button>
                 </div>
               );
             })}
         </div>
       </div>
       <div className="right-section">
-        <ShowSubmission submissionInfo={submissionInfo}/>
+      {showSubmission && <ShowSubmission submissionInfo={submissionInfo} />}
       </div>
     </div>
   );
