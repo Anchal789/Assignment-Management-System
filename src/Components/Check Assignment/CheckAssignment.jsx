@@ -4,12 +4,17 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { app } from "../../Firebase/firebase";
 import { Link } from "react-router-dom";
+import ShowSubmission from "../Show Submission/ShowSubmission";
 
 const CheckAssignment = () => {
   const [activeAssignments, setActiveAssignments] = useState();
   const [inactiveAssignments, setInActiveAssignments] = useState();
   const [noActiveAssignments, setNoActiveAssignments] = useState("");
   const [noInActiveAssignments, setNoInActiveAssignments] = useState("");
+  const [submissionInfo, setSubmissionInfo] = useState({
+    assignmentId : "",
+    status : ""
+  })
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const navigate = useNavigate();
   const database = getDatabase(app);
@@ -67,7 +72,7 @@ const CheckAssignment = () => {
                   <p>{key?.assignmentDescription}</p>
                   <p>{key?.submissionDate}</p>
                   <p>{key?.status}</p>
-                  <Link to={`/show submission/${key?.status}/${key?.assignmentId}`}>Check</Link>
+                 <button onClick={()=>{setSubmissionInfo({assignmentId : key?.assignmentId, status : key?.status})}}>Check</button>
                 </div>
               );
             })}
@@ -86,13 +91,15 @@ const CheckAssignment = () => {
                   <p>Description : {key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
                   <p>Last Date : {key?.submissionDate}</p>
-                  <Link to={`/show submission/${key?.assignmentId}`}>Check Assignment</Link>
+                  <button onClick={()=>{setSubmissionInfo({assignmentId : key?.assignmentId, status : key?.status})}}>Check</button>
                 </div>
               );
             })}
         </div>
       </div>
-      <div className="right-section"></div>
+      <div className="right-section">
+        <ShowSubmission submissionInfo={submissionInfo}/>
+      </div>
     </div>
   );
 };

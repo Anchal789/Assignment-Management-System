@@ -43,7 +43,6 @@ function App() {
             path={`/students/${facultyInfo.semester}/${facultyInfo.subjectName}`}
             element={<StudentList />}
           />
-          <Route path="/show submission/:active/:id" element={<ShowSubmission />} />
           <Route path="/*" element={<InvaildURL />} />
         </Routes>
       </div>
