@@ -28,18 +28,19 @@ const CreateAssignment = () => {
       if (assignmentCount === 1 && "0" in result) {
         // If there's only one entry and it's "No assignment", start with DBMS-1
         setAssignmentId(`${facultyInfo.subjectName}-1`);
+        console.log(result);
       } else {
         // Get the last assignment ID
         const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
         // Extract the numeric part of the ID
-        const lastAssignmentNumber = parseInt(lastAssignmentId);
+        const lastAssignmentNumber = parseInt(lastAssignmentId.split("-")[1]);
         // Calculate the next assignment number
         const nextAssignmentNumber = lastAssignmentNumber + 1;
         // Set the next assignment ID
         setAssignmentId(`${facultyInfo.subjectName}-${nextAssignmentNumber}`);
       }
     });
-  },[]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -75,9 +76,10 @@ const CreateAssignment = () => {
       set(
         ref(
           database,
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId.split("-")[1]}`
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}`
         ),
         {
+          assignmentId: assignmentId,
           assignmentName: assignmentName,
           assignmentDescription: assignmentDescription,
           submissionDate: submissionDate,
@@ -87,17 +89,19 @@ const CreateAssignment = () => {
       set(
         ref(
           database,
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId.split("-")[1]}/submissions`
+          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}/submissions`
         ),
         {
-            0: "No Submission Yet",
+          0: "No Submission Yet",
         }
       );
       setSubmissionDate(null);
       setAssignmentId("");
       setAssignmentName("");
       setAssignmentDescription("");
-        navigate("/faculty home");
+      navigate(
+        `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
+      );
     }
   };
   return (
@@ -105,10 +109,10 @@ const CreateAssignment = () => {
       <h1>Create Assignment</h1>
       <div className="create-assignment-div">
         {assignmentId && <p>{assignmentId}</p>}
-        <p>For Semester : {facultyInfo.semester}</p>
-        <p>For Class : {facultyInfo.stream}</p>
-        <p>For Subject : {facultyInfo.subjectName}</p>
-        <p>For Subject Code : {facultyInfo.subjectCode}</p>
+        <p>Semester : {facultyInfo.semester}</p>
+        <p>Class : {facultyInfo.stream}</p>
+        <p>Subject : {facultyInfo.subjectName}</p>
+        <p>Subject Code : {facultyInfo.subjectCode}</p>
         <h4>Submit Before</h4>
         <DatePicker
           selected={submissionDate}

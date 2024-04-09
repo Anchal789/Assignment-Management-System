@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { app } from "../../Firebase/firebase";
+import { Link } from "react-router-dom";
 
 const CheckAssignment = () => {
   const [activeAssignments, setActiveAssignments] = useState();
@@ -56,23 +57,24 @@ const CheckAssignment = () => {
           <h5>Active Assignments</h5>
           {noActiveAssignments && <p>{noActiveAssignments}</p>}
           {activeAssignments &&
-            activeAssignments.map((key, index) => {
+            Object.values(activeAssignments).map((key, index) => {
               if (index === 0) {
                 return null;
               }
               return (
-                <div className="assignment-card" key={index}>
+                <div className="assignment-card">
                   <p>{key?.assignmentName}</p>
-                  <p>Description : {key?.assignmentDescription}</p>
+                  <p>{key?.assignmentDescription}</p>
+                  <p>{key?.submissionDate}</p>
                   <p>{key?.status}</p>
-                  <p>Last Date : {key?.submissionDate}</p>
+                  <Link to={`/show submission/${key?.assignmentId}`}>Check</Link>
                 </div>
               );
             })}
         </div>
         <div className="inactive-assignments">
           <h5>Closed Assignments</h5>
-        {noInActiveAssignments && <p  >{noInActiveAssignments}</p>}
+          {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
           {inactiveAssignments &&
             inactiveAssignments.map((key, index) => {
               if (index === 0) {
@@ -84,6 +86,7 @@ const CheckAssignment = () => {
                   <p>Description : {key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
                   <p>Last Date : {key?.submissionDate}</p>
+                  <Link to={`/show submission/${key?.assignmentId}`}>Check Assignment</Link>
                 </div>
               );
             })}
