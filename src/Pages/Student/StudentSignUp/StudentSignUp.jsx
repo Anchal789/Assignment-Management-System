@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Validator from "validator";
 import { set, ref, getDatabase, child, get } from "firebase/database";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 import "./StudentSignUp.css"; // Import CSS file for styles
 
 const StudentSignUp = () => {

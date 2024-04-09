@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Validator from "validator";
 import "./FacultySignUp.css"; // Import CSS file for styles
 import { set, ref, getDatabase } from "firebase/database";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 import { useNavigate } from "react-router";
 
 const TeacherSignUp = () => {

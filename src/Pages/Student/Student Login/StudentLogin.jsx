@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { studentlogin } from "../../Redux/redux";
+import { useDispatch, useSelector } from "react-redux";
+import { studentlogin } from "../../../Redux/redux";
 
 const StudentLogin = () => {
   const [rollNo, setRollNo] = useState("");
@@ -12,6 +12,7 @@ const StudentLogin = () => {
   const database = getDatabase(app);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const studentInfo = useSelector((state) => state.studentProfile);
 
   const handleRollNoChange = (e) => {
     setRollNo(e.target.value);
@@ -42,7 +43,7 @@ const StudentLogin = () => {
             const result = value.val()
             dispatch(studentlogin(result));
           });
-          navigate("/student home");
+          navigate(`/student home/${studentInfo.rollNo}`);
           setRollNo("");
           setPassword("");
         } else {

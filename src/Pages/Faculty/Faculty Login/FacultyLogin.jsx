@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { facultylogin } from "../../Redux/redux";
+import { facultylogin } from "../../../Redux/redux";
 
 const FacultyLogin = () => {
   const [subjectName, setSubjectName] = useState("");

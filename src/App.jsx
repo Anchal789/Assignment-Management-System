@@ -1,22 +1,23 @@
 import "./App.css";
 import ErrorBoundry from "./Pages/ErrorBoundry/ErrorBoundry";
-import FacultyLogin from "./Pages/Faculty Login/FacultyLogin";
-import FacultyHome from "./Pages/Home/FacultyHome";
+import FacultyLogin from "./Pages/Faculty/Faculty Login/FacultyLogin";
+import FacultyHome from "./Pages/Faculty/Faculty Home/FacultyHome";
 import { Home } from "./Pages/Home/Home/Home";
-import StudentHome from "./Pages/Home/StudentHome";
-import StudentLogin from "./Pages/Student Login/StudentLogin";
-import StudentSignUp from "./Pages/StudentSignUp/StudentSignUp";
-import TeacherSignUp from "./Pages/Faculty SignUp/FacultySignUp";
+import StudentHome from "./Pages/Student/Student Home/StudentHome";
+import StudentLogin from "./Pages/Student/Student Login/StudentLogin";
+import StudentSignUp from "./Pages/Student/StudentSignUp/StudentSignUp";
+import TeacherSignUp from "./Pages/Faculty/Faculty SignUp/FacultySignUp";
 import { Route, Routes } from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
-import CreateAssignment from "./Components/Create Assignment/CreateAssignment";
-import CheckAssignment from "./Components/Check Assignment/CheckAssignment";
+import CreateAssignment from "./Components/Faculty Components/Create Assignment/CreateAssignment";
+import CheckAssignment from "./Components/Faculty Components/Check Assignment/CheckAssignment";
 import { useSelector } from "react-redux";
-import { StudentList } from "./Pages/Student List/StudentList";
-import ShowSubmission from "./Components/Show Submission/ShowSubmission";
+import { StudentList } from "./Pages/Student/Student List/StudentList";
+import ShowSubmission from "./Components/Faculty Components/Show Submission/ShowSubmission";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
+  const studentInfo = useSelector((state) => state.studentProfile);
   return (
     <ErrorBoundry>
       <div className="App">
@@ -26,7 +27,7 @@ function App() {
           <Route path="/student signup" element={<StudentSignUp />} />
           <Route path="/faculty login" element={<FacultyLogin />} />
           <Route path="/student login" element={<StudentLogin />} />
-          <Route path="/student home" element={<StudentHome />} />
+          <Route path="/student home/:rollno" element={<StudentHome />} />
           <Route
             path={`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`}
             element={<FacultyHome />}

@@ -1,7 +1,7 @@
 import { child, get, getDatabase, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 const ShowSubmission = (props) => {
   const [submissions, setSubmissions] = useState("");
   const facultyInfo = useSelector((state) => state.facultyProfile);

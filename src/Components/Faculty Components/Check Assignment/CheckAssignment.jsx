@@ -2,7 +2,7 @@ import { child, get, getDatabase, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 import "./CheckAssignment.css";
 import ShowSubmission from "../Show Submission/ShowSubmission";
 
@@ -96,7 +96,7 @@ const CheckAssignment = () => {
             <h5>Closed Assignments</h5>
             {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
             {inactiveAssignments &&
-              inactiveAssignments.map((key, index) => {
+              Object.values(inactiveAssignments).map((key, index) => {
                 if (index === 0) {
                   return null;
                 }

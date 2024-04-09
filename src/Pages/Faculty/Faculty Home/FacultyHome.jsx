@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { logout } from "../../Redux/redux";
+import { logout } from "../../../Redux/redux";
 
 const FacultyHome = () => {
   const authentication = useSelector((state) => state.authentication);

@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
-import { app } from "../../Firebase/firebase";
+import { app } from "../../../Firebase/firebase";
 
 const CreateAssignment = () => {
   const facultyInfo = useSelector((state) => state.facultyProfile);
