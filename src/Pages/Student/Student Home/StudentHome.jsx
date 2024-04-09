@@ -23,10 +23,8 @@ const StudentHome = () => {
       const result = value.val();
       if (Object.keys(result).length === 1) {
         setActiveAssignemnts("No Assignments Yet");
-        console.log(result);
       } else {
         setActiveAssignemnts(result);
-        console.log(result);
       }
     });
   };
@@ -41,13 +39,17 @@ const StudentHome = () => {
       const result = value.val();
       if (Object.keys(result).length === 1) {
         setInActiveAssignemnts("No Assignments Yet");
-        console.log(result);
       } else {
         setInActiveAssignemnts(result);
-        console.log(result);
       }
     });
   };
+
+  const handleSubmitAssignment = (assignmentId) => (e) => {
+    e.preventDefault();
+    setShowSubmitAssignment(true);
+    setSubmitAssignmentInfo(assignmentId);
+  }
 
   useEffect(() => {
     fetchActiveAssignmentData();
@@ -62,51 +64,48 @@ const StudentHome = () => {
               if (index === 0) {
                 return null;
               }
-              // return (
-              //   <div className="assignment-card" key={index}>
-              //     <p>{key?.assignmentName}</p>
-              //     <p>Description : {key?.assignmentDescription}</p>
-              //     <p>{key?.status}</p>
-              //     <p>Last Date : {key?.submissionDate}</p>
-              //     <button
-              //     onClick={() =>
-              //       setShowSubmitAssignment(true)
-              //     }
-              //     >
-              //       Submit
-              //     </button>
-              //   </div>
-              // );
-              console.log(key)
-            })}
-        </div>
-        <div className="inactive assignment">
-        {inactiveAssignemnts &&
-            Object.values(inactiveAssignemnts).map((key, index) => {
-              if (index === 0) {
-                return null;
-              }
               return (
                 <div className="assignment-card" key={index}>
                   <p>{key?.assignmentName}</p>
-                  <p>Description : {key?.assignmentDescription}</p>
+                  <p>{key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
-                  <p>Last Date : {key?.submissionDate}</p>
+                  <p>{key?.submissionDate}</p>
                   <button
-                  // onClick={() =>
-                  //   handleCheckSubmission(key?.assignmentId, key?.status)
-                  // }
+                  onClick={handleSubmitAssignment(key?.assignmentId)}
                   >
                     Submit
                   </button>
                 </div>
               );
-              // console.log(key)
+              // console.log(index)
+            })}
+        </div>
+        <div className="inactive assignment">
+        {inactiveAssignemnts &&
+            Object.values(inactiveAssignemnts).map((key, index) => {
+              if (index === 0 || inactiveAssignemnts === "No Assignments Yet") {
+                return null;
+              }
+              return (
+                <div className="assignment-card" key={index}>
+                  <p>{key?.assignmentName}</p>
+                  <p>{key?.assignmentDescription}</p>
+                  <p>{key?.status}</p>
+                  <p>{key?.submissionDate}</p>
+                  <button
+                  onClick={() =>
+                    setShowSubmitAssignment(true)
+                  }
+                  >
+                    Submit
+                  </button>
+                </div>
+              );
             })}
         </div>
       </div>
       <div className="student-home-right-section">
-            {showSubmitAssignment && <SubmitAssignment />}
+            {showSubmitAssignment && <SubmitAssignment assignmentId={submitAssignmentInfo}/>}
       </div>
     </div>
   );
