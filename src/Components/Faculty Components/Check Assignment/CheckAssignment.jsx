@@ -1,4 +1,4 @@
-import { child, get, getDatabase, ref } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -16,6 +16,7 @@ const CheckAssignment = () => {
     status: "",
   });
   const [showSubmission, setShowSubmission] = useState(false);
+  const [changeStatus, setChangeStatus] = useState(false);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const navigate = useNavigate();
   const database = getDatabase(app);
@@ -50,6 +51,29 @@ const CheckAssignment = () => {
       }
     });
   }, []);
+
+  const handleStatusChange = async (assignmentId) => {
+    const assignmentRef = ref(
+      database,
+      `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments`
+    );
+
+    const activeAssignmentSnapshot = await get(
+      child(assignmentRef, `/active/${assignmentId}`)
+    );
+    const activeAssignmentData = activeAssignmentSnapshot.val();
+    await set(child(assignmentRef, `active/${assignmentId}`), null);
+
+    // Add the assignment to the inactive section
+    await set(
+      child(assignmentRef, `inactive/${assignmentId}`),
+      activeAssignmentData
+    );
+
+    // Update the UI to reflect the changes (you might need to refetch the data)
+    fetchActiveData();
+    fetchInActiveData();
+  };
 
   useEffect(() => {
     fetchActiveData();
@@ -87,6 +111,13 @@ const CheckAssignment = () => {
                       }
                     >
                       Check
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusChange(key?.assignmentId, key?.status)
+                      }
+                    >
+                      Close Assignment
                     </button>
                   </div>
                 );
