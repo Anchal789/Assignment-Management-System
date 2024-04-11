@@ -117,7 +117,7 @@ const CreateAssignment = () => {
         <DatePicker
           selected={submissionDate}
           onChange={handleDateChange}
-          dateFormat="dd/MM/yyyy" // Specify the date format for display
+          dateFormat="DD-MM-yyyy" // Specify the date format for display
           isClearable // Allow clearing the date
           placeholderText="Select a date" // Placeholder text
         />

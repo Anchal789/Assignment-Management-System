@@ -27,7 +27,6 @@ function App() {
       authentication ||
       Boolean(localStorage.getItem("authentication") === true);
     setAuthenticationStatus(result);
-    console.log(authentication);
   }, [authentication, navigate]);
   return (
     <ErrorBoundry>
@@ -53,7 +52,7 @@ function App() {
             element={<CheckAssignment />}
           />
           <Route
-            path={`/students/${facultyInfo.semester}/${facultyInfo.subjectName}`}
+            path={`/${facultyInfo.semester}/${facultyInfo.subjectName}/students`}
             element={<StudentList />}
           />
           <Route path="/*" element={<InvaildURL />} />
