@@ -44,7 +44,7 @@ const CheckAssignment = () => {
     ).then((value) => {
       const result = value.val();
       if (Object.keys(result).length === 1) {
-        setNoInActiveAssignments("No InActive Assignments");
+        setNoInActiveAssignments("No Assignments");
       } else {
         setInActiveAssignments(result);
       }
@@ -77,10 +77,10 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
+                    <p>{key?.status}</p>
                     <p>{key?.assignmentName}</p>
                     <p>{key?.assignmentDescription}</p>
                     <p>{key?.submissionDate}</p>
-                    <p>{key?.status}</p>
                     <button
                       onClick={() =>
                         handleCheckSubmission(key?.assignmentId, key?.status)
@@ -102,9 +102,9 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
+                    <p>{key?.status}</p>
                     <p>{key?.assignmentName}</p>
                     <p>Description : {key?.assignmentDescription}</p>
-                    <p>{key?.status}</p>
                     <p>Last Date : {key?.submissionDate}</p>
                     <button
                       onClick={() =>
