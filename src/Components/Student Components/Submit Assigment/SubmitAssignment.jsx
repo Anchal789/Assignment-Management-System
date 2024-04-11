@@ -7,7 +7,7 @@ const SubmitAssignment = (props) => {
   const [assignmentInfo, setAssignmentInfo] = useState({
     assignmentNote: "",
     assignmentDescription: "",
-    dataTime: "",
+    dateTime: "",
   });
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
@@ -37,7 +37,8 @@ const SubmitAssignment = (props) => {
         name: studentInfo.name,
         rollNo: studentInfo.rollNo,
         remarks : "",
-        marks : ""
+        marks : "",
+        dateTime : assignmentInfo.dateTime
       }
     );
     set(
@@ -50,13 +51,14 @@ const SubmitAssignment = (props) => {
         assignmentNote: assignmentInfo.assignmentNote,
         assignmentDescription: assignmentInfo.assignmentDescription,
         remarks : "",
-        marks : ""
+        marks : "",
+        dateTime : assignmentInfo.dateTime
       }
     );
     setAssignmentInfo({
       assignmentNote: "",
       assignmentDescription: "",
-      dataTime: "",
+      dateTime: "",
     })
     console.log(assignmentInfo);
   };
@@ -72,7 +74,7 @@ const SubmitAssignment = (props) => {
     const timeDate = { time: formattedTime, date: formattedDate };
     setAssignmentInfo((prevAssignmentInfo) => ({
       ...prevAssignmentInfo,
-      dataTime: { time: formattedTime, date: formattedDate },
+      dateTime: { time: formattedTime, date: formattedDate },
     }));
   }, [assignmentInfo.assignmentDescription, assignmentInfo.assignmentNote]);
   return (
