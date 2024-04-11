@@ -1,4 +1,4 @@
-import { child, get, getDatabase, ref, set, update } from "firebase/database";
+import { child, get, getDatabase, ref, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
@@ -65,7 +65,7 @@ const ShowSubmission = (props) => {
   return (
     <div>
       <p>{props.submissionInfo.assignmentId}</p>
-      <p>{props.submissionInfo.status}</p>
+      <p>{props.submissionInfo.status.toUpperCase()}</p>
       <table>
         <thead>
           <tr>
@@ -97,13 +97,17 @@ const ShowSubmission = (props) => {
                   <td>{key?.remarks}</td>
                   <td>{key?.marks}</td>
                   <td>
-                    <button
+                   {props.submissionInfo.status === "inactive" ?<button
+                   disabled
+                    >
+                     Evaluate 
+                    </button> :  <button
                       onClick={() => {
                         handleClickEvaluate(key?.rollNo);
                       }}
                     >
                       Evaluate
-                    </button>
+                    </button>}
                   </td>
                 </tr>
               );

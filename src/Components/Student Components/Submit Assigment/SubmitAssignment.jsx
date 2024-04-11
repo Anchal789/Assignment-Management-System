@@ -25,7 +25,13 @@ const SubmitAssignment = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    if (
+      !assignmentInfo.assignmentNote ||
+      !assignmentInfo.assignmentDescription
+    ) {
+      alert("Please provide both assignment note and description.");
+      return; // Stop form submission if validation fails
+    }
     set(
       ref(
         database,
@@ -36,9 +42,9 @@ const SubmitAssignment = (props) => {
         assignmentDescription: assignmentInfo.assignmentDescription,
         name: studentInfo.name,
         rollNo: studentInfo.rollNo,
-        remarks : "",
-        marks : "",
-        dateTime : assignmentInfo.dateTime
+        remarks: "",
+        marks: "",
+        dateTime: assignmentInfo.dateTime,
       }
     );
     set(
@@ -47,20 +53,20 @@ const SubmitAssignment = (props) => {
         `/${studentInfo.semester}/${studentInfo.stream}/${studentInfo.subjectName}/students/${studentInfo.rollNo}/submissions/${props.assignmentId}/`
       ),
       {
-        assignmentId : props.assignmentId,
+        assignmentId: props.assignmentId,
         assignmentNote: assignmentInfo.assignmentNote,
         assignmentDescription: assignmentInfo.assignmentDescription,
-        remarks : "",
-        marks : "",
-        dateTime : assignmentInfo.dateTime
+        remarks: "",
+        marks: "",
+        dateTime: assignmentInfo.dateTime,
       }
     );
     setAssignmentInfo({
       assignmentNote: "",
       assignmentDescription: "",
       dateTime: "",
-    })
-    console.log(assignmentInfo);
+    });
+    props.onComplete();
   };
 
   useEffect(() => {
@@ -71,40 +77,43 @@ const SubmitAssignment = (props) => {
     const formattedDate = `${now.getFullYear()}-${String(
       now.getMonth() + 1
     ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-    const timeDate = { time: formattedTime, date: formattedDate };
     setAssignmentInfo((prevAssignmentInfo) => ({
       ...prevAssignmentInfo,
       dateTime: { time: formattedTime, date: formattedDate },
     }));
   }, [assignmentInfo.assignmentDescription, assignmentInfo.assignmentNote]);
+
   return (
-    <div>
+    <>
       <div>
-        <p>{studentInfo.rollNo}</p>
-        <p>{studentInfo.name}</p>
-        <p>{studentInfo.subjectName}</p>
-        <p>{props.assignmentId}</p>
+        <div>
+          <p>{studentInfo.rollNo}</p>
+          <p>{studentInfo.name}</p>
+          <p>{studentInfo.subjectName}</p>
+          <p>{props.assignmentId}</p>
+        </div>
+        <form action="">
+          <label htmlFor="assignment-note">Assignment Note</label>
+          <input
+            type="text"
+            value={assignmentInfo.assignmentNote}
+            id="assignment-note"
+            onChange={handleNoteChange}
+          />
+          <label htmlFor="assignment-description">Submission Description</label>
+          <textarea
+            name=""
+            cols="30"
+            rows="10"
+            value={assignmentInfo.assignmentDescription}
+            id="assignment-description"
+            onChange={handleDescriptionChange}
+          ></textarea>
+          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={()=>{props.onComplete()}}>Cancel</button>
+        </form>
       </div>
-      <form action="">
-        <label htmlFor="assignment-note">Assignment Note</label>
-        <input
-          type="text"
-          value={assignmentInfo.assignmentNote}
-          id="assignment-note"
-          onChange={handleNoteChange}
-        />
-        <label htmlFor="assignment-description">Submission Description</label>
-        <textarea
-          name=""
-          cols="30"
-          rows="10"
-          value={assignmentInfo.assignmentDescription}
-          id="assignment-description"
-          onChange={handleDescriptionChange}
-        ></textarea>
-        <button onClick={handleSubmit}>Submit</button>
-      </form>
-    </div>
+    </>
   );
 };
 

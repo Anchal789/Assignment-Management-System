@@ -19,7 +19,14 @@ export const Home = () => {
           >
             Sign Up
           </button>
-          <button type="button" onClick={()=>{navigate("/faculty login")}}>Login</button>
+          <button
+            type="button"
+            onClick={() => {
+                navigate("/faculty login");
+            }}
+          >
+            Login
+          </button>
         </div>
         <div className="student-div">
           <h1>Student</h1>
@@ -32,7 +39,14 @@ export const Home = () => {
           >
             Sign Up
           </button>
-          <button type="button" onClick={()=>{navigate("/student login")}}>Login</button>
+          <button
+            type="button"
+            onClick={() => {
+                navigate("/student login");
+            }}
+          >
+            Login
+          </button>
         </div>
       </div>
     </div>

@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { facultylogin } from "../../../Redux/redux";
+import Loading from "../../LoadingPage";
 
 const FacultyLogin = () => {
   const [subjectName, setSubjectName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const database = getDatabase(app);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const facultyInfo = useSelector((state) => state.facultyProfile);
+
+  useEffect(() => {
+    if (redirecting && facultyInfo.rollNo !== "") {
+      // Redirect only when the redirecting flag is set and studentInfo is available
+      setTimeout(() => {
+        setLoader(false);
+        navigate(
+          `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
+        );
+      }, 2000);
+    }
+  }, [redirecting, facultyInfo, navigate]);
 
   const handleSubjectNameChange = (e) => {
     setSubjectName(e.target.value);
@@ -24,11 +39,13 @@ const FacultyLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoader(true);
     get(child(ref(database), `loginCredentials/faculty/${subjectName}`)).then(
       (snapshot) => {
         const savedPassword = snapshot.val().password;
         if (!savedPassword) {
           setError("User does not exists");
+          setLoader(false);
           return;
         }
         if (password === savedPassword) {
@@ -43,8 +60,11 @@ const FacultyLogin = () => {
             const result = value.val();
             dispatch(facultylogin(result));
             localStorage.setItem("authentication", true);
-            navigate(`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`);
+            setRedirecting(true);
           });
+        } else {
+          setError("Invalid Credentials");
+          setLoader(false);
         }
       }
     );
@@ -52,34 +72,46 @@ const FacultyLogin = () => {
 
   return (
     <div>
-      <form action="" id="faculty-login-form">
-        {error && <p className="error-message">{error}</p>}
-        <div className="faculty-login-group">
-          <label htmlFor="facultylogin-subjectName">subject Name</label>
-          <input
-            type="text"
-            name="facultylogin-subjectName"
-            id="facultylogin-subjectName"
-            onChange={handleSubjectNameChange}
-          />
-        </div>
-        <div className="faculty-login-group">
-          <label htmlFor="facultylogin-password">Password</label>
-          <input
-            type="password"
-            name="facultylogin-password"
-            id="facultylogin-password"
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-      <div className="new-user">
-        <h4>New User?</h4>
-        <button onClick={()=>{navigate("/faculty signup")}}>Register</button>
-      </div>
+      {!loader ? (
+        <>
+          <form action="" id="faculty-login-form">
+            {error && <p className="error-message">{error}</p>}
+            <div className="faculty-login-group">
+              <label htmlFor="facultylogin-subjectName">subject Name</label>
+              <input
+                type="text"
+                name="facultylogin-subjectName"
+                id="facultylogin-subjectName"
+                onChange={handleSubjectNameChange}
+              />
+            </div>
+            <div className="faculty-login-group">
+              <label htmlFor="facultylogin-password">Password</label>
+              <input
+                type="password"
+                name="facultylogin-password"
+                id="facultylogin-password"
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <button type="submit" onClick={handleLogin}>
+              Login
+            </button>
+          </form>
+          <div className="new-user">
+            <h4>New User?</h4>
+            <button
+              onClick={() => {
+                navigate("/faculty signup");
+              }}
+            >
+              Register
+            </button>
+          </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };

@@ -1,10 +1,9 @@
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, get, getDatabase, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import SubmitAssignment from "../../../Components/Student Components/Submit Assigment/SubmitAssignment";
 import { useNavigate } from "react-router";
-import { logout } from "../../../Redux/redux";
 
 const StudentHome = () => {
   const [activeAssignemnts, setActiveAssignemnts] = useState();
@@ -13,7 +12,6 @@ const StudentHome = () => {
   const [submitAssignmentInfo, setSubmitAssignmentInfo] = useState({});
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const authentication = useSelector((state) => state.authentication);
 
@@ -71,19 +69,15 @@ const StudentHome = () => {
     }
   }, []);
 
+  const handleSubmissionComplete = () => {
+    setShowSubmitAssignment(false); // Hide the SubmitAssignment component
+  };
+
   return (
     <div className="student-home">
-      <button
-        onClick={() => {
-          dispatch(logout());
-          navigate("/");
-          localStorage.setItem("authentication", false);
-        }}
-      >
-        Logout
-      </button>
       <div className="student-home-left-section">
         <div className="active assignment">
+          <p>Active</p>
           {activeAssignemnts &&
             Object.values(activeAssignemnts).map((key, index) => {
               if (index === 0) {
@@ -91,10 +85,10 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <p>{key?.assignmentName}</p>
-                  <p>{key?.assignmentDescription}</p>
+                  <p>Assignment Name: {key?.assignmentName}</p>
+                  <p>Assignment Description: {key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
-                  <p>{key?.submissionDate}</p>
+                  <p>Last Date: {key?.submissionDate}</p>
                   <button onClick={handleSubmitAssignment(key?.assignmentId)}>
                     Submit
                   </button>
@@ -104,6 +98,7 @@ const StudentHome = () => {
             })}
         </div>
         <div className="inactive assignment">
+          <p>Inactive </p>
           {inactiveAssignemnts &&
             Object.values(inactiveAssignemnts).map((key, index) => {
               if (index === 0 || inactiveAssignemnts === "No Assignments Yet") {
@@ -111,13 +106,15 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <p>{key?.assignmentName}</p>
-                  <p>{key?.assignmentDescription}</p>
+                  <p>Assignment Name: {key?.assignmentName}</p>
+                  <p>Assignment Description: {key?.assignmentDescription}</p>
                   <p>{key?.status}</p>
-                  <p>{key?.submissionDate}</p>
-                  <button onClick={() => setShowSubmitAssignment(true)}>
-                    Submit
-                  </button>
+                  <p>Last Date: {key?.submissionDate}</p>
+                  {key?.status === "inactive" ? null : (
+                    <button onClick={() => setShowSubmitAssignment(true)}>
+                      Submit
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -125,7 +122,10 @@ const StudentHome = () => {
       </div>
       <div className="student-home-right-section">
         {showSubmitAssignment && (
-          <SubmitAssignment assignmentId={submitAssignmentInfo} />
+          <SubmitAssignment
+            assignmentId={submitAssignmentInfo}
+            onComplete={handleSubmissionComplete} // Pass the function
+          />
         )}
       </div>
     </div>

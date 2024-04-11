@@ -1,7 +1,6 @@
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import { app } from "../../../Firebase/firebase";
 import "./CheckAssignment.css";
 import ShowSubmission from "../Show Submission/ShowSubmission";
@@ -18,7 +17,6 @@ const CheckAssignment = () => {
   const [showSubmission, setShowSubmission] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
   const facultyInfo = useSelector((state) => state.facultyProfile);
-  const navigate = useNavigate();
   const database = getDatabase(app);
   const fetchActiveData = useCallback(async () => {
     await get(
@@ -64,15 +62,19 @@ const CheckAssignment = () => {
     const activeAssignmentData = activeAssignmentSnapshot.val();
     await set(child(assignmentRef, `active/${assignmentId}`), null);
 
+    activeAssignmentData.status = "inactive";
+
     // Add the assignment to the inactive section
     await set(
       child(assignmentRef, `inactive/${assignmentId}`),
       activeAssignmentData
     );
 
+
     // Update the UI to reflect the changes (you might need to refetch the data)
     fetchActiveData();
     fetchInActiveData();
+    setChangeStatus(false);
   };
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
-                    <p>{key?.status}</p>
+                    <p>{key?.status.toUpperCase()}</p>
                     <p>{key?.assignmentName}</p>
                     <p>{key?.assignmentDescription}</p>
                     <p>{key?.submissionDate}</p>
@@ -113,12 +115,26 @@ const CheckAssignment = () => {
                       Check
                     </button>
                     <button
-                      onClick={() =>
-                        handleStatusChange(key?.assignmentId, key?.status)
-                      }
+                      onClick={() => {
+                        setChangeStatus(true);
+                      }}
                     >
                       Close Assignment
                     </button>
+                    {changeStatus && (
+                      <div className="alert">
+                        <p>
+                          Are you sure you want to close this assignment? Once
+                          closed, no further submissions will be allowed.
+                        </p>
+                        <button
+                          onClick={() => handleStatusChange(key?.assignmentId)}
+                        >
+                          Yes
+                        </button>
+                        <button onClick={() => setChangeStatus(false)}>No</button>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -133,7 +149,7 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
-                    <p>{key?.status}</p>
+                    <p>{key?.status.toUpperCase()}</p>
                     <p>{key?.assignmentName}</p>
                     <p>Description : {key?.assignmentDescription}</p>
                     <p>Last Date : {key?.submissionDate}</p>
