@@ -77,7 +77,6 @@ const TeacherSignUp = () => {
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        console.log("Form submitted");
         set(ref(database, `${semester}/${stream}/${subjectName}/facultyInfo`), {
           name,
           email,
@@ -120,6 +119,7 @@ const TeacherSignUp = () => {
         setStream("");
         setSubjectCode("");
         setErrors({});
+        navigate("/faculty login");
       }
     } else {
       setErrors(newErrors);

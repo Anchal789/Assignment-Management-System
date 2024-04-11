@@ -84,8 +84,7 @@ const CheckAssignment = () => {
 
   const handleCheckSubmission = (assignmentId, status) => {
     setSubmissionInfo({ assignmentId, status });
-    setShowSubmission(true); // Set showSubmission to true to display the ShowSubmission component
-    console.log(showSubmission);
+    setShowSubmission(true); 
   };
 
   return (

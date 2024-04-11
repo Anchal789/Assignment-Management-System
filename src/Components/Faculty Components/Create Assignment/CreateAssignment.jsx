@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import DatePicker from "react-datepicker";
-import { format } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
+import Calendar from "react-calendar"
+import "react-calendar/dist/Calendar.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 
@@ -11,8 +10,8 @@ const CreateAssignment = () => {
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const [assignmentName, setAssignmentName] = useState("");
   const [assignmentDescription, setAssignmentDescription] = useState("");
-  const [submissionDate, setSubmissionDate] = useState(null);
   const [assignmentId, setAssignmentId] = useState("");
+  const [submissionDate, onChange] = useState(new Date());
   const navigate = useNavigate();
   const database = getDatabase(app);
 
@@ -28,7 +27,6 @@ const CreateAssignment = () => {
       if (assignmentCount === 1 && "0" in result) {
         // If there's only one entry and it's "No assignment", start with DBMS-1
         setAssignmentId(`${facultyInfo.subjectName}-1`);
-        console.log(result);
       } else {
         // Get the last assignment ID
         const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
@@ -42,16 +40,15 @@ const CreateAssignment = () => {
     });
   }, []);
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const handleDateChange = (date) => {
-    if (date) {
-      const formattedDate = format(date, "dd-MM-yyyy");
-      setSubmissionDate(formattedDate);
-      console.log(formattedDate);
-    }
+    onChange(date);
   };
 
   const handleAssignmentNameChange = (e) => {
@@ -82,7 +79,7 @@ const CreateAssignment = () => {
           assignmentId: assignmentId,
           assignmentName: assignmentName,
           assignmentDescription: assignmentDescription,
-          submissionDate: submissionDate,
+          submissionDate: submissionDate.toLocaleDateString("en-GB").replaceAll("/", "-"),
           status: "active",
         }
       );
@@ -95,7 +92,6 @@ const CreateAssignment = () => {
           0: "No Submission Yet",
         }
       );
-      setSubmissionDate(null);
       setAssignmentId("");
       setAssignmentName("");
       setAssignmentDescription("");
@@ -114,12 +110,10 @@ const CreateAssignment = () => {
         <p>Subject : {facultyInfo.subjectName}</p>
         <p>Subject Code : {facultyInfo.subjectCode}</p>
         <h4>Submit Before</h4>
-        <DatePicker
-          selected={submissionDate}
+        <Calendar
           onChange={handleDateChange}
-          dateFormat="DD-MM-yyyy" // Specify the date format for display
-          isClearable // Allow clearing the date
-          placeholderText="Select a date" // Placeholder text
+          value={submissionDate}
+          minDate={tomorrow}
         />
         <form action="">
           <label htmlFor="assignment-name">Assignment Name</label>

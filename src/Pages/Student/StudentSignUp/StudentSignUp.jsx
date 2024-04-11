@@ -3,6 +3,7 @@ import Validator from "validator";
 import { set, ref, getDatabase, child, get } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import "./StudentSignUp.css"; // Import CSS file for styles
+import { useNavigate } from "react-router";
 
 const StudentSignUp = () => {
   const [rollNo, setRollNo] = useState("");
@@ -17,6 +18,7 @@ const StudentSignUp = () => {
   const [streamOptions, setStreamOptions] = useState([]);
   const [subjectOptions, setSubjectOptions] = useState([]);
   const database = getDatabase(app);
+  const navigate = useNavigate();
 
   // Load semester options on component mount
   useEffect(() => {
@@ -140,8 +142,6 @@ const StudentSignUp = () => {
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        console.log("Form submitted");
-        console.table(name, email, password, semester, subjectName, stream); // You can use this ID as needed
         set(
           ref(
             database,
@@ -172,6 +172,7 @@ const StudentSignUp = () => {
         setStream("");
         setErrors({});
         setRollNo("");
+        navigate("/student login")
       }
     } else {
       setErrors(newErrors);
@@ -300,6 +301,10 @@ const StudentSignUp = () => {
           </button>
         </div>
       </form>
+      <div>
+        <p>Already Have an Account?</p>
+        <button onClick={()=>{navigate("/student login")}}>Login</button>
+      </div>
     </div>
   );
 };

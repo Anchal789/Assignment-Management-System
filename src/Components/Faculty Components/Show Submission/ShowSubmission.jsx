@@ -56,8 +56,6 @@ const ShowSubmission = (props) => {
 
     const updateData = { marks: evaluation.marks, remarks: evaluation.remark };
     update(submissionRef, updateData);
-    console.log(evaluation);
-    console.log(studentRollNo);
     setShowEvaluation(false);
     handleClickEvaluate();
   };
