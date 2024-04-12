@@ -31,7 +31,7 @@ function App() {
   return (
     <ErrorBoundry>
       <div className="App">
-        {authenticationStatus && <Navbar />}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/faculty signup" element={<TeacherSignUp />} />

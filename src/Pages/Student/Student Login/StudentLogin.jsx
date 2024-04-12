@@ -72,6 +72,7 @@ const StudentLogin = () => {
   return (
     <div className="student-login-container">
       {!loader ? (
+        <>
         <form action="" id="student-login-form">
           {error && <p className="error-message">{error}</p>}
           <div className="student-login-group">
@@ -96,7 +97,13 @@ const StudentLogin = () => {
             Login
           </button>
         </form>
+        <div>
+          <p>New User?</p>
+          <button onClick={() => navigate("/student signup")}>Signup</button>
+        </div>
+        </>
       ): <Loading/>}
+
     </div>
   );
 };

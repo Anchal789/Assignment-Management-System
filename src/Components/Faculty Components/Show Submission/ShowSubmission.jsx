@@ -64,8 +64,8 @@ const ShowSubmission = (props) => {
 
   return (
     <div>
-      <p>{props.submissionInfo.assignmentId}</p>
-      <p>{props.submissionInfo.status.toUpperCase()}</p>
+      <p className="assignment-id">{props.submissionInfo.assignmentId}</p>
+      <p className="status">{props.submissionInfo.status.toUpperCase()}</p>
       {submissions === "No Submission Yet" ? (
         submissions
       ) : (

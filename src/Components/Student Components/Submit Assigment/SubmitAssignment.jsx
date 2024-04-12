@@ -42,8 +42,8 @@ const SubmitAssignment = (props) => {
         assignmentDescription: assignmentInfo.assignmentDescription,
         name: studentInfo.name,
         rollNo: studentInfo.rollNo,
-        remarks: "",
-        marks: "",
+        remarks: "-",
+        marks: "0",
         dateTime: assignmentInfo.dateTime,
       }
     );
@@ -56,8 +56,8 @@ const SubmitAssignment = (props) => {
         assignmentId: props.assignmentId,
         assignmentNote: assignmentInfo.assignmentNote,
         assignmentDescription: assignmentInfo.assignmentDescription,
-        remarks: "",
-        marks: "",
+        remarks: "-",
+        marks: "0",
         dateTime: assignmentInfo.dateTime,
       }
     );
@@ -85,32 +85,43 @@ const SubmitAssignment = (props) => {
 
   return (
     <>
-      <div>
-        <div>
+      <div className="submit-assignment">
+        <div className="submit-assignment-details">
           <p>{studentInfo.rollNo}</p>
           <p>{studentInfo.name}</p>
           <p>{studentInfo.subjectName}</p>
           <p>{props.assignmentId}</p>
         </div>
-        <form action="">
-          <label htmlFor="assignment-note">Assignment Note</label>
+        <form action="" className="submit-assignment-form">
+          <label htmlFor="submit-assignment-note">Assignment Note</label>
           <input
             type="text"
             value={assignmentInfo.assignmentNote}
-            id="assignment-note"
+            id="submit-assignment-note"
             onChange={handleNoteChange}
           />
-          <label htmlFor="assignment-description">Submission Description</label>
+          <label htmlFor="submit-assignment-description">
+            Submission Description
+          </label>
           <textarea
             name=""
             cols="30"
             rows="10"
             value={assignmentInfo.assignmentDescription}
-            id="assignment-description"
+            id="submit-assignment-description"
             onChange={handleDescriptionChange}
           ></textarea>
-          <button onClick={handleSubmit}>Submit</button>
-          <button onClick={()=>{props.onComplete()}}>Cancel</button>
+          <button onClick={handleSubmit} className="submit">
+            Submit
+          </button>
+          <button
+            onClick={() => {
+              props.onComplete();
+            }}
+            className="cancel"
+          >
+            Cancel
+          </button>
         </form>
       </div>
     </>

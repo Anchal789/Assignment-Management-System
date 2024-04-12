@@ -76,8 +76,8 @@ const StudentHome = () => {
   return (
     <div className="student-home">
       <div className="student-home-left-section">
-        <div className="active assignment">
-          <p>Active</p>
+        <div className="student-home-active-assignment">
+          <p className="student-home-active-assignment-heading">Active</p>
           {activeAssignemnts &&
             Object.values(activeAssignemnts).map((key, index) => {
               if (index === 0) {
@@ -85,11 +85,26 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <p>Assignment Name: {key?.assignmentName}</p>
-                  <p>Assignment Description: {key?.assignmentDescription}</p>
-                  <p>{key?.status}</p>
-                  <p>Last Date: {key?.submissionDate}</p>
-                  <button onClick={handleSubmitAssignment(key?.assignmentId)}>
+                  <p className="student-home-assignment-name">Assignment Name: {key?.assignmentName}</p>
+                  <p className="student-home-assignment-description">Assignment Description: {key?.assignmentDescription}</p>
+                  <p className="student-home-assignment-status">{key?.status}</p>
+                  <p className="student-home-submission-date">Last Date: {key?.submissionDate}</p>
+                  {Object.values(key?.submissions).map((submission, index) => {
+                    if (submission?.rollNo === studentInfo.rollNo) {
+                     return <div className="student-home-submission" key={index}>
+                        <h5 className="student-home-submission-heading">Your Submission</h5>
+                        <p className="student-home-submission-note">Note: {submission?.assignmentNote}</p>
+                        <p className="student-home-submission-description">Description{submission?.assignmentDescription}</p>
+                        <p className="student-home-submission-date">Submitted On: {submission?.dateTime.date}</p>
+                        <p className="student-home-submission-marks">Marks: {submission?.marks}</p>
+                        <p className="student-home-submission-remarks">Remarks: {submission?.remarks}</p>
+                      </div>
+                    }
+                    else{
+                      return <p>Not Submitted</p>
+                    }
+                  })}
+                  <button onClick={handleSubmitAssignment(key?.assignmentId)} className="submit">
                     Submit
                   </button>
                 </div>
@@ -98,7 +113,7 @@ const StudentHome = () => {
             })}
         </div>
         <div className="inactive assignment">
-          <p>Inactive </p>
+          <p className="student-home-inactive-assignment-heading">Inactive </p>
           {inactiveAssignemnts &&
             Object.values(inactiveAssignemnts).map((key, index) => {
               if (index === 0 || inactiveAssignemnts === "No Assignments Yet") {
@@ -106,15 +121,25 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <p>Assignment Name: {key?.assignmentName}</p>
-                  <p>Assignment Description: {key?.assignmentDescription}</p>
-                  <p>{key?.status}</p>
-                  <p>Last Date: {key?.submissionDate}</p>
-                  {key?.status === "inactive" ? null : (
-                    <button onClick={() => setShowSubmitAssignment(true)}>
-                      Submit
-                    </button>
-                  )}
+                  <p className="student-home-assignment-name">Assignment Name: {key?.assignmentName}</p>
+                  <p className="student-home-assignment-description">Assignment Description: {key?.assignmentDescription}</p>
+                  <p className="student-home-assignment-status">{key?.status}</p>
+                  <p className="student-home-submission-date">Last Date: {key?.submissionDate}</p>
+                  {Object.values(key?.submissions).map((submission, index) => {
+                    if (submission?.rollNo === studentInfo.rollNo) {
+                     return <div className="student-submission" key={index}>
+                        <h5 className="student-home-submission-heading">Your Submission</h5>
+                        <p className="student-home-submission-note">Note: {submission?.assignmentNote}</p>
+                        <p className="student-home-submission-description">Description{submission?.assignmentDescription}</p>
+                        <p className="student-home-submission-date">Submitted On: {submission?.dateTime.date}</p>
+                        <p className="student-home-submission-marks">Marks: {submission?.marks}</p>
+                        <p className="student-home-submission-remarks">Remarks: {submission?.remarks}</p>
+                      </div>
+                    }
+                    else{
+                      return <p className="student-home-not-submitted">Not Submitted</p>
+                    }
+                  })}
                 </div>
               );
             })}

@@ -104,18 +104,18 @@ const CreateAssignment = () => {
     <div className="create-assignment">
       <h1>Create Assignment</h1>
       <div className="create-assignment-div">
-        {assignmentId && <p>{assignmentId}</p>}
-        <p>Semester : {facultyInfo.semester}</p>
-        <p>Class : {facultyInfo.stream}</p>
-        <p>Subject : {facultyInfo.subjectName}</p>
-        <p>Subject Code : {facultyInfo.subjectCode}</p>
-        <h4>Submit Before</h4>
+        {assignmentId && <p className="create-assignment-id">{assignmentId}</p>}
+        <p className="create-assignment-info">Semester : {facultyInfo.semester}</p>
+        <p className="create-assignment-info">Class : {facultyInfo.stream}</p>
+        <p className="create-assignment-info">Subject : {facultyInfo.subjectName}</p>
+        <p className="create-assignment-info">Subject Code : {facultyInfo.subjectCode}</p>
+        <h4 className="create-assignment-info">Submit Before</h4>
         <Calendar
           onChange={handleDateChange}
           value={submissionDate}
           minDate={tomorrow}
         />
-        <form action="">
+        <form action="" className="create-assignment-form">
           <label htmlFor="assignment-name">Assignment Name</label>
           <input
             type="text"
@@ -135,13 +135,14 @@ const CreateAssignment = () => {
             onChange={handleAssignmentDescriptionChange}
             value={assignmentDescription}
           ></textarea>
-          <button onClick={handleCreate}>Create</button>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleCreate} className="create">Create</button>
+          <button onClick={handleReset} className="reset">Reset</button>
           <button
             onClick={(e) => {
               e.preventDefault();
-              navigate("/faculty home");
+              navigate(`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`);
             }}
+            className="cancel"
           >
             Cancel
           </button>

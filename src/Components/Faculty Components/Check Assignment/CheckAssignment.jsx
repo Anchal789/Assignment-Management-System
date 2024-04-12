@@ -70,7 +70,6 @@ const CheckAssignment = () => {
       activeAssignmentData
     );
 
-
     // Update the UI to reflect the changes (you might need to refetch the data)
     fetchActiveData();
     fetchInActiveData();
@@ -84,15 +83,15 @@ const CheckAssignment = () => {
 
   const handleCheckSubmission = (assignmentId, status) => {
     setSubmissionInfo({ assignmentId, status });
-    setShowSubmission(true); 
+    setShowSubmission(true);
   };
 
   return (
     <div className="check-assignment">
       <h1>All Assignments</h1>
       <div className="check-assignment-container">
-        <div className="left-section">
-          <div className="active-assignments">
+        <div className="check-assignment-left-section">
+          <div className="check-assignment-active-assignments">
             <h5>Active Assignments</h5>
             {noActiveAssignments && <p>{noActiveAssignments}</p>}
             {activeAssignments &&
@@ -102,14 +101,23 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
-                    <p>{key?.status.toUpperCase()}</p>
-                    <p>{key?.assignmentName}</p>
-                    <p>{key?.assignmentDescription}</p>
-                    <p>{key?.submissionDate}</p>
+                    <p className="active-status">
+                      {key?.status.toUpperCase()}
+                    </p>
+                    <p className="assignment-name">
+                      {key?.assignmentName}
+                    </p>
+                    <p className="assignment-description">
+                      {key?.assignmentDescription}
+                    </p>
+                    <p className="assignment-submission-date">
+                      {key?.submissionDate}
+                    </p>
                     <button
                       onClick={() =>
                         handleCheckSubmission(key?.assignmentId, key?.status)
                       }
+                      className="check-btn"
                     >
                       Check
                     </button>
@@ -117,21 +125,28 @@ const CheckAssignment = () => {
                       onClick={() => {
                         setChangeStatus(true);
                       }}
+                      className="close"
                     >
                       Close Assignment
                     </button>
                     {changeStatus && (
-                      <div className="alert">
-                        <p>
+                      <div className="check-assignment-alert">
+                        <p className="check-assignment-alert-text">
                           Are you sure you want to close this assignment? Once
                           closed, no further submissions will be allowed.
                         </p>
                         <button
                           onClick={() => handleStatusChange(key?.assignmentId)}
+                          className="yes-btn"
                         >
                           Yes
                         </button>
-                        <button onClick={() => setChangeStatus(false)}>No</button>
+                        <button
+                          onClick={() => setChangeStatus(false)}
+                          className="no-btn"
+                        >
+                          No
+                        </button>
                       </div>
                     )}
                   </div>
@@ -139,7 +154,9 @@ const CheckAssignment = () => {
               })}
           </div>
           <div className="inactive-assignments">
-            <h5>Closed Assignments</h5>
+            <h5 className="closed-assignments-heading">
+              Closed Assignments
+            </h5>
             {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
             {inactiveAssignments &&
               Object.values(inactiveAssignments).map((key, index) => {
@@ -148,14 +165,23 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="assignment-card" key={index}>
-                    <p>{key?.status.toUpperCase()}</p>
-                    <p>{key?.assignmentName}</p>
-                    <p>Description : {key?.assignmentDescription}</p>
-                    <p>Last Date : {key?.submissionDate}</p>
+                    <p className="check-assignment-status">
+                      {key?.status.toUpperCase()}
+                    </p>
+                    <p className="assignment-name">
+                      {key?.assignmentName}
+                    </p>
+                    <p className="assignment-description">
+                      Description : {key?.assignmentDescription}
+                    </p>
+                    <p className="assignment-submission-date">
+                      Last Date : {key?.submissionDate}
+                    </p>
                     <button
                       onClick={() =>
                         handleCheckSubmission(key?.assignmentId, key?.status)
                       }
+                      className="check-btn"
                     >
                       Check
                     </button>
