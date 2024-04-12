@@ -7,7 +7,7 @@ import StudentHome from "./Pages/Student/Student Home/StudentHome";
 import StudentLogin from "./Pages/Student/Student Login/StudentLogin";
 import StudentSignUp from "./Pages/Student/StudentSignUp/StudentSignUp";
 import TeacherSignUp from "./Pages/Faculty/Faculty SignUp/FacultySignUp";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Faculty Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Faculty Components/Check Assignment/CheckAssignment";
@@ -15,13 +15,14 @@ import { useSelector } from "react-redux";
 import { StudentList } from "./Pages/Faculty/Student List/StudentList";
 import Navbar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
-import { set } from "firebase/database";
 
 function App() {
   const [authenticationStatus, setAuthenticationStatus] = useState(false);
   const authentication = useSelector((state) => state.authentication);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const navigate = useNavigate();
+  const location = useLocation();
+  const showNavbar = location.pathname !== "/";
   useEffect(() => {
     let result =
       authentication ||
@@ -31,10 +32,9 @@ function App() {
   return (
     <ErrorBoundry>
       <div className="App">
-        <Navbar />
+        {showNavbar && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/error" element={<ErrorBoundry />} />
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
           <Route path="/faculty login" element={<FacultyLogin />} />

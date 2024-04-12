@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background-color: #c789ff;
+  }
+  
+  .navbar-btn {
+    background-color: #cd1515;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media only screen and (max-width: 768px) {
+    .navbar {
+      justify-content: center;
+      padding: 10px;
+    }
+  
+    .navbar-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .navbar-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
+  

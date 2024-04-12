@@ -1,0 +1,55 @@
+/* Home Container */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Welcome Text */
+  .welcome-text {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  /* Home Content */
+  .home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Faculty and Student Divs */
+  .faculty-div,
+  .student-div {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  /* Home Headings */
+  .home-headings {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Signup and Login Buttons */
+  .signup_btn,
+  .login_btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .signup_btn {
+    background-color: #007bff; /* Blue */
+    color: #fff; /* White */
+  }
+  
+  .login_btn {
+    background-color: #28a745; /* Green */
+    color: #fff; /* White */
+  }
+  

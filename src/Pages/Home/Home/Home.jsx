@@ -6,16 +6,16 @@ export const Home = () => {
   const navigate = useNavigate();
   return (
     <div className="home-container">
-      <h1 className="welcome-div">Welcome</h1>
+      <h1 className="welcome-text">Welcome</h1>
       <div className="home-content">
         <div className="faculty-div">
-          <h1>Faculty</h1>
+          <h1 className="home-headings">Faculty</h1>
           <button
             type="button"
             onClick={() => {
               navigate("/faculty signup");
             }}
-            className="faculty_signup_btn"
+            className="signup_btn"
           >
             Sign Up
           </button>
@@ -24,18 +24,19 @@ export const Home = () => {
             onClick={() => {
                 navigate("/faculty login");
             }}
+            className="login_btn"
           >
             Login
           </button>
         </div>
         <div className="student-div">
-          <h1>Student</h1>
+          <h1 className="home-headings">Student</h1>
           <button
             type="button"
             onClick={() => {
               navigate("/student signup");
             }}
-            className="student_signup_btn"
+            className="signup_btn"
           >
             Sign Up
           </button>
@@ -44,6 +45,7 @@ export const Home = () => {
             onClick={() => {
                 navigate("/student login");
             }}
+            className="login_btn"
           >
             Login
           </button>

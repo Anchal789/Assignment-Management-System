@@ -15,10 +15,12 @@
 
 .error-heading {
     font-size: 2rem;
+    color: white;
 }
 
 .error-message {
     font-size: 1.5rem;
+    color: white;
 }
 
 @media only screen and (max-width: 768px) {

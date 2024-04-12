@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../../Redux/redux";
+import "./Navbar.css"
 
 const Navbar = () => {
   const [authenticationStatus, setAuthenticationStatus] = useState(false);
