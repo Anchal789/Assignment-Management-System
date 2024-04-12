@@ -34,6 +34,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/error" element={<ErrorBoundry />} />
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
           <Route path="/faculty login" element={<FacultyLogin />} />

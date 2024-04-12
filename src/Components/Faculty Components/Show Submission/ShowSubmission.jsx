@@ -70,9 +70,9 @@ const ShowSubmission = (props) => {
         submissions
       ) : (
         <>
-          <table>
-            <thead>
-              <tr>
+          <table className="table">
+            <thead className="thead">
+              <tr className="tr-heading">
                 <th>Name</th>
                 <th>Roll No</th>
                 <th>Submission Date</th>
@@ -83,14 +83,14 @@ const ShowSubmission = (props) => {
                 <th>Evaluate</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
               {submissions &&
                 Object.values(submissions).map((key, index) => {
                   if (index === 0) {
                     return null;
                   }
                   return (
-                    <tr key={index}>
+                    <tr key={index} className="tr-body">
                       <td>{key?.name}</td>
                       <td>{key?.rollNo}</td>
                       <td>
@@ -108,6 +108,7 @@ const ShowSubmission = (props) => {
                             onClick={() => {
                               handleClickEvaluate(key?.rollNo);
                             }}
+                            className="evaluate-btn"
                           >
                             Evaluate
                           </button>
@@ -121,27 +122,27 @@ const ShowSubmission = (props) => {
 
           {showEvaluation && (
             <>
-              <form action="">
-                <label htmlFor="marks">Marks</label>
+              <form action="" className="evaluation-form">
+                <label htmlFor="evaluation-form-marks">Marks</label>
                 <input
                   type={"number"}
-                  id="marks"
+                  id="evaluation-form-marks"
                   value={evaluation.marks}
                   onChange={(e) =>
                     setEvaluation({ ...evaluation, marks: e.target.value })
                   }
                 />
-                <label htmlFor="fremarks">Remarks</label>
+                <label htmlFor="evaluation-form-remarks">Remarks</label>
                 <input
                   type={"text"}
-                  id="remarks"
+                  id="evaluation-form-remarks"
                   value={evaluation.remark}
                   onChange={(e) =>
                     setEvaluation({ ...evaluation, remark: e.target.value })
                   }
                 />
-                <button onClick={submitEvaluation}>Submit</button>
-                <button onClick={() => setShowEvaluation(false)}>Cancel</button>
+                <button onClick={submitEvaluation} className="submit">Submit</button>
+                <button onClick={() => setShowEvaluation(false)} className="cancel">Cancel</button>
               </form>
             </>
           )}

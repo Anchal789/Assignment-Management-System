@@ -1,5 +1,6 @@
 import React from "react";
-
+import ErrorImage from "../../Assets/Error boundry Image.jpg";
+import "./ErrorBoundary.css";
 class ErrorBoundry extends React.Component {
   state = {
     error: "",
@@ -16,13 +17,22 @@ class ErrorBoundry extends React.Component {
   }
 
   render() {
-    if (this.state.error) {
-      return (
-        <div>
-          <h1>Some went wrong.</h1>
-        </div>
-      );
-    }
+    // if (this.state.error) {
+    //   return (
+    //     <div className="error-boundary">
+    // <img src={ErrorImage} alt="Error" className="error-image" />
+    // <h1 className="error-heading">OOPS!</h1>
+    // <h3 className="error-message">Something went wrong.</h3>
+    // </div>
+    //   );
+    // }
+    return (
+      <div className="error-boundary">
+        <img src={ErrorImage} alt="Error" className="error-image" />
+        <h1 className="error-heading">OOPS!</h1>
+        <h3 className="error-message">Something went wrong.</h3>
+      </div>
+    );
     return this.props.children;
   }
 }

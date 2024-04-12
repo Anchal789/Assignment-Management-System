@@ -15,13 +15,14 @@ const Navbar = () => {
     setAuthenticationStatus(result);
   }, [authentication, navigate]);
   return (
-    <div>
+    <div className="navbar">
         <button
           onClick={() => {
             dispatch(logout());
             navigate("/");
             localStorage.setItem("authentication", false);
           }}
+          className="navbar-btn"
         >
           {authentication ? "Logout" : 'Exit'}
         </button>
