@@ -10,10 +10,10 @@
     /* Subtle shadow for depth */
 }
 
-.faculty-sections{
+.faculty-sections {
     display: grid;
     grid-template-columns: auto auto;
-    
+
 }
 
 .teachersignup-form {
@@ -65,7 +65,19 @@
     flex-direction: column;
 }
 
-.teachersignup-signup-btn {
+.signup-btn {
+    margin-top: 20px;
+    padding: 10px 60px;
+    background-color: #ad13c7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: medium;
+}
+
+.login-btn {
     margin-top: 20px;
     padding: 10px 60px;
     background-color: #ad13c7;
@@ -81,6 +93,7 @@
 @media (max-width: 768px) {
     .teachersignup-container {
         width: 90%;
+        margin-top: 30px;
     }
 
     .teachersignup-class-group {
@@ -99,8 +112,9 @@
     .teachersignup-group input[type="email"],
     .teachersignup-group input[type="password"],
     .teachersignup-group select {
-        width: 100%;
-
+        width: 70%;
     }
-
+    .teachersignup-form{
+        margin-top: 15px;
+    }
 }

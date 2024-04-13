@@ -236,13 +236,13 @@ const TeacherSignUp = () => {
         </div>
 
         <div className="teachersignup-group">
-          <button type="submit" className="teachersignup-signup-btn">
+          <button type="submit" className="signup-btn">
             Signup
           </button>
         </div>
       </form>
       <p>Already have an account?</p>
-      <button onClick={() => navigate("/faculty login")}>Login</button>
+      <button onClick={() => navigate("/faculty login")} className="login-btn">Login</button>
     </div>
   );
 };

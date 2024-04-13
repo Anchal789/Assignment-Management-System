@@ -10,10 +10,9 @@
     /* Subtle shadow for depth */
 }
 
-.student-sections{
+.student-sections {
     display: grid;
     grid-template-columns: auto auto;
-    
 }
 
 .studentsignup-form {
@@ -36,13 +35,6 @@
     margin-bottom: 5px;
 }
 
-.studentsignup-teacher-id {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #007bff;
-}
-
-
 .studentsignup-group input[type="text"],
 .studentsignup-group input[type="email"],
 .studentsignup-group input[type="password"],
@@ -58,15 +50,7 @@
     margin-top: 5px;
 }
 
-.studentsignup-class-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-direction: column;
-}
-
-.studentsignup-signup-btn {
-    margin-top: 20px;
+.studentsignup-group button[type="submit"] {
     padding: 10px 60px;
     background-color: #ad13c7;
     color: #fff;
@@ -75,32 +59,35 @@
     cursor: pointer;
     font-weight: 600;
     font-size: medium;
+    margin-top: 20px;
 }
 
 /* Media Query for responsiveness */
 @media (max-width: 768px) {
     .studentsignup-container {
         width: 90%;
+        margin-top: 30px;
     }
 
-    .studentsignup-class-group {
-        flex-direction: column;
+    .student-sections {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
     }
-
-    .studentsignup-delete-btn {
-        margin-left: 0;
-        margin-top: 5px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-
     .studentsignup-group input[type="text"],
     .studentsignup-group input[type="email"],
     .studentsignup-group input[type="password"],
     .studentsignup-group select {
         width: 100%;
-
     }
+}
 
+@media screen and (max-width: 480px) {
+    .studentsignup-group input[type="text"],
+    .studentsignup-group input[type="email"],
+    .studentsignup-group input[type="password"],
+    .studentsignup-group select {
+        width: 100%;
+    }
 }

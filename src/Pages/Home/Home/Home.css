@@ -139,11 +139,6 @@
     cursor: pointer;
 }
 
-.signup-btn {
-    background: linear-gradient(to right, rgba(243, 85, 29, 0.9), rgba(235, 157, 27, 0.9));
-    color: white;
-    margin: 10px;
-}
 
 .login-btn {
     background: linear-gradient(to right, rgba(29, 100, 243, 0.9), rgba(24, 170, 184, 0.9));

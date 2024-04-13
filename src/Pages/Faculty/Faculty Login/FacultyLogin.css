@@ -1,0 +1,72 @@
+.faculty-login {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-sections {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.faculty-login-form {
+    padding: 20px;
+    border: 1px solid #9f9f9f;
+    border-radius: 5px;
+    background-color: #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.faculty-login-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.faculty-login-group label {
+    margin-bottom: 5px;
+}
+
+.faculty-login-group input[type="text"],
+.faculty-login-group input[type="password"] {
+    padding: 8px;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+}
+
+.new-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+    .faculty-login {
+        width: 90%;
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .faculty-login-group input[type="text"],
+    .faculty-login-group input[type="password"] {
+        width: 70%;
+    }
+}

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { studentlogin } from "../../../Redux/redux";
 import Loading from "../../LoadingPage";
+import "./StudentLogin.css";
 
 const StudentLogin = () => {
   const [rollNo, setRollNo] = useState("");
@@ -73,7 +74,7 @@ const StudentLogin = () => {
     <div className="student-login-container">
       {!loader ? (
         <>
-        <form action="" id="student-login-form">
+        <form action="" className="student-login-form">
           {error && <p className="error-message">{error}</p>}
           <div className="student-login-group">
             <label htmlFor="studentlogin-rollNo">Roll No</label>
@@ -82,6 +83,7 @@ const StudentLogin = () => {
               name="studentlogin-rollNo"
               id="studentlogin-rollNo"
               onChange={handleRollNoChange}
+              placeholder="Roll No"
             />
           </div>
           <div className="student-login-group">
@@ -90,16 +92,17 @@ const StudentLogin = () => {
               type="password"
               name="studentlogin-password"
               id="studentlogin-password"
+              placeholder="*****"
               onChange={handlePasswordChange}
             />
           </div>
-          <button type="submit" onClick={handleLogin}>
+          <button type="submit" onClick={handleLogin} className="login-btn">
             Login
           </button>
         </form>
         <div>
           <p>New User?</p>
-          <button onClick={() => navigate("/student signup")}>Signup</button>
+          <button onClick={() => navigate("/student signup") } className="signup-btn">Signup</button>
         </div>
         </>
       ): <Loading/>}

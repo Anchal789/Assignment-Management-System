@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { facultylogin } from "../../../Redux/redux";
 import Loading from "../../LoadingPage";
+import "./FacultyLogin.css"
 
 const FacultyLogin = () => {
   const [subjectName, setSubjectName] = useState("");
@@ -71,17 +72,18 @@ const FacultyLogin = () => {
   };
 
   return (
-    <div>
+    <div className="faculty-login">
       {!loader ? (
         <>
-          <form action="" id="faculty-login-form">
+          <form action="" className="faculty-login-form">
             {error && <p className="error-message">{error}</p>}
             <div className="faculty-login-group">
-              <label htmlFor="facultylogin-subjectName">subject Name</label>
+              <label htmlFor="facultylogin-subjectName">Subject Name</label>
               <input
                 type="text"
                 name="facultylogin-subjectName"
                 id="facultylogin-subjectName"
+                placeholder="ex : DBMS"
                 onChange={handleSubjectNameChange}
               />
             </div>
@@ -90,11 +92,12 @@ const FacultyLogin = () => {
               <input
                 type="password"
                 name="facultylogin-password"
+                placeholder="*****"
                 id="facultylogin-password"
                 onChange={handlePasswordChange}
               />
             </div>
-            <button type="submit" onClick={handleLogin}>
+            <button type="submit" onClick={handleLogin} className="login-btn">
               Login
             </button>
           </form>
@@ -104,6 +107,7 @@ const FacultyLogin = () => {
               onClick={() => {
                 navigate("/faculty signup");
               }}
+              className="signup-btn"
             >
               Register
             </button>

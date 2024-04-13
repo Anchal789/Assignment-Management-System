@@ -33,9 +33,9 @@ export const StudentList = () => {
           {students &&
             Object.values(students).map((student, index) => (
               <li className="student-details-card" key={index}>
-                <p>{student?.rollNo}</p>
-                <p>{student?.name}</p>
-                <p>{student?.email}</p>
+                <p className="student-details">{student?.rollNo}</p>
+                <p className="student-details">{student?.name}</p>
+                <p className="student-details">{student?.email}</p>
               </li>
             ))}
         </ol>

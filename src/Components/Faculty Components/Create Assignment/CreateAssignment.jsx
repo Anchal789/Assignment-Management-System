@@ -5,6 +5,7 @@ import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
+import "./CreateAssignment.css";
 
 const CreateAssignment = () => {
   const facultyInfo = useSelector((state) => state.facultyProfile);

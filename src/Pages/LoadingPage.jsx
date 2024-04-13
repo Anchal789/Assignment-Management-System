@@ -1,8 +1,9 @@
 import React from 'react'
+import LoadingGif from '../Assets/loading.gif'
 
 const Loading = () => {
   return (
-    <div>Loading...</div>
+    <div><img src={LoadingGif} alt="" style={{width: "-webkit-fill-available"}}/></div>
   )
 }
 

@@ -296,14 +296,14 @@ const StudentSignUp = () => {
         </div>
 
         <div className="studentsignup-group">
-          <button type="submit" className="studentsignup-signup-btn">
+          <button type="submit" className="signup-btn">
             Signup
           </button>
         </div>
       </form>
       <div>
         <p>Already Have an Account?</p>
-        <button onClick={()=>{navigate("/student login")}}>Login</button>
+        <button onClick={()=>{navigate("/student login")}} className="login-btn">Login</button>
       </div>
     </div>
   );
