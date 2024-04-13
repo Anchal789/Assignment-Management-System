@@ -166,3 +166,59 @@
     gap: 10px;
     display: flex;
 }
+
+/* CSS for Footer */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    background-color: rgb(12,22,55);
+}
+
+/* Adjust button style for responsiveness */
+footer button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ee350c;
+    color: white;
+    border-radius: 5px;
+}
+
+footer a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Style for social media links */
+.social-media-links {
+    display: flex;
+}
+
+.social-media-links a {
+    margin-right: 10px; /* Adjust spacing between icons */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 576px) {
+    footer {
+        position: relative;
+        margin-top: 10px;
+        align-items: center;
+    }
+
+    footer button {
+        margin-bottom: 10px;
+    }
+
+    .social-media-links {
+        margin-top: 10px;
+    }
+    
+}

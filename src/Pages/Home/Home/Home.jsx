@@ -1,8 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 import CollegeLogo from "../../../Assets/college_logo-removebg-preview.png";
 import FlareIcon from '@mui/icons-material/Flare';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
 export const Home = () => {
   const navigate = useNavigate();
 
@@ -78,7 +81,11 @@ export const Home = () => {
         </div>
       </div>
       <footer>
-        <button>Contact US</button>
+        <button><Link target="_blank" to={"https://bitsvizag.com/contactus"}>Contact US</Link></button>
+        <div className="social-media-links">
+          <Link target="_blank" to={"https://www.facebook.com/BITSVizagOfficial/"}><FacebookIcon /></Link>
+          <Link target="_blank" to={"https://www.instagram.com/bits_vizag_official/"}><InstagramIcon /></Link>
+        </div>
       </footer>
     </div>
   );
