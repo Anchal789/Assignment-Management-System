@@ -1,110 +1,168 @@
-/* Home Container */
+/* Home.css */
 .home-container {
+    font-family: Arial, sans-serif;
+    background-color: rgb(255, 237, 231);
+}
+
+/* Top Container */
+.top-container {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("../../../Assets/background\ image.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.top-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(243, 85, 29, 0.9), rgba(235, 157, 27, 0.9))
+        /* Orange overlay */
+}
+
+.home-right-section{
+    position: relative;
+    background: linear-gradient(to right, rgba(68, 57, 111, 0.8), rgba(254, 96, 39, 0.8));
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #28a745;
+    flex-direction: column;
+    border-radius: 13px;
+    margin-right: 20px;
 }
 
-.home-left-section {
+.top-content {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #e1e1e1;
-    width: fit-content;
-    margin: auto;
-    border-radius: 13px;
-    margin-left: 10px;
-}
-
-.home-right-section {
-    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #28a745;
-    margin: auto;
-    width: 68%;
-    height: 100vh;
-    border: 1px solid red;
+    height: 100%;
+}
+
+.project-heading {
+    color: white;
+    text-align: center;
 }
 
 .college-logo {
-    width: 40%;
-    max-width: 30%;
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
 }
 
-.college-name{
-    text-align: center;
-    margin: 20px;
-}
-
-@media screen and (max-width : 1066px) {
-    .college-logo {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width : 576px) {
-    .home-container{
-        flex-direction: column;
-    }
-
-    .home-left-section{
-        margin: auto;
-
-    }
-    .home-right-section{
-        height: 50%;
-    }
-}
-
-/* Welcome Text */
-.welcome-text {
-    font-size: 32px;
-    margin-bottom: 20px;
-}
-
-/* Home Content */
-.home-content {
+/* Section Container */
+.section-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
-/* Faculty and Student Divs */
-.faculty-div,
-.student-div {
-    margin-bottom: 40px;
+/* Left Section */
+.home-left-section,
+.home-right-section {
+    width: 50%;
+    margin-top: 20px;
+}
+
+.home-left-section {
     text-align: center;
 }
 
-/* Home Headings */
-.home-headings {
+@media screen and (max-width : 1064px) {
+    .top-container{
+        background-image: url("../../../Assets/mobile\ cover\ page.jpg");
+    }
+}
+
+@media screen and (max-width: 576px) {
+    
+
+    .college-logo {
+        width: 70px;
+    }
+
+    .section-container {
+        flex-direction: column;
+    }
+
+    .home-left-section {
+        width: 100%;
+        order: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .home-right-section {
+        width: 95%;
+        order: 2;
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+}
+
+.section-heading {
+    color: #333;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-/* Signup and Login Buttons */
-.signup_btn,
-.login_btn {
+.section-subheading {
+    color: #333;
+    font-size: 20px;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-btn,
+.login-btn {
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
 }
 
-.signup_btn {
-    background-color: #007bff;
-    /* Blue */
-    color: #fff;
-    /* White */
+.signup-btn {
+    background: linear-gradient(to right, rgba(243, 85, 29, 0.9), rgba(235, 157, 27, 0.9));
+    color: white;
+    margin: 10px;
 }
 
-.login_btn {
-    background-color: #28a745;
-    /* Green */
-    color: #fff;
-    /* White */
+.login-btn {
+    background: linear-gradient(to right, rgba(29, 100, 243, 0.9), rgba(24, 170, 184, 0.9));
+    color: white;
+    margin: 10px;
+}
+
+.feature-list {
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.feature-list li {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    gap: 10px;
+    display: flex;
 }
