@@ -1,55 +1,110 @@
 /* Home Container */
 .home-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-  }
-  
-  /* Welcome Text */
-  .welcome-text {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  /* Home Content */
-  .home-content {
+    background-color: #28a745;
+}
+
+.home-left-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  /* Faculty and Student Divs */
-  .faculty-div,
-  .student-div {
+    background-color: #e1e1e1;
+    width: fit-content;
+    margin: auto;
+    border-radius: 13px;
+    margin-left: 10px;
+}
+
+.home-right-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #28a745;
+    margin: auto;
+    width: 68%;
+    height: 100vh;
+    border: 1px solid red;
+}
+
+.college-logo {
+    width: 40%;
+    max-width: 30%;
+}
+
+.college-name{
+    text-align: center;
+    margin: 20px;
+}
+
+@media screen and (max-width : 1066px) {
+    .college-logo {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width : 576px) {
+    .home-container{
+        flex-direction: column;
+    }
+
+    .home-left-section{
+        margin: auto;
+
+    }
+    .home-right-section{
+        height: 50%;
+    }
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* Home Content */
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Faculty and Student Divs */
+.faculty-div,
+.student-div {
     margin-bottom: 40px;
     text-align: center;
-  }
-  
-  /* Home Headings */
-  .home-headings {
+}
+
+/* Home Headings */
+.home-headings {
     font-size: 24px;
     margin-bottom: 20px;
-  }
-  
-  /* Signup and Login Buttons */
-  .signup_btn,
-  .login_btn {
+}
+
+/* Signup and Login Buttons */
+.signup_btn,
+.login_btn {
     padding: 10px 20px;
     font-size: 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
-  }
-  
-  .signup_btn {
-    background-color: #007bff; /* Blue */
-    color: #fff; /* White */
-  }
-  
-  .login_btn {
-    background-color: #28a745; /* Green */
-    color: #fff; /* White */
-  }
-  
+}
+
+.signup_btn {
+    background-color: #007bff;
+    /* Blue */
+    color: #fff;
+    /* White */
+}
+
+.login_btn {
+    background-color: #28a745;
+    /* Green */
+    color: #fff;
+    /* White */
+}
