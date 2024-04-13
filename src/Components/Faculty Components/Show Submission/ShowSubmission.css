@@ -1,0 +1,95 @@
+/* ShowSubmission.css */
+
+.show-submission {
+    padding: 20px;
+    font-size: 16px;
+}
+
+.show-submission-assignment-id {
+    font-weight: bold;
+}
+
+.show-submission-status {
+    text-transform: uppercase;
+}
+
+.show-submission-table-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.show-submission-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Media Query for Responsive Design */
+@media only screen and (max-width: 600px) {
+    .show-submission {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .show-submission-table-container {
+        grid-template-columns: 1fr;
+    }
+
+    .show-submission-card {
+        margin-bottom: 20px;
+    }
+}
+
+.Name,
+.RollNo,
+.SubmissionDate,
+.Remarks,
+.Marks {
+    margin: 5px 0;
+}
+
+.show-submission-evaluate-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.show-submission-evaluation-container {
+    margin-top: 20px;
+}
+
+.show-submission-evaluation-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.show-submission-evaluation-form label {
+    margin-bottom: 5px;
+}
+
+.show-submission-evaluation-form input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.show-submission-evaluation-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.show-submission-submit,
+.show-submission-cancel {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.note,
+.description {
+    width:100%;
+}

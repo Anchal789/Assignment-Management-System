@@ -1,7 +1,9 @@
-import { child, get, getDatabase, ref, update } from "firebase/database";
+import { get, getDatabase, ref, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
+import "./ShowSubmission.css";
+
 const ShowSubmission = (props) => {
   const [submissions, setSubmissions] = useState("");
   const [evaluation, setEvaluation] = useState({
@@ -26,7 +28,6 @@ const ShowSubmission = (props) => {
       setSubmissions(result);
     } else {
       setSubmissions(result[0]);
-
     }
   };
 
@@ -37,14 +38,6 @@ const ShowSubmission = (props) => {
   const handleClickEvaluate = async (rollNo) => {
     setStudentRollNo(rollNo);
     setShowEvaluation(true);
-    // await get(
-    //   child(
-    //     ref(database),
-    //     `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/${props.submissionInfo.status}/${props.submissionInfo.assignmentId}/submissions/${rollNo}`
-    //   )
-    // ).then((value) => {
-    //   const result = value.val();
-    // });
   };
 
   const submitEvaluation = async (e) => {
@@ -60,92 +53,109 @@ const ShowSubmission = (props) => {
     handleClickEvaluate();
   };
 
-  
-
   return (
-    <div>
-      <p className="assignment-id">{props.submissionInfo.assignmentId}</p>
-      <p className="status">{props.submissionInfo.status.toUpperCase()}</p>
+    <div className="show-submission">
+      <p className="show-submission-assignment-id">
+        {props.submissionInfo.assignmentId}
+      </p>
+      <p className="show-submission-status">
+        {props.submissionInfo.status.toUpperCase()}
+      </p>
       {submissions === "No Submission Yet" ? (
-        submissions
+        <p className="no-submissions">No Submissions Yet</p>
       ) : (
         <>
-          <table className="table">
-            <thead className="thead">
-              <tr className="tr-heading">
-                <th>Name</th>
-                <th>Roll No</th>
-                <th>Submission Date</th>
-                <th>Note</th>
-                <th>Description</th>
-                <th>Remarks</th>
-                <th>Marks</th>
-                <th>Evaluate</th>
-              </tr>
-            </thead>
-            <tbody className="tbody">
-              {submissions &&
-                Object.values(submissions).map((key, index) => {
-                  if (index === 0) {
-                    return null;
-                  }
-                  return (
-                    <tr key={index} className="tr-body">
-                      <td>{key?.name}</td>
-                      <td>{key?.rollNo}</td>
-                      <td>
-                        {key?.dateTime?.date} {key?.dateTime?.time}
-                      </td>
-                      <td>{key?.assignmentNote}</td>
-                      <td>{key?.assignmentDescription}</td>
-                      <td>{key?.remarks}</td>
-                      <td>{key?.marks}</td>
-                      <td>
-                        {props.submissionInfo.status === "inactive" ? (
-                          <button disabled>Evaluate</button>
-                        ) : (
-                          <button
-                            onClick={() => {
-                              handleClickEvaluate(key?.rollNo);
-                            }}
-                            className="evaluate-btn"
-                          >
-                            Evaluate
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-
-          {showEvaluation && (
-            <>
-              <form action="" className="evaluation-form">
-                <label htmlFor="evaluation-form-marks">Marks</label>
-                <input
-                  type={"number"}
-                  id="evaluation-form-marks"
-                  value={evaluation.marks}
-                  onChange={(e) =>
-                    setEvaluation({ ...evaluation, marks: e.target.value })
-                  }
-                />
-                <label htmlFor="evaluation-form-remarks">Remarks</label>
-                <input
-                  type={"text"}
-                  id="evaluation-form-remarks"
-                  value={evaluation.remark}
-                  onChange={(e) =>
-                    setEvaluation({ ...evaluation, remark: e.target.value })
-                  }
-                />
-                <button onClick={submitEvaluation} className="submit">Submit</button>
-                <button onClick={() => setShowEvaluation(false)} className="cancel">Cancel</button>
-              </form>
-            </>
-          )}
+          <div className="show-submission-table-container">
+            {submissions &&
+              Object.values(submissions).map((key, index) => {
+                if (index === 0) {
+                  return null;
+                }
+                return (
+                  <div key={index} className="show-submission-card">
+                    <h4>Name: </h4>
+                    <p className="Name">{key?.name}</p>
+                    <h4>Roll No: </h4>
+                    <p className="Roll No">{key?.rollNo}</p>
+                    <h4>Date: </h4>
+                    <p className="Submission Date">
+                      {key?.dateTime?.date} {key?.dateTime?.time}
+                    </p>
+                    <h4>Note: </h4>
+                    <p className="note">{key?.assignmentNote}</p>
+                    <h4>Description: </h4>
+                    <textarea cols={"30"} rows={"10"} value={key?.assignmentDescription} className="description">
+                      {key?.assignmentDescription}
+                    </textarea>
+                    <h4>Remark: </h4>
+                    <p className="Remarks">{key?.remarks}</p>
+                    <h4>Mark: </h4>
+                    <p className="Marks">{key?.marks}</p>
+                    {props.submissionInfo.status === "inactive" ? (
+                      <button disabled>Evaluate</button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          handleClickEvaluate(key?.rollNo);
+                        }}
+                        className="show-submission-evaluate-btn"
+                      >
+                        Evaluate
+                      </button>
+                    )}
+                    {showEvaluation && (
+                      <div className="show-submission-evaluation-container">
+                        <form
+                          action=""
+                          className="show-submission-evaluation-form"
+                        >
+                          <label htmlFor="evaluation-form-marks">Marks</label>
+                          <input
+                            type={"number"}
+                            id="evaluation-form-marks"
+                            value={evaluation.marks}
+                            onChange={(e) =>
+                              setEvaluation({
+                                ...evaluation,
+                                marks: e.target.value,
+                              })
+                            }
+                          />
+                          <label htmlFor="evaluation-form-remarks">
+                            Remarks
+                          </label>
+                          <input
+                            type={"text"}
+                            id="evaluation-form-remarks"
+                            value={evaluation.remark}
+                            onChange={(e) =>
+                              setEvaluation({
+                                ...evaluation,
+                                remark: e.target.value,
+                              })
+                            }
+                          />
+                          <div className="show-submission-evaluation-buttons">
+                            <button
+                              onClick={submitEvaluation}
+                              className="show-submission-submit"
+                            >
+                              Submit
+                            </button>
+                            <button
+                              onClick={() => setShowEvaluation(false)}
+                              className="show-submission-cancel"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+          </div>
         </>
       )}
     </div>

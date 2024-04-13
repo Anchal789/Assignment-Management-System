@@ -1,5 +1,5 @@
 import { child, get, getDatabase, ref, set } from "firebase/database";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./CheckAssignment.css";
@@ -16,6 +16,7 @@ const CheckAssignment = () => {
   });
   const [showSubmission, setShowSubmission] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
+  const showSubmissionRef = useRef(null);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const database = getDatabase(app);
   const fetchActiveData = useCallback(async () => {
@@ -84,6 +85,7 @@ const CheckAssignment = () => {
   const handleCheckSubmission = (assignmentId, status) => {
     setSubmissionInfo({ assignmentId, status });
     setShowSubmission(true);
+    showSubmissionRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -111,7 +113,7 @@ const CheckAssignment = () => {
                       {key?.assignmentDescription}
                     </p>
                     <p className="assignment-submission-date">
-                      {key?.submissionDate}
+                      Last Date: {key?.submissionDate}
                     </p>
                     <button
                       onClick={() =>
@@ -190,7 +192,7 @@ const CheckAssignment = () => {
               })}
           </div>
         </div>
-        <div className="right-section">
+        <div className="right-section" ref={showSubmissionRef}>
           {showSubmission && <ShowSubmission submissionInfo={submissionInfo} />}
         </div>
       </div>

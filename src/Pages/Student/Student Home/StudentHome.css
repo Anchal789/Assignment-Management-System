@@ -1,0 +1,92 @@
+.student-home {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.student-home h1 {
+    color: #333333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.student-home-container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 30px;
+}
+
+.student-home-left-section {
+    flex: 1;
+}
+
+.student-home-active-assignment,
+.inactive-assignments {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.student-home-inactive-assignment-heading {
+    margin-bottom: 10px;
+    color: white;
+    padding: 10px;
+    width: fit-content;
+    background-color: #ff5722;
+    border-radius: 5px;
+}
+
+.student-home-active-assignment-heading {
+    color: white;
+    padding: 10px;
+    width: fit-content;
+    background: #229922;
+    border-radius: 5px;
+}
+
+.assignment-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.student-home-submission-heading{
+    font-weight: 16px;
+}
+
+.submit,
+.close {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.submit:hover,
+.close:hover {
+    background-color: #0b7dda;
+}
+
+.student-home-not-submitted{
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .student-home-container {
+        grid-template-columns: 1fr;
+    }
+
+    .right-section {
+        margin-top: 20px;
+    }
+}

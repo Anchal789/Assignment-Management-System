@@ -2,6 +2,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
+import "./SubmitAssignment.css";
 
 const SubmitAssignment = (props) => {
   const [assignmentInfo, setAssignmentInfo] = useState({
