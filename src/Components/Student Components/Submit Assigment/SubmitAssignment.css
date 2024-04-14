@@ -2,6 +2,10 @@
     font-family: 'Roboto', sans-serif;
     background-color: #f5f5f5;
     padding: 20px;
+    background-color: darkseagreen;
+    margin: 20px;
+    border-radius: 6px;
+    font-size: larger;
 }
 
 .submit-assignment-details {
@@ -57,7 +61,7 @@
 
 @media (max-width: 768px) {
     .submit-assignment {
-        padding: 10px;
+        margin: 0;
     }
 
     .submit-assignment-details p {

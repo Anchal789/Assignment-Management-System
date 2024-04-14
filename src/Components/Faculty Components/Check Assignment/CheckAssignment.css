@@ -1,78 +1,82 @@
 /* General Styles */
 .check-assignment {
     font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #1ea378c9;
     padding: 20px;
-  }
-  
-  .check-assignment h1 {
+}
+
+.check-assignment p {
+    text-align: center;
+}
+
+.check-assignment h1 {
     color: #333333;
     text-align: center;
     margin-bottom: 30px;
-  }
-  
-  .check-assignment-container {
+}
+
+.check-assignment-container {
     display: grid;
     grid-template-columns: 30% 70%;
     gap: 30px;
-  }
-  
-  .check-assignment-left-section {
+}
+
+.check-assignment-left-section {
     flex: 1;
-  }
-  
-  .check-assignment-active-assignments,
-  .inactive-assignments {
-    background-color: #ffffff;
+}
+
+.check-assignment-active-assignments,
+.inactive-assignments {
+    background-color: palevioletred;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-  }
-  
-  .check-assignment-active-assignments h5,
-  .closed-assignments-heading {
+}
+
+.check-assignment-active-assignments h5,
+.closed-assignments-heading {
     font-size: 18px;
     margin-bottom: 10px;
-  }
-  
-  .assignment-card {
+}
+
+.checkassignment-assignment-card {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 4px;
     margin-bottom: 10px;
-  }
-  
-  .active-status,
-  .check-assignment-status {
+}
+
+.active-status,
+.check-assignment-status {
     font-weight: bold;
     margin-bottom: 5px;
-  }
-  
-  .active-status {
+}
+
+.active-status {
     color: #4caf50;
-  }
-  
-  .check-assignment-status {
+}
+
+.check-assignment-status {
     color: #ff5722;
-  }
-  
-  .assignment-name {
+}
+
+.assignment-name {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
-  }
-  
-  .assignment-description {
+}
+
+.assignment-description {
     margin-bottom: 5px;
-  }
-  
-  .assignment-submission-date {
+}
+
+.assignment-submission-date {
     margin-bottom: 10px;
-  }
-  
-  .check-btn,
-  .close {
+}
+
+.check-btn,
+.close {
     background-color: #2196f3;
     color: white;
     border: none;
@@ -85,27 +89,27 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: 10px;
-  }
-  
-  .check-btn:hover,
-  .close:hover {
+}
+
+.check-btn:hover,
+.close:hover {
     background-color: #0b7dda;
-  }
-  
-  .check-assignment-alert {
+}
+
+.check-assignment-alert {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 4px;
     margin-top: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .check-assignment-alert-text {
+}
+
+.check-assignment-alert-text {
     margin-bottom: 10px;
-  }
-  
-  .yes-btn,
-  .no-btn {
+}
+
+.yes-btn,
+.no-btn {
     background-color: #2196f3;
     color: white;
     border: none;
@@ -118,27 +122,27 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: 10px;
-  }
-  
-  .yes-btn:hover {
+}
+
+.yes-btn:hover {
     background-color: #4caf50;
-  }
-  
-  .no-btn:hover {
+}
+
+.no-btn:hover {
     background-color: #ff5722;
-  }
-  
-  .right-section {
+}
+
+.right-section {
     flex: 1;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
     .check-assignment-container {
-      grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
-  
+
     .right-section {
-      margin-top: 20px;
+        margin-top: 20px;
     }
-  }
+}

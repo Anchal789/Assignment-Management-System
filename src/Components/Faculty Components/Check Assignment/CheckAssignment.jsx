@@ -102,7 +102,7 @@ const CheckAssignment = () => {
                   return null;
                 }
                 return (
-                  <div className="assignment-card" key={index}>
+                  <div className="checkassignment-assignment-card" key={index}>
                     <p className="active-status">
                       {key?.status.toUpperCase()}
                     </p>
@@ -166,7 +166,7 @@ const CheckAssignment = () => {
                   return null;
                 }
                 return (
-                  <div className="assignment-card" key={index}>
+                  <div className="checkassignment-assignment-card" key={index}>
                     <p className="check-assignment-status">
                       {key?.status.toUpperCase()}
                     </p>

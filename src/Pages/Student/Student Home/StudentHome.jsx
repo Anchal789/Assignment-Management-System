@@ -73,6 +73,7 @@ const StudentHome = () => {
   }, []);
 
   const handleSubmissionComplete = () => {
+    fetchActiveAssignmentData();
     setShowSubmitAssignment(false); // Hide the SubmitAssignment component
   };
 
@@ -81,6 +82,7 @@ const StudentHome = () => {
       <div className="student-home-left-section">
         <div className="student-home-active-assignment">
           <p className="student-home-active-assignment-heading">Active</p>
+
           {activeAssignemnts &&
             Object.values(activeAssignemnts).map((key, index) => {
               if (index === 0) {
@@ -88,52 +90,75 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <h5>Assignment Name: </h5>
+                  <h4 className="student-home-assignment-heading">Assignment Name: </h4>
+
                   <p className="student-home-assignment-name">
                     {key?.assignmentName}
                   </p>
-                  <h5>Assignment Description: </h5>
-                  <textarea cols={"30"} rows={"10"} value={key?.assignmentDescription} disabled className="student-home-assignment-description">
+                  <hr />
+                  <h4 className="student-home-assignment-heading">Assignment Description: </h4>
+                  <textarea
+                    cols={"30"}
+                    rows={"10"}
+                    value={key?.assignmentDescription}
+                    disabled
+                    className="student-home-assignment-description"
+                  >
                     {key?.assignmentDescription}
                   </textarea>
-                  <h5>Last Date: </h5>
+                  <hr />
+                  <h4 className="student-home-assignment-heading">Last Date: </h4>
                   <p className="student-home-submission-date">
                     {key?.submissionDate}
                   </p>
+                  <hr />
                   {Object.values(key?.submissions).map((submission, index1) => {
-                    if (submission?.rollNo === studentInfo.rollNo ) {
+                    if (submission?.rollNo === studentInfo.rollNo) {
                       return (
                         <div className="student-home-submission" key={index1}>
                           <h3 className="student-home-submission-heading">
                             Your Submission
                           </h3>
-                          <h5>Note:</h5>{" "}
+                          <hr />
+                          <h4>Note:</h4>{" "}
                           <p className="student-home-submission-note">
                             {submission?.assignmentNote}
                           </p>
-                          <h5>Description: </h5>{" "}
-                          <textarea cols={"30"} rows={"10"} value={submission?.assignmentDescription} disabled className="student-home-submission-description">
+                          <hr />
+                          <h4>Description: </h4>{" "}
+                          <textarea
+                            cols={"30"}
+                            rows={"10"}
+                            value={submission?.assignmentDescription}
+                            disabled
+                            className="student-home-submission-description"
+                          >
                             {submission?.assignmentDescription}
                           </textarea>
-                          <h5>Submitted On: </h5>
-                          <p className="student-home-submission-date">
-                            {submission?.dateTime.date}
-                          </p>
-                          <h5>Mark: </h5>
-                          <p className="student-home-submission-marks">
-                            {submission?.marks}
-                          </p>
-                          <h5>Remark: </h5>
-                          <p className="student-home-submission-remarks">
-                            {submission?.remarks}
-                          </p>
+                          <hr />
+                          <div className="marks_remarks">
+                            <h4>Submitted On: </h4>
+                            <p className="student-home-submission-date">
+                              {submission?.dateTime.date}
+                            </p>
+                            <h4>Mark: </h4>
+                            <p className="student-home-submission-marks">
+                              {submission?.marks}
+                            </p>
+                            <h4>Remark: </h4>
+                            <textarea
+                              disabled
+                              cols={"30"}
+                              rows={"10"}
+                              className="student-home-submission-remarks"
+                            >
+                              {submission?.remarks}
+                            </textarea>
+                          </div>
                         </div>
                       );
                     } else {
-                      if(submission === "No Submission Yet"){
-                        return null
-                      }
-                      return (<p className="student-home-not-submitted">Not Submitted</p>);
+                      return null;
                     }
                   })}
                   <button
@@ -148,7 +173,8 @@ const StudentHome = () => {
               // console.log(index)
             })}
         </div>
-        <div className="inactive assignment">
+
+        <div className="inactive-assignment">
           <p className="student-home-inactive-assignment-heading">Inactive </p>
           {inactiveAssignemnts &&
             Object.values(inactiveAssignemnts).map((key, index) => {
@@ -157,19 +183,27 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <h5>Assignment Name: </h5>
+                  <h4>Assignment Name: </h4>
                   <p className="student-home-assignment-name">
                     {key?.assignmentName}
                   </p>
-                  <h5>Assignment Description: </h5>
-                  <textarea cols={"30"} rows={"10"} value={key?.assignmentDescription} disabled className="student-home-assignment-description">
+                  <hr />
+                  <h4>Assignment Description: </h4>
+                  <textarea
+                    cols={"30"}
+                    rows={"10"}
+                    value={key?.assignmentDescription}
+                    disabled
+                    className="student-home-assignment-description"
+                  >
                     {key?.assignmentDescription}
                   </textarea>
-                  
-                  <h5>Last Date: </h5>
+                  <hr />
+                  <h4>Last Date: </h4>
                   <p className="student-home-submission-date">
                     {key?.submissionDate}
                   </p>
+                  <hr />
                   {Object.values(key?.submissions).map((submission, index1) => {
                     if (submission?.rollNo === studentInfo.rollNo) {
                       return (
@@ -177,33 +211,47 @@ const StudentHome = () => {
                           <h3 className="student-home-submission-heading">
                             Your Submission
                           </h3>
+                          <hr />
                           <h5>Note: </h5>
                           <p className="student-home-submission-note">
                             {submission?.assignmentNote}
                           </p>
+                          <hr />
                           <h5>Description:</h5>
-                          <textarea cols={"30"} rows={"10"} value={submission?.assignmentDescription} disabled className="student-home-submission-description">
-                           {submission?.assignmentDescription}
+                          <textarea
+                            cols={"30"}
+                            rows={"10"}
+                            value={submission?.assignmentDescription}
+                            disabled
+                            className="student-home-submission-description"
+                          >
+                            {submission?.assignmentDescription}
                           </textarea>
+                          <hr />
                           <h5>Submitted On: </h5>
                           <p className="student-home-submission-date">
-                             {submission?.dateTime.date}
+                            {submission?.dateTime.date}
                           </p>
                           <h5>Marks: </h5>
                           <p className="student-home-submission-marks">
                             {submission?.marks}
                           </p>
                           <h5>Remarks:</h5>
-                          <p className="student-home-submission-remarks">
-                             {submission?.remarks}
-                          </p>
+                          <textarea
+                            disabled
+                            cols={"30"}
+                            rows={"10"}
+                            className="student-home-submission-remarks"
+                          >
+                            {submission?.remarks}
+                          </textarea>
                         </div>
                       );
                     } else {
                       return (
-                        <p className="student-home-not-submitted">
+                        <h4 className="student-home-not-submitted">
                           Not Submitted
-                        </p>
+                        </h4>
                       );
                     }
                   })}

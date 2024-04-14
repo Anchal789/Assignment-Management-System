@@ -84,11 +84,11 @@ const ShowSubmission = (props) => {
                     <h4>Note: </h4>
                     <p className="note">{key?.assignmentNote}</p>
                     <h4>Description: </h4>
-                    <textarea cols={"30"} rows={"10"} value={key?.assignmentDescription} className="description">
+                    <textarea disabled cols={"30"} rows={"10"} value={key?.assignmentDescription} className="description">
                       {key?.assignmentDescription}
                     </textarea>
                     <h4>Remark: </h4>
-                    <p className="Remarks">{key?.remarks}</p>
+                    <textarea disabled cols={"30"} rows={"10"} className="Remarks description">{key?.remarks}</textarea>
                     <h4>Mark: </h4>
                     <p className="Marks">{key?.marks}</p>
                     {props.submissionInfo.status === "inactive" ? (

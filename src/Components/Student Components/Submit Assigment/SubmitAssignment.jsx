@@ -88,10 +88,10 @@ const SubmitAssignment = (props) => {
     <>
       <div className="submit-assignment">
         <div className="submit-assignment-details">
-          <p>{studentInfo.rollNo}</p>
-          <p>{studentInfo.name}</p>
-          <p>{studentInfo.subjectName}</p>
-          <p>{props.assignmentId}</p>
+          <h5>{studentInfo.rollNo}</h5>
+          <h5>{studentInfo.name}</h5>
+          <h5>{studentInfo.subjectName}</h5>
+          <h5>{props.assignmentId}</h5>
         </div>
         <form action="" className="submit-assignment-form">
           <label htmlFor="submit-assignment-note">Assignment Note</label>

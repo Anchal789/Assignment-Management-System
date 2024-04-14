@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import Calendar from "react-calendar"
+import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
@@ -80,7 +80,9 @@ const CreateAssignment = () => {
           assignmentId: assignmentId,
           assignmentName: assignmentName,
           assignmentDescription: assignmentDescription,
-          submissionDate: submissionDate.toLocaleDateString("en-GB").replaceAll("/", "-"),
+          submissionDate: submissionDate
+            .toLocaleDateString("en-GB")
+            .replaceAll("/", "-"),
           status: "active",
         }
       );
@@ -105,11 +107,22 @@ const CreateAssignment = () => {
     <div className="create-assignment">
       <h1>Create Assignment</h1>
       <div className="create-assignment-div">
-        {assignmentId && <p className="create-assignment-id">{assignmentId}</p>}
-        <p className="create-assignment-info">Semester : {facultyInfo.semester}</p>
+        {assignmentId && (
+          <div className="assignment-id-div">
+            <h3 className="create-assignment-id">Assignment Id</h3>
+            <h3 className="create-assignment-id">{assignmentId}</h3>
+          </div>
+        )}
+        <p className="create-assignment-info">
+          Semester : {facultyInfo.semester}
+        </p>
         <p className="create-assignment-info">Class : {facultyInfo.stream}</p>
-        <p className="create-assignment-info">Subject : {facultyInfo.subjectName}</p>
-        <p className="create-assignment-info">Subject Code : {facultyInfo.subjectCode}</p>
+        <p className="create-assignment-info">
+          Subject : {facultyInfo.subjectName}
+        </p>
+        <p className="create-assignment-info">
+          Subject Code : {facultyInfo.subjectCode}
+        </p>
         <h4 className="create-assignment-info">Submit Before</h4>
         <Calendar
           onChange={handleDateChange}
@@ -136,12 +149,18 @@ const CreateAssignment = () => {
             onChange={handleAssignmentDescriptionChange}
             value={assignmentDescription}
           ></textarea>
-          <button onClick={handleCreate} className="create">Create</button>
-          <button onClick={handleReset} className="reset">Reset</button>
+          <button onClick={handleCreate} className="create">
+            Create
+          </button>
+          <button onClick={handleReset} className="reset">
+            Reset
+          </button>
           <button
             onClick={(e) => {
               e.preventDefault();
-              navigate(`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`);
+              navigate(
+                `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
+              );
             }}
             className="cancel"
           >

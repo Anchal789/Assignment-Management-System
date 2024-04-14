@@ -1,20 +1,27 @@
 /* General Styles */
 .create-assignment {
     font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #b71d48;
     padding: 20px;
   }
   
   .create-assignment h1 {
-    color: #333333;
+    color: #fff4f4;
     text-align: center;
     margin-bottom: 30px;
+  }
+
+  .assignment-id-div{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
   }
   
   .create-assignment-div {
     max-width: 800px;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: antiquewhite;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
