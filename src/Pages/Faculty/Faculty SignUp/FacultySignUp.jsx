@@ -4,6 +4,7 @@ import "./FacultySignUp.css"; // Import CSS file for styles
 import { set, ref, getDatabase } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import { useNavigate } from "react-router";
+import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
 
 const TeacherSignUp = () => {
   const [subjectCode, setSubjectCode] = useState("");
@@ -128,6 +129,7 @@ const TeacherSignUp = () => {
 
   return (
     <div className="teachersignup-container">
+      <img src={FacultyIcon} className="icons" alt="" />
       <form onSubmit={handleSubmit} className="teachersignup-form">
         <div className="teachersignup-group">
           <label htmlFor="teachersignup-subject-codde">Subject Code</label>
@@ -242,7 +244,9 @@ const TeacherSignUp = () => {
         </div>
       </form>
       <p>Already have an account?</p>
-      <button onClick={() => navigate("/faculty login")} className="login-btn">Login</button>
+      <button onClick={() => navigate("/faculty login")} className="login-btn">
+        Login
+      </button>
     </div>
   );
 };

@@ -21,15 +21,15 @@
 }
 
 .show-submission-card {
-    border: 1px solid #ccc;
+    height: 300px;
+    border-radius: 6px;
     padding: 10px;
     background-color: #48e77178;
+    overflow: scroll;
+    border: 1px solid rgb(21 97 24);
 }
 
-.show-submission-card h4{
-    text-align: center;
 
-}
 
 /* Media Query for Responsive Design */
 @media only screen and (max-width: 600px) {
@@ -44,6 +44,11 @@
 
     .show-submission-card {
         margin-bottom: 20px;
+    }
+
+    .ReactModal__Content {
+        width: -webkit-fill-available;
+        height: 90% !important;
     }
 }
 
@@ -97,5 +102,15 @@
 
 .note,
 .description {
-    width:100%;
+    width: 100%;
+}
+
+
+.ReactModal__Overlay {
+    overflow: scroll
+}
+
+.ReactModal__Content {
+    width: -webkit-fill-available;
+    height: fit-content;
 }

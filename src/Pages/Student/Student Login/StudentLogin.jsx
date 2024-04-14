@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { studentlogin } from "../../../Redux/redux";
 import Loading from "../../LoadingPage";
 import "./StudentLogin.css";
+import StudentIcon from "../../../Assets/student-graduating-svgrepo-com.svg";
+
 
 const StudentLogin = () => {
   const [rollNo, setRollNo] = useState("");
@@ -74,39 +76,47 @@ const StudentLogin = () => {
     <div className="student-login-container">
       {!loader ? (
         <>
-        <form action="" className="student-login-form">
-          {error && <p className="error-message">{error}</p>}
-          <div className="student-login-group">
-            <label htmlFor="studentlogin-rollNo">Roll No</label>
-            <input
-              type="text"
-              name="studentlogin-rollNo"
-              id="studentlogin-rollNo"
-              onChange={handleRollNoChange}
-              placeholder="Roll No"
-            />
-          </div>
-          <div className="student-login-group">
-            <label htmlFor="studentlogin-password">Password</label>
-            <input
-              type="password"
-              name="studentlogin-password"
-              id="studentlogin-password"
-              placeholder="*****"
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <button type="submit" onClick={handleLogin} className="login-btn">
-            Login
-          </button>
-        </form>
-        <div>
-          <p>New User?</p>
-          <button onClick={() => navigate("/student signup") } className="signup-btn">Signup</button>
-        </div>
-        </>
-      ): <Loading/>}
+          <img src={StudentIcon} className="icons" alt="" />
 
+          <form action="" className="student-login-form">
+            {error && <p className="error-message">{error}</p>}
+            <div className="student-login-group">
+              <label htmlFor="studentlogin-rollNo">Roll No</label>
+              <input
+                type="text"
+                name="studentlogin-rollNo"
+                id="studentlogin-rollNo"
+                onChange={handleRollNoChange}
+                placeholder="Roll No"
+              />
+            </div>
+            <div className="student-login-group">
+              <label htmlFor="studentlogin-password">Password</label>
+              <input
+                type="password"
+                name="studentlogin-password"
+                id="studentlogin-password"
+                placeholder="*****"
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <button type="submit" onClick={handleLogin} className="login-btn">
+              Login
+            </button>
+          </form>
+          <div>
+            <p>New User?</p>
+            <button
+              onClick={() => navigate("/student signup")}
+              className="signup-btn"
+            >
+              Signup
+            </button>
+          </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };

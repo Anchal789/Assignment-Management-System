@@ -1,0 +1,12 @@
+.student-list{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.student-details-card{
+    background-color: brown;
+    padding: 10px;
+    color: white;
+}

@@ -25,7 +25,7 @@
         /* Orange overlay */
 }
 
-.home-right-section{
+.home-right-section {
     position: relative;
     background: linear-gradient(to right, rgba(68, 57, 111, 0.8), rgba(254, 96, 39, 0.8));
     color: white;
@@ -69,6 +69,7 @@
 .home-right-section {
     width: 50%;
     margin-top: 20px;
+    padding: 50px;
 }
 
 .home-left-section {
@@ -76,13 +77,13 @@
 }
 
 @media screen and (max-width : 1064px) {
-    .top-container{
+    .top-container {
         background-image: url("../../../Assets/mobile\ cover\ page.jpg");
     }
 }
 
 @media screen and (max-width: 576px) {
-    
+
 
     .college-logo {
         width: 70px;
@@ -162,16 +163,28 @@
     display: flex;
 }
 
+.icon-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icons {
+    width: 70px;
+}
+
 /* CSS for Footer */
 footer {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    padding: 10px;
+    justify-content: right;
+    gap: 20px;
     bottom: 0;
     position: fixed;
+    padding: 10px 0;
+
     width: 100%;
-    background-color: rgb(12,22,55);
+    background-color: rgb(12, 22, 55);
 }
 
 /* Adjust button style for responsiveness */
@@ -186,7 +199,7 @@ footer button {
     border-radius: 5px;
 }
 
-footer a{
+footer a {
     text-decoration: none;
     color: white;
 }
@@ -197,7 +210,8 @@ footer a{
 }
 
 .social-media-links a {
-    margin-right: 10px; /* Adjust spacing between icons */
+    margin-right: 10px;
+    /* Adjust spacing between icons */
 }
 
 /* Responsive adjustments */
@@ -215,5 +229,5 @@ footer a{
     .social-media-links {
         margin-top: 10px;
     }
-    
+
 }

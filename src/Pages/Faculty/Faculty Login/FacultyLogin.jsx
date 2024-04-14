@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { facultylogin } from "../../../Redux/redux";
 import Loading from "../../LoadingPage";
 import "./FacultyLogin.css"
+import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
 
 const FacultyLogin = () => {
   const [subjectName, setSubjectName] = useState("");
@@ -75,6 +76,7 @@ const FacultyLogin = () => {
     <div className="faculty-login">
       {!loader ? (
         <>
+          <img src={FacultyIcon} className="icons" alt="" />
           <form action="" className="faculty-login-form">
             {error && <p className="error-message">{error}</p>}
             <div className="faculty-login-group">

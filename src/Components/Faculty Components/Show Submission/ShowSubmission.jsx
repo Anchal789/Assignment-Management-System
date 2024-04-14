@@ -2,7 +2,9 @@ import { get, getDatabase, ref, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
+import { useRef } from "react";
 import "./ShowSubmission.css";
+import EvaluationForm from "../../Student Components/Submit Assigment/EvaluationForm";
 
 const ShowSubmission = (props) => {
   const [submissions, setSubmissions] = useState("");
@@ -14,6 +16,7 @@ const ShowSubmission = (props) => {
   const [showEvaluation, setShowEvaluation] = useState(false);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const database = getDatabase(app);
+  const showEvaluationRef = useRef(null);
 
   const fetchData = async () => {
     const submissionRef = ref(
@@ -38,8 +41,10 @@ const ShowSubmission = (props) => {
   const handleClickEvaluate = async (rollNo) => {
     setStudentRollNo(rollNo);
     setShowEvaluation(true);
+    if (showEvaluationRef.current) {
+      showEvaluationRef.current.focus();
+    }
   };
-
   const submitEvaluation = async (e) => {
     e.preventDefault();
     const submissionRef = ref(
@@ -53,13 +58,14 @@ const ShowSubmission = (props) => {
     handleClickEvaluate();
   };
 
+  const handleCancelEvaluation = (rollNo) => {
+    setShowEvaluation(false);
+  };
+
   return (
     <div className="show-submission">
       <p className="show-submission-assignment-id">
         {props.submissionInfo.assignmentId}
-      </p>
-      <p className="show-submission-status">
-        {props.submissionInfo.status.toUpperCase()}
       </p>
       {submissions === "No Submission Yet" ? (
         <p className="no-submissions">No Submissions Yet</p>
@@ -84,11 +90,24 @@ const ShowSubmission = (props) => {
                     <h4>Note: </h4>
                     <p className="note">{key?.assignmentNote}</p>
                     <h4>Description: </h4>
-                    <textarea disabled cols={"30"} rows={"10"} value={key?.assignmentDescription} className="description">
+                    <textarea
+                      disabled
+                      cols={"30"}
+                      rows={"10"}
+                      value={key?.assignmentDescription}
+                      className="description"
+                    >
                       {key?.assignmentDescription}
                     </textarea>
                     <h4>Remark: </h4>
-                    <textarea disabled cols={"30"} rows={"10"} className="Remarks description">{key?.remarks}</textarea>
+                    <textarea
+                      disabled
+                      cols={"30"}
+                      rows={"10"}
+                      className="Remarks description"
+                    >
+                      {key?.remarks}
+                    </textarea>
                     <h4>Mark: </h4>
                     <p className="Marks">{key?.marks}</p>
                     {props.submissionInfo.status === "inactive" ? (
@@ -103,55 +122,15 @@ const ShowSubmission = (props) => {
                         Evaluate
                       </button>
                     )}
-                    {showEvaluation && (
-                      <div className="show-submission-evaluation-container">
-                        <form
-                          action=""
-                          className="show-submission-evaluation-form"
-                        >
-                          <label htmlFor="evaluation-form-marks">Marks</label>
-                          <input
-                            type={"number"}
-                            id="evaluation-form-marks"
-                            value={evaluation.marks}
-                            onChange={(e) =>
-                              setEvaluation({
-                                ...evaluation,
-                                marks: e.target.value,
-                              })
-                            }
-                          />
-                          <label htmlFor="evaluation-form-remarks">
-                            Remarks
-                          </label>
-                          <input
-                            type={"text"}
-                            id="evaluation-form-remarks"
-                            value={evaluation.remark}
-                            onChange={(e) =>
-                              setEvaluation({
-                                ...evaluation,
-                                remark: e.target.value,
-                              })
-                            }
-                          />
-                          <div className="show-submission-evaluation-buttons">
-                            <button
-                              onClick={submitEvaluation}
-                              className="show-submission-submit"
-                            >
-                              Submit
-                            </button>
-                            <button
-                              onClick={() => setShowEvaluation(false)}
-                              className="show-submission-cancel"
-                            >
-                              Cancel
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    )}
+                      {studentRollNo === key.rollNo && showEvaluation && (
+                        <EvaluationForm
+                          ref={showEvaluationRef}
+                          rollNo={key.rollNo}
+                          assignmentId={props.submissionInfo.assignmentId}
+                          status={props.submissionInfo.status}
+                          onCancel={() => handleCancelEvaluation(key.rollNo)}
+                        />
+                      )}
                   </div>
                 );
               })}

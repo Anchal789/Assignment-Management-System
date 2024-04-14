@@ -2,6 +2,7 @@ import { child, get, getDatabase, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
+import "./StudentList.css";
 
 export const StudentList = () => {
   const [students, setStudents] = useState();
@@ -28,19 +29,21 @@ export const StudentList = () => {
   }, []);
   return (
     <div>
-      <div className="left-section-studentList">
-        <ol>
+      <div className="studentList">
+        <ol className="student-list">
           {students &&
             Object.values(students).map((student, index) => (
               <li className="student-details-card" key={index}>
-                <p className="student-details">{student?.rollNo}</p>
-                <p className="student-details">{student?.name}</p>
-                <p className="student-details">{student?.email}</p>
+                <label htmlFor="roll">Roll No:</label>
+                <h4 className="student-details" id="roll"> {student?.rollNo}</h4>
+                <label htmlFor="name">Name</label>
+                <h4 className="student-details" id="name">{student?.name}</h4>
+                <label htmlFor="email">Email</label>
+                <h4 className="student-details" id="email">{student?.email}</h4>
               </li>
             ))}
         </ol>
       </div>
-      <div className="right-section-studentList"></div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { set, ref, getDatabase, child, get } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import "./StudentSignUp.css"; // Import CSS file for styles
 import { useNavigate } from "react-router";
+import StudentIcon from "../../../Assets/student-graduating-svgrepo-com.svg";
 
 const StudentSignUp = () => {
   const [rollNo, setRollNo] = useState("");
@@ -172,7 +173,7 @@ const StudentSignUp = () => {
         setStream("");
         setErrors({});
         setRollNo("");
-        navigate("/student login")
+        navigate("/student login");
       }
     } else {
       setErrors(newErrors);
@@ -181,6 +182,7 @@ const StudentSignUp = () => {
 
   return (
     <div className="studentsignup-container">
+      <img src={StudentIcon} className="icons" alt="" />
       <form onSubmit={handleSubmit} className="studentsignup-form">
         <div className="studentsignup-group">
           <label htmlFor="studentsignup-rollNo">Roll No</label>
@@ -303,7 +305,14 @@ const StudentSignUp = () => {
       </form>
       <div>
         <p>Already Have an Account?</p>
-        <button onClick={()=>{navigate("/student login")}} className="login-btn">Login</button>
+        <button
+          onClick={() => {
+            navigate("/student login");
+          }}
+          className="login-btn"
+        >
+          Login
+        </button>
       </div>
     </div>
   );

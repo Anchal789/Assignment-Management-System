@@ -15,11 +15,11 @@
     margin-bottom: 30px;
 }
 
-.check-assignment-container {
+/* .check-assignment-container {
     display: grid;
     grid-template-columns: 30% 70%;
     gap: 30px;
-}
+} */
 
 .check-assignment-left-section {
     flex: 1;
@@ -32,6 +32,10 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    width: fit-content;
+    flex-wrap: wrap;
 }
 
 .check-assignment-active-assignments h5,

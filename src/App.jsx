@@ -16,6 +16,8 @@ import { StudentList } from "./Pages/Faculty/Student List/StudentList";
 import Navbar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 
+import Modal from 'react-modal';
+
 function App() {
   const [authenticationStatus, setAuthenticationStatus] = useState(false);
   const authentication = useSelector((state) => state.authentication);
@@ -23,6 +25,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const showNavbar = location.pathname !== "/";
+  Modal.setAppElement('#root');
   useEffect(() => {
     let result =
       authentication ||

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./CheckAssignment.css";
 import ShowSubmission from "../Show Submission/ShowSubmission";
+import Modal from 'react-modal';
 
 const CheckAssignment = () => {
   const [activeAssignments, setActiveAssignments] = useState();
@@ -16,7 +17,6 @@ const CheckAssignment = () => {
   });
   const [showSubmission, setShowSubmission] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
-  const showSubmissionRef = useRef(null);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const database = getDatabase(app);
   const fetchActiveData = useCallback(async () => {
@@ -85,16 +85,40 @@ const CheckAssignment = () => {
   const handleCheckSubmission = (assignmentId, status) => {
     setSubmissionInfo({ assignmentId, status });
     setShowSubmission(true);
-    showSubmissionRef.current.scrollIntoView({ behavior: "smooth" });
+    setIsOpen(true);
   };
+
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+  
 
   return (
     <div className="check-assignment">
       <h1>All Assignments</h1>
       <div className="check-assignment-container">
         <div className="check-assignment-left-section">
+          <h5 className="closed-assignments-heading">Active Assignments</h5>
           <div className="check-assignment-active-assignments">
-            <h5>Active Assignments</h5>
             {noActiveAssignments && <p>{noActiveAssignments}</p>}
             {activeAssignments &&
               Object.values(activeAssignments).map((key, index) => {
@@ -103,12 +127,8 @@ const CheckAssignment = () => {
                 }
                 return (
                   <div className="checkassignment-assignment-card" key={index}>
-                    <p className="active-status">
-                      {key?.status.toUpperCase()}
-                    </p>
-                    <p className="assignment-name">
-                      {key?.assignmentName}
-                    </p>
+                    <p className="active-status">{key?.status.toUpperCase()}</p>
+                    <p className="assignment-name">{key?.assignmentName}</p>
                     <p className="assignment-description">
                       {key?.assignmentDescription}
                     </p>
@@ -155,10 +175,8 @@ const CheckAssignment = () => {
                 );
               })}
           </div>
+          <h5 className="closed-assignments-heading">Closed Assignments</h5>
           <div className="inactive-assignments">
-            <h5 className="closed-assignments-heading">
-              Closed Assignments
-            </h5>
             {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
             {inactiveAssignments &&
               Object.values(inactiveAssignments).map((key, index) => {
@@ -170,9 +188,7 @@ const CheckAssignment = () => {
                     <p className="check-assignment-status">
                       {key?.status.toUpperCase()}
                     </p>
-                    <p className="assignment-name">
-                      {key?.assignmentName}
-                    </p>
+                    <p className="assignment-name">{key?.assignmentName}</p>
                     <p className="assignment-description">
                       Description : {key?.assignmentDescription}
                     </p>
@@ -192,8 +208,20 @@ const CheckAssignment = () => {
               })}
           </div>
         </div>
-        <div className="right-section" ref={showSubmissionRef}>
-          {showSubmission && <ShowSubmission submissionInfo={submissionInfo} />}
+        <div className="right-section">
+          <div>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <button onClick={closeModal} className="close">close</button>
+              {showSubmission && (
+                <ShowSubmission submissionInfo={submissionInfo} />
+              )}
+            </Modal>
+          </div>
         </div>
       </div>
     </div>

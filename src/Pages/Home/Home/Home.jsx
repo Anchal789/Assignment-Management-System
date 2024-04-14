@@ -2,9 +2,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 import CollegeLogo from "../../../Assets/college_logo-removebg-preview.png";
-import FlareIcon from '@mui/icons-material/Flare';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import FlareIcon from "@mui/icons-material/Flare";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
+import StudentIcon from "../../../Assets/student-graduating-svgrepo-com.svg";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -26,7 +28,10 @@ export const Home = () => {
           {/* <h2 className="section-heading">College Assignment</h2> */}
           <div className="home-content">
             <div className="faculty-div">
-              <h3 className="section-subheading">Faculty</h3>
+              <div className="icon-heading">
+                <img className="icons" src={FacultyIcon} alt="" />
+                <h3 className="section-subheading">Faculty</h3>
+              </div>
               <div className="home-button-section">
                 <button
                   type="button"
@@ -45,23 +50,26 @@ export const Home = () => {
               </div>
             </div>
             <div className="student-div">
+              <div className="icon-heading">
+              <img src={StudentIcon} className="icons" alt="" />
               <h3 className="section-subheading">Student</h3>
-             <div className="home-button-section">
-             <button
-                type="button"
-                onClick={() => navigate("/student signup")}
-                className="signup-btn"
-              >
-                Sign Up
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate("/student login")}
-                className="login-btn"
-              >
-                Login
-              </button>
-             </div>
+              </div>
+              <div className="home-button-section">
+                <button
+                  type="button"
+                  onClick={() => navigate("/student signup")}
+                  className="signup-btn"
+                >
+                  Sign Up
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("/student login")}
+                  className="login-btn"
+                >
+                  Login
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -71,20 +79,46 @@ export const Home = () => {
           <h2 className="keyfeature-heading">Key Features</h2>
 
           <ul className="feature-list">
-            <li><FlareIcon/> Create and manage assignments</li>
-            <li><FlareIcon/> Close assignments before the deadline</li>
-            <li><FlareIcon/> Submit assignments as a student </li>
-            <li><FlareIcon/> Give remarks and marks to students</li>
-            <li><FlareIcon/> Check assignment history</li>
-            <li><FlareIcon/> View marks for assignments</li>
+            <li>
+              <FlareIcon /> Create and manage assignments
+            </li>
+            <li>
+              <FlareIcon /> Close assignments before the deadline
+            </li>
+            <li>
+              <FlareIcon /> Submit assignments as a student{" "}
+            </li>
+            <li>
+              <FlareIcon /> Give remarks and marks to students
+            </li>
+            <li>
+              <FlareIcon /> Check assignment history
+            </li>
+            <li>
+              <FlareIcon /> View marks for assignments
+            </li>
           </ul>
         </div>
       </div>
       <footer>
-        <button><Link target="_blank" to={"https://bitsvizag.com/contactus"}>Contact US</Link></button>
+        <button>
+          <Link target="_blank" to={"https://bitsvizag.com/contactus"}>
+            Contact US
+          </Link>
+        </button>
         <div className="social-media-links">
-          <Link target="_blank" to={"https://www.facebook.com/BITSVizagOfficial/"}><FacebookIcon /></Link>
-          <Link target="_blank" to={"https://www.instagram.com/bits_vizag_official/"}><InstagramIcon /></Link>
+          <Link
+            target="_blank"
+            to={"https://www.facebook.com/BITSVizagOfficial/"}
+          >
+            <FacebookIcon />
+          </Link>
+          <Link
+            target="_blank"
+            to={"https://www.instagram.com/bits_vizag_official/"}
+          >
+            <InstagramIcon />
+          </Link>
         </div>
       </footer>
     </div>
