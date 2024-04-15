@@ -5,7 +5,6 @@ import { logout } from "../../Redux/redux";
 import "./Navbar.css"
 
 const Navbar = () => {
-  const [authenticationStatus, setAuthenticationStatus] = useState(false);
   const authentication = useSelector((state) => state.authentication);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,7 +12,6 @@ const Navbar = () => {
     let result =
       authentication ||
       Boolean(localStorage.getItem("authentication") === true);
-    setAuthenticationStatus(result);
   }, [authentication, navigate]);
   return (
     <div className="navbar">
