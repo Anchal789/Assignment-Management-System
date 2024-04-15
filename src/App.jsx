@@ -7,31 +7,21 @@ import StudentHome from "./Pages/Student/Student Home/StudentHome";
 import StudentLogin from "./Pages/Student/Student Login/StudentLogin";
 import StudentSignUp from "./Pages/Student/StudentSignUp/StudentSignUp";
 import TeacherSignUp from "./Pages/Faculty/Faculty SignUp/FacultySignUp";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Faculty Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Faculty Components/Check Assignment/CheckAssignment";
 import { useSelector } from "react-redux";
 import { StudentList } from "./Pages/Faculty/Student List/StudentList";
 import Navbar from "./Components/Navbar/Navbar";
-import { useEffect, useState } from "react";
-
 import Modal from 'react-modal';
 
 function App() {
-  const [authenticationStatus, setAuthenticationStatus] = useState(false);
-  const authentication = useSelector((state) => state.authentication);
   const facultyInfo = useSelector((state) => state.facultyProfile);
-  const navigate = useNavigate();
   const location = useLocation();
   const showNavbar = location.pathname !== "/";
   Modal.setAppElement('#root');
-  useEffect(() => {
-    let result =
-      authentication ||
-      Boolean(localStorage.getItem("authentication") === true);
-    setAuthenticationStatus(result);
-  }, [authentication, navigate]);
+  
   return (
     <ErrorBoundry>
       <div className="App">
