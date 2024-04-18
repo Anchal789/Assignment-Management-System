@@ -5,6 +5,7 @@ import { app } from "../../../Firebase/firebase";
 import SubmitAssignment from "../../../Components/Student Components/Submit Assigment/SubmitAssignment";
 import { useNavigate } from "react-router";
 import "./StudentHome.css";
+import Modal from "react-modal";
 
 const StudentHome = () => {
   const [activeAssignemnts, setActiveAssignemnts] = useState();
@@ -77,6 +78,32 @@ const StudentHome = () => {
     setShowSubmitAssignment(false); // Hide the SubmitAssignment component
   };
 
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
   return (
     <div className="student-home">
       <div className="student-home-left-section">
@@ -90,13 +117,17 @@ const StudentHome = () => {
               }
               return (
                 <div className="assignment-card" key={index}>
-                  <h4 className="student-home-assignment-heading">Assignment Name: </h4>
+                  <h4 className="student-home-assignment-heading">
+                    Assignment Name:{" "}
+                  </h4>
 
                   <p className="student-home-assignment-name">
                     {key?.assignmentName}
                   </p>
                   <hr />
-                  <h4 className="student-home-assignment-heading">Assignment Description: </h4>
+                  <h4 className="student-home-assignment-heading">
+                    Assignment Description:{" "}
+                  </h4>
                   <textarea
                     cols={"30"}
                     rows={"10"}
@@ -107,60 +138,89 @@ const StudentHome = () => {
                     {key?.assignmentDescription}
                   </textarea>
                   <hr />
-                  <h4 className="student-home-assignment-heading">Last Date: </h4>
+                  <h4 className="student-home-assignment-heading">
+                    Last Date:{" "}
+                  </h4>
                   <p className="student-home-submission-date">
                     {key?.submissionDate}
                   </p>
                   <hr />
-                  {Object.values(key?.submissions).map((submission, index1) => {
-                    if (submission?.rollNo === studentInfo.rollNo) {
-                      return (
-                        <div className="student-home-submission" key={index1}>
-                          <h3 className="student-home-submission-heading">
-                            Your Submission
-                          </h3>
-                          <hr />
-                          <h4>Note:</h4>{" "}
-                          <p className="student-home-submission-note">
-                            {submission?.assignmentNote}
-                          </p>
-                          <hr />
-                          <h4>Description: </h4>{" "}
-                          <textarea
-                            cols={"30"}
-                            rows={"10"}
-                            value={submission?.assignmentDescription}
-                            disabled
-                            className="student-home-submission-description"
-                          >
-                            {submission?.assignmentDescription}
-                          </textarea>
-                          <hr />
-                          <div className="marks_remarks">
-                            <h4>Submitted On: </h4>
-                            <p className="student-home-submission-date">
-                              {submission?.dateTime.date}
-                            </p>
-                            <h4>Mark: </h4>
-                            <p className="student-home-submission-marks">
-                              {submission?.marks}
-                            </p>
-                            <h4>Remark: </h4>
-                            <textarea
-                              disabled
-                              cols={"30"}
-                              rows={"10"}
-                              className="student-home-submission-remarks"
-                            >
-                              {submission?.remarks}
-                            </textarea>
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
+                {console.log(key.submissions)}
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={afterOpenModal}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                  >
+                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+                    <button onClick={closeModal}>close</button>
+                    {Object.values(key?.submissions).map(
+                      (submission, index1) => {
+                        if (submission?.rollNo === studentInfo.rollNo) {
+                          return (
+                            <>
+                              {/* {submission?.assignmentNote && (
+                                  <button onClick={openModal}>
+                                    My Submission
+                                  </button>
+                                )} */}
+                                 <button onClick={openModal}>
+                                    My Submission
+                                  </button>
+                              <div
+                                className="student-home-submission"
+                                key={index1}
+                              >
+                                <h3 className="student-home-submission-heading">
+                                  Your Submission
+                                </h3>
+                                <hr />
+                                <h4>Note:</h4>{" "}
+                                <p className="student-home-submission-note">
+                                  {submission?.assignmentNote}
+                                </p>
+                                <hr />
+                                <h4>Description: </h4>{" "}
+                                <textarea
+                                  cols={"30"}
+                                  rows={"10"}
+                                  value={submission?.assignmentDescription}
+                                  disabled
+                                  className="student-home-submission-description"
+                                >
+                                  {submission?.assignmentDescription}
+                                </textarea>
+                                <hr />
+                                <div className="marks_remarks">
+                                  <h4>Submitted On: </h4>
+                                  <p className="student-home-submission-date">
+                                    {submission?.dateTime.date}
+                                  </p>
+                                  <h4>Mark: </h4>
+                                  <p className="student-home-submission-marks">
+                                    {submission?.marks}
+                                  </p>
+                                  <h4>Remark: </h4>
+                                  <textarea
+                                    disabled
+                                    cols={"30"}
+                                    rows={"10"}
+                                    className="student-home-submission-remarks"
+                                  >
+                                    {submission?.remarks}
+                                  </textarea>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        } else {
+                          return null;
+                        }
+                      }
+                    )}
+                  </Modal>
+
                   <button
                     onClick={handleSubmitAssignment(key?.assignmentId)}
                     className="submit"

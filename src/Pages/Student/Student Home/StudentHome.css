@@ -1,9 +1,10 @@
 .student-home {
     font-family: 'Roboto', sans-serif;
     padding: 20px;
-    background: linear-gradient(45deg, rgb(255 0 89), #000000bd);
+    /* background: linear-gradient(45deg, rgb(255 0 89), #000000bd); */
     display: grid;
     grid-template-columns: 30% 70%;
+    margin-top: 50px;
 }
 
 .student-home h1 {
