@@ -12,6 +12,7 @@ const StudentHome = () => {
   const [inactiveAssignemnts, setInActiveAssignemnts] = useState();
   const [showSubmitAssignment, setShowSubmitAssignment] = useState(false);
   const [submitAssignmentInfo, setSubmitAssignmentInfo] = useState({});
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
   const submitSubmissionRef = useRef(null);
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
@@ -81,7 +82,8 @@ const StudentHome = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function openModal() {
+  function openModal(assignment) {
+    setSelectedAssignment(assignment);
     setIsOpen(true);
   }
 
@@ -145,81 +147,16 @@ const StudentHome = () => {
                     {key?.submissionDate}
                   </p>
                   <hr />
-                {console.log(key.submissions)}
-                  <Modal
-                    isOpen={modalIsOpen}
-                    onAfterOpen={afterOpenModal}
-                    onRequestClose={closeModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                  >
-                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-                    <button onClick={closeModal}>close</button>
-                    {Object.values(key?.submissions).map(
-                      (submission, index1) => {
-                        if (submission?.rollNo === studentInfo.rollNo) {
-                          return (
-                            <>
-                              {/* {submission?.assignmentNote && (
-                                  <button onClick={openModal}>
-                                    My Submission
-                                  </button>
-                                )} */}
-                                 <button onClick={openModal}>
-                                    My Submission
-                                  </button>
-                              <div
-                                className="student-home-submission"
-                                key={index1}
-                              >
-                                <h3 className="student-home-submission-heading">
-                                  Your Submission
-                                </h3>
-                                <hr />
-                                <h4>Note:</h4>{" "}
-                                <p className="student-home-submission-note">
-                                  {submission?.assignmentNote}
-                                </p>
-                                <hr />
-                                <h4>Description: </h4>{" "}
-                                <textarea
-                                  cols={"30"}
-                                  rows={"10"}
-                                  value={submission?.assignmentDescription}
-                                  disabled
-                                  className="student-home-submission-description"
-                                >
-                                  {submission?.assignmentDescription}
-                                </textarea>
-                                <hr />
-                                <div className="marks_remarks">
-                                  <h4>Submitted On: </h4>
-                                  <p className="student-home-submission-date">
-                                    {submission?.dateTime.date}
-                                  </p>
-                                  <h4>Mark: </h4>
-                                  <p className="student-home-submission-marks">
-                                    {submission?.marks}
-                                  </p>
-                                  <h4>Remark: </h4>
-                                  <textarea
-                                    disabled
-                                    cols={"30"}
-                                    rows={"10"}
-                                    className="student-home-submission-remarks"
-                                  >
-                                    {submission?.remarks}
-                                  </textarea>
-                                </div>
-                              </div>
-                            </>
-                          );
-                        } else {
-                          return null;
-                        }
-                      }
-                    )}
-                  </Modal>
+                  {key?.submissions[studentInfo.rollNo]
+                    ?.assignmentDescription && (
+                    <button
+                      onClick={() => {
+                        openModal(key?.submissions[studentInfo.rollNo]);
+                      }}
+                    >
+                      My Submission
+                    </button>
+                  )}
 
                   <button
                     onClick={handleSubmitAssignment(key?.assignmentId)}
@@ -233,6 +170,59 @@ const StudentHome = () => {
               // console.log(index)
             })}
         </div>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+          <button onClick={closeModal}>close</button>
+          {selectedAssignment && (
+            <div className="student-home-submission">
+              <hr />
+              <h4>Note:</h4>{" "}
+              <p className="student-home-submission-note">
+                {selectedAssignment?.assignmentNote}
+              </p>
+              <hr />
+              <h4>Description: </h4>{" "}
+              <textarea
+                cols={"30"}
+                rows={"10"}
+                value={selectedAssignment?.assignmentDescription}
+                disabled
+                className="student-home-submission-description"
+              ></textarea>
+              <hr />
+              <div className="marks_remarks">
+                <div className="marks_remarks_content_div">
+                  <h4>Submitted On: </h4>
+                  <p className="student-home-submission-date">
+                    {selectedAssignment?.dateTime?.date}
+                  </p>
+                </div>
+                <div className="marks_remarks_content_div">
+                  <h4>Mark: </h4>
+                  <p className="student-home-submission-marks">
+                    {selectedAssignment?.marks}
+                  </p>
+                </div>
+                <h4>Remark: </h4>
+                <textarea
+                  disabled
+                  cols={"30"}
+                  rows={"10"}
+                  className="student-home-submission-remarks"
+                >
+                  {selectedAssignment?.remarks}
+                </textarea>
+              </div>
+            </div>
+          )}
+        </Modal>
 
         <div className="inactive-assignment">
           <p className="student-home-inactive-assignment-heading">Inactive </p>

@@ -28,15 +28,11 @@
 }
 
 .student-home-active-assignment p,
-.student-home-active-assignment h4,
-.student-home-submission h3 {
+.student-home-active-assignment h4, h3 {
     color: white;
     font-weight: bolder;
 }
 
-.student-home-submission h4{
-   color: #e1ff00
-}
 
 /* .marks_remarks{
     background-color: rgb(238,190,250);
@@ -52,30 +48,11 @@
     margin-bottom: 20px;
 }
 
-.student-home-assignment-heading {
-    color: #F8FF00 !important;
-}
-
 .inactive-assignment {
     background-color: burlywood
 }
 
-.student-home-inactive-assignment-heading {
-    margin-bottom: 10px;
-    color: white;
-    padding: 10px;
-    width: fit-content;
-    background-color: #ff5722;
-    border-radius: 5px;
-}
 
-.student-home-active-assignment-heading {
-    color: white;
-    padding: 10px;
-    width: fit-content;
-    background: #229922;
-    border-radius: 5px;
-}
 
 .assignment-card {
     padding: 15px;
@@ -83,9 +60,9 @@
     margin-bottom: 10px;
 }
 
-.student-home-submission-heading {
-    font-weight: 16px;
-    color: lawngreen !important;
+.marks_remarks_content_div{
+    display: flex;
+    text-align: center;
 }
 
 .submit,
