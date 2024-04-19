@@ -153,6 +153,8 @@ const StudentHome = () => {
                       onClick={() => {
                         openModal(key?.submissions[studentInfo.rollNo]);
                       }}
+                      className="submit"
+                      type="button"
                     >
                       My Submission
                     </button>
