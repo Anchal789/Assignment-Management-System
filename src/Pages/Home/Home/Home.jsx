@@ -27,6 +27,28 @@ export const Home = () => {
         <div className="home-left-section">
           {/* <h2 className="section-heading">College Assignment</h2> */}
           <div className="home-content">
+          <div className="admin-div">
+              <div className="icon-heading">
+              <img src={StudentIcon} className="icons" alt="" />
+              <h3 className="section-subheading">Student</h3>
+              </div>
+              <div className="home-button-section">
+                <button
+                  type="button"
+                  onClick={() => navigate("/student signup")}
+                  className="signup-btn"
+                >
+                  Sign Up
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("/student login")}
+                  className="login-btn"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
             <div className="faculty-div">
               <div className="icon-heading">
                 <img className="icons" src={FacultyIcon} alt="" />
