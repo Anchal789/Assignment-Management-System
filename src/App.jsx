@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import { StudentList } from "./Pages/Faculty/Student List/StudentList";
 import Navbar from "./Components/Navbar/Navbar";
 import Modal from 'react-modal';
+import Admin from "./Pages/Admin/Admin";
+import AddSubject from "./Pages/Admin/Add Subject/AddSubject";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
@@ -30,6 +32,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
+          <Route path="/admin-panel" element={<Admin />} />
+          <Route path="/add subject" element={<AddSubject />} />
+          <Route path="/admin-panel" element={<Admin />} />
           <Route path="/faculty login" element={<FacultyLogin />} />
           <Route path="/student login" element={<StudentLogin />} />
           <Route path="/student home/:rollno" element={<StudentHome />} />
