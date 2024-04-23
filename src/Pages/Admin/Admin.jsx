@@ -44,8 +44,9 @@ const Admin = () => {
 
       <div className="admin-right-section">
         <button>Promote Student</button>
-        <button onClick={() => navigate("/add subject")}>Add Subject</button>
-        <button>Map Subject</button>
+        <button onClick={() => navigate("/admin-panel/add-subject")}>Add Subject</button>
+        <button onClick={() => navigate("/admin-panel/add-branches")}>Add Branches</button>
+        <button onClick={() => navigate("/admin-panel/map-subject")}>Map Subject</button>
       </div>
     </div>
   );

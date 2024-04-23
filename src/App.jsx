@@ -17,6 +17,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Modal from 'react-modal';
 import Admin from "./Pages/Admin/Admin";
 import AddSubject from "./Pages/Admin/Add Subject/AddSubject";
+import MapSubject from "./Pages/Admin/Map Subject/MapSubject";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
@@ -33,8 +34,9 @@ function App() {
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
           <Route path="/admin-panel" element={<Admin />} />
-          <Route path="/add subject" element={<AddSubject />} />
-          <Route path="/admin-panel" element={<Admin />} />
+          <Route path="/admin-panel/add-subject" element={<AddSubject />} />
+          <Route path="/admin-panel/map-subject" element={<MapSubject />} />
+          <Route path="/admin-panel/add-branches" element={<MapSubject />} />
           <Route path="/faculty login" element={<FacultyLogin />} />
           <Route path="/student login" element={<StudentLogin />} />
           <Route path="/student home/:rollno" element={<StudentHome />} />

@@ -3,20 +3,14 @@ import Validator from "validator";
 import "./FacultySignUp.css"; // Import CSS file for styles
 import { set, ref, getDatabase } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
-import { useNavigate } from "react-router";
 import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
 
 const TeacherSignUp = () => {
-  const [subjectCode, setSubjectCode] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [semester, setSemester] = useState("");
-  const [stream, setStream] = useState("");
-  const [subjectName, setSubjectName] = useState("");
   const [errors, setErrors] = useState({});
   const database = getDatabase(app);
-  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -36,13 +30,6 @@ const TeacherSignUp = () => {
     }
   };
 
-  const handleSemesterChange = (e) => {
-    setSemester(e.target.value);
-  };
-
-  const handleSubjectCodeChange = (e) => {
-    setSubjectCode(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,67 +47,19 @@ const TeacherSignUp = () => {
       newErrors.password = "Password must be a 5-digit number";
     }
 
-    if (!semester) {
-      newErrors.semester = "Select a semester";
-    }
-
-    if (!subjectName) {
-      newErrors.subjectName = "Subject Name is required";
-    }
-
-    if (!stream) {
-      newErrors.stream = "Stream is required";
-    }
-    if (!subjectCode) {
-      newErrors.subjectCode = "Subject Code is required";
-    }
-
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        set(ref(database, `${semester}/${stream}/${subjectName}/facultyInfo`), {
+        set(ref(database, `loginCredentials/facultyInfo/${email.replaceAll(".","_")}`), {
           name,
           email,
-          semester,
-          subjectName,
-          subjectCode,
-          stream,
-        });
-        set(
-          ref(
-            database,
-            `${semester}/${stream}/${subjectName}/assignments/active`
-          ),
-          {
-            0: "No Assignment",
-          }
-        );
-        set(
-          ref(
-            database,
-            `${semester}/${stream}/${subjectName}/assignments/inactive`
-          ),
-          {
-            0: "No Assignment",
-          }
-        );
-        set(ref(database, `loginCredentials/faculty/${subjectName}`), {
           password,
-          semester,
-          subjectName,
-          subjectCode,
-          stream,
         });
         // Reset form data and errors after successful submission
         setName("");
         setEmail("");
         setPassword("");
-        setSemester("");
-        setSubjectName("");
-        setStream("");
-        setSubjectCode("");
         setErrors({});
-        navigate("/faculty login");
       }
     } else {
       setErrors(newErrors);
@@ -131,20 +70,7 @@ const TeacherSignUp = () => {
     <div className="teachersignup-container">
       <img src={FacultyIcon} className="icons" alt="" />
       <form onSubmit={handleSubmit} className="teachersignup-form">
-        <div className="teachersignup-group">
-          <label htmlFor="teachersignup-subject-codde">Subject Code</label>
-          <input
-            type="text"
-            id="teachersignup-subject-code"
-            value={subjectCode}
-            onChange={handleSubjectCodeChange}
-            placeholder="ex: R2041011"
-          />
-          {errors.subjectCode && (
-            <div className="teachersignup-error">{errors.subjectCode}</div>
-          )}
-        </div>
-        <div className="faculty-sections">
+        <div className="faculty-sections-signup">
           <div className="faculty-personal-details">
             <div className="teachersignup-group">
               <label htmlFor="teachersignup-name">Name</label>
@@ -186,7 +112,7 @@ const TeacherSignUp = () => {
               )}
             </div>
           </div>
-          <div className="faculty-subject-details">
+          {/* <div className="faculty-subject-details">
             <div className="teachersignup-group">
               <label htmlFor="teachersignup-semester">Semester</label>
               <select
@@ -234,7 +160,7 @@ const TeacherSignUp = () => {
                 <div className="teachersignup-error">{errors.subjectName}</div>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="teachersignup-group">
@@ -243,10 +169,6 @@ const TeacherSignUp = () => {
           </button>
         </div>
       </form>
-      <p>Already have an account?</p>
-      <button onClick={() => navigate("/faculty login")} className="login-btn">
-        Login
-      </button>
     </div>
   );
 };

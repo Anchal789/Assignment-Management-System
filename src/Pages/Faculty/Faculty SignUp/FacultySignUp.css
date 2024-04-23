@@ -11,11 +11,6 @@
     text-align: center;
 }
 
-.faculty-sections {
-    display: grid;
-    grid-template-columns: auto auto;
-
-}
 
 .teachersignup-form {
     padding: 20px;

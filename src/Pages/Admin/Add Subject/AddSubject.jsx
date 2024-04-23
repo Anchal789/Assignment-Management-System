@@ -5,8 +5,9 @@ import Alert from "@mui/material/Alert";
 
 const AddSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [semester, setSemester] = useState("Semester");
+  const [streams, setStreams] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [fields, setFields] = useState([{ name: "", code: "" }]);
   const [alertBox, setAlertBox] = useState(false);
   const database = getDatabase(app);
@@ -64,13 +65,11 @@ const AddSubject = () => {
       subjectsCopy.push({ [field.name]: field.code });
     });
     setSubjects(subjectsCopy);
-    console.log(semester);
     subjectsCopy.forEach((subject) => {
       Object.keys(subject).forEach((key) => {
-        console.log(key, subject[key]);
-        // set(ref(database, `${semester}/${key}`), {
-        //   subjectCode: subject[key],
-        // });
+        set(ref(database, `${semester}/${key}`), {
+          subjectCode: subject[key],
+        });
       });
     });
     setAlertBox(true)
