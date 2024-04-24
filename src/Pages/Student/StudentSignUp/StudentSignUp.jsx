@@ -128,10 +128,6 @@ const StudentSignUp = () => {
       newErrors.semester = "Please select a semester";
     }
 
-    if (!subjectName) {
-      newErrors.subjectName = "Subject Name is required";
-    }
-
     if (!stream) {
       newErrors.stream = "Stream is required";
     }
@@ -143,24 +139,25 @@ const StudentSignUp = () => {
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        set(
-          ref(
-            database,
-            `${semester}/${stream}/${subjectName}/students/${rollNo}`
-          ),
-          {
-            name,
-            email,
-            semester,
-            subjectName,
-            stream,
-            rollNo,
-          }
-        );
+        subjectOptions.map((subject, key) => {
+          set(
+            ref(
+              database,
+              `${semester}/${stream}/students/${rollNo}`
+            ),
+            {
+              name,
+              email,
+              semester,
+              stream,
+              rollNo,
+            }
+          );
+        });
+
         set(ref(database, `loginCredentials/students/${rollNo}`), {
           password,
           semester,
-          subjectName,
           stream,
           rollNo,
         });
@@ -168,12 +165,8 @@ const StudentSignUp = () => {
         setName("");
         setEmail("");
         setPassword("");
-        setSemester("");
-        setSubjectName("");
-        setStream("");
         setErrors({});
         setRollNo("");
-        navigate("/student login");
       }
     } else {
       setErrors(newErrors);
@@ -276,24 +269,6 @@ const StudentSignUp = () => {
                 <div className="studentsignup-error">{errors.stream}</div>
               )}
             </div>
-            <div className="studentsignup-group">
-              <label htmlFor="studentsignup-subject">Subject</label>
-              <select
-                id="studentsignup-subject"
-                value={subjectName}
-                onChange={(e) => setSubjectName(e.target.value)}
-              >
-                <option value="">Subject</option>
-                {subjectOptions.map((subj) => (
-                  <option key={subj} value={subj}>
-                    {subj}
-                  </option>
-                ))}
-              </select>
-              {errors.subjectName && (
-                <div className="studentsignup-error">{errors.subjectName}</div>
-              )}
-            </div>
           </div>
         </div>
 
@@ -303,17 +278,6 @@ const StudentSignUp = () => {
           </button>
         </div>
       </form>
-      <div>
-        <p>Already Have an Account?</p>
-        <button
-          onClick={() => {
-            navigate("/student login");
-          }}
-          className="login-btn"
-        >
-          Login
-        </button>
-      </div>
     </div>
   );
 };
