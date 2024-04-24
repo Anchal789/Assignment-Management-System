@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, get, getDatabase, ref, remove, set } from "firebase/database";
 import Alert from "@mui/material/Alert";
 
 const AddSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [semester, setSemester] = useState("Semester");
-  const [streams, setStreams] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [branchesOptions, setBranchesOptions] = useState([]);
+  const [branches, setBranches] = useState("Stream");
   const [fields, setFields] = useState([{ name: "", code: "" }]);
   const [alertBox, setAlertBox] = useState(false);
   const database = getDatabase(app);
@@ -28,8 +29,26 @@ const AddSubject = () => {
     fetchData();
   }, [database]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const branchSnapShot = await get(child(ref(database), `/${semester}/`));
+      if (branchSnapShot.exists()) {
+        const branches = [];
+        branchSnapShot.forEach((branch) => {
+          branches.push(branch.key);
+        });
+        setBranchesOptions(branches);
+      }
+    };
+    fetchData();
+  }, [semester]);
+
   const handleSemesterChange = (e) => {
     setSemester(e.target.value);
+  };
+
+  const handleBranchChange = (e) => {
+    setBranches(e.target.value);
   };
 
   const handleChangeInput = (index, event) => {
@@ -65,14 +84,23 @@ const AddSubject = () => {
       subjectsCopy.push({ [field.name]: field.code });
     });
     setSubjects(subjectsCopy);
+
     subjectsCopy.forEach((subject) => {
       Object.keys(subject).forEach((key) => {
-        set(ref(database, `${semester}/${key}`), {
-          subjectCode: subject[key],
+        set(ref(database, `${semester}/${branches}/${key}`), {
+          facultyInfo: "",
+          students: "",
         });
+        remove(ref(database, `${semester}/${branches}/subject`))
+          .then(() => {
+            console.log("Data deleted successfully");
+          })
+          .catch((error) => {
+            console.error("Error deleting data:", error);
+          });
       });
     });
-    setAlertBox(true)
+    setAlertBox(true);
     setFields([{ name: "", code: "" }]);
   };
 
@@ -91,6 +119,15 @@ const AddSubject = () => {
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
             {sem}
+          </option>
+        ))}
+      </select>
+
+      <select name="" id="" value={branches} onChange={handleBranchChange}>
+        <option value="Semester">Branch</option>
+        {branchesOptions.map((branch, key) => (
+          <option key={key} value={branch}>
+            {branch}
           </option>
         ))}
       </select>
