@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
 import "./MapSubjects.css";
 import { Alert } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const MapSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
-  const [branchOptions, setBranchOptions] = useState([]);
   const [subjectOptions, setSubjectOptions] = useState([]);
   const [semester, setSemester] = useState("Semester");
   const [branch, setBranch] = useState("Branch");
@@ -14,6 +14,7 @@ const MapSubject = () => {
   const [alertBox, setAlertBox] = useState(false);
   const [selectedBranchFaculty, setSelectedBranchFaculty] = useState({});
   const database = getDatabase(app);
+  const adminInfo = useSelector(state => state.admin);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,23 +34,10 @@ const MapSubject = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const semesterSnapshot = await get(child(ref(database), `/${semester}/`));
-      if (semesterSnapshot.exists()) {
-        const branches = [];
-        semesterSnapshot.forEach((branch) => {
-          branches.push(branch.key);
-        });
-        setBranchOptions(branches);
-      }
-    };
-    fetchData();
-  }, [semester]);
-
-  useEffect(() => {
-    const fetchData = async () => {
       const subjectSnapshot = await get(
-        child(ref(database), `/${semester}/${branch}`)
+        child(ref(database), `/${semester}/${adminInfo.branch}`)
       );
+      console.log(subjectSnapshot.val());
       if (subjectSnapshot.exists()) {
         const subjects = [];
         subjectSnapshot.forEach((sub) => {
@@ -59,7 +47,7 @@ const MapSubject = () => {
       }
     };
     fetchData();
-  }, [semester, branch]);
+  }, [semester]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,10 +69,6 @@ const MapSubject = () => {
     setSemester(e.target.value);
   };
 
-  const handleBranchChange = (e) => {
-    setBranch(e.target.value);
-  };
-
   const handleFacultyChange = (e, sub) => {
     const { value } = e.target;
     setSelectedBranchFaculty((prevState) => ({
@@ -97,10 +81,10 @@ const MapSubject = () => {
     let selectedFacultyString = selectedBranchFaculty[sub];
     const selectedFaculty = JSON.parse(selectedFacultyString);
     set(
-      ref(database, `${semester}/${branch}/${sub}/facultyInfo`),
+      ref(database, `${semester}/${adminInfo.branch}/${sub}/facultyInfo`),
       selectedFaculty
     );
-    set(ref(database, `/${semester}/${branch}/${sub}/assignments`), {
+    set(ref(database, `/${semester}/${adminInfo.branch}/${sub}/assignments`), {
       active: "",
       inactive: "",
     });
@@ -157,19 +141,6 @@ const MapSubject = () => {
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
             {sem}
-          </option>
-        ))}
-      </select>
-
-      <select
-        className="select-input"
-        value={branch}
-        onChange={handleBranchChange}
-      >
-        <option value={"Branch"}>Branch</option>
-        {branchOptions.map((bra) => (
-          <option key={bra} value={bra}>
-            {bra}
           </option>
         ))}
       </select>

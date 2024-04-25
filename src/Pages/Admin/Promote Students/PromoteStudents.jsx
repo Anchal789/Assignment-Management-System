@@ -2,15 +2,17 @@ import { child, get, getDatabase, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
 import "./PromoteStudents.css";
+import { useSelector } from "react-redux";
+import { Alert } from "@mui/material";
 
 const PromoteStudents = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState("Semester");
   const [students, setStudents] = useState({});
-  const [branchesOptions, setBranchesOptions] = useState([]);
-  const [branches, setBranches] = useState("Stream");
+  const [alertBox, setAlertBox] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState([]);
   const database = getDatabase(app);
+  const adminInfo = useSelector((state) => state.admin);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +33,10 @@ const PromoteStudents = () => {
   const fetchStudents = async () => {
     if (selectedSemester !== "Semester") {
       const studentSnapshot = await get(
-        child(ref(database), `/${selectedSemester}/${branches}/students`)
+        child(
+          ref(database),
+          `/${selectedSemester}/${adminInfo.branch}/students`
+        )
       );
       if (studentSnapshot.exists()) {
         setStudents(studentSnapshot.val());
@@ -39,29 +44,11 @@ const PromoteStudents = () => {
     }
   };
   useEffect(() => {
-
     fetchStudents();
-  }, [branches]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const branchSnapShot = await get(
-        child(ref(database), `/${selectedSemester}/`)
-      );
-      if (branchSnapShot.exists()) {
-        const branches = [];
-        branchSnapShot.forEach((branch) => {
-          branches.push(branch.key);
-        });
-        setBranchesOptions(branches);
-      }
-    };
-    fetchData();
   }, [selectedSemester]);
 
   const handleSemesterChange = (e) => {
     setSelectedSemester(e.target.value);
-    setBranchesOptions([])
   };
 
   const handleCheckboxChange = (rollNo) => {
@@ -116,17 +103,27 @@ const PromoteStudents = () => {
     }
 
     await Promise.all([
-      set(ref(database, `/${selectedSemester}/${branches}/students`), null),
       set(
-        ref(database, `/${nextSemester}/${branches}/students`),
+        ref(database, `/${selectedSemester}/${adminInfo.branch}/students`),
+        null
+      ),
+      set(
+        ref(database, `/${nextSemester}/${adminInfo.branch}/students`),
         updatedStudents
       ),
       promoteStudentsInLoginCredentials(selectedStudents, nextSemester),
     ]);
-    fetchStudents()
+    fetchStudents();
     setSelectedStudents([]);
-    
+    setAlertBox(true);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
 
   const promoteStudentsInLoginCredentials = async (
     selectedStudents,
@@ -147,10 +144,6 @@ const PromoteStudents = () => {
     });
   };
 
-  const handleBranchChange = (e) => {
-    setBranches(e.target.value);
-  };
-
   return (
     <div>
       <select
@@ -166,26 +159,13 @@ const PromoteStudents = () => {
         ))}
       </select>
 
-      <select
-        className="select-input"
-        value={branches}
-        onChange={handleBranchChange}
-      >
-        <option value="Semester">Branch</option>
-        {branchesOptions.map((branch, key) => (
-          <option key={key} value={branch}>
-            {branch}
-          </option>
-        ))}
-      </select>
-
-      {branches !== "Branches" && (
+      {adminInfo.branch !== "" && (
         <div>
           <div className="buttons-container">
-            <button className="button" onClick={handleSelectAll}>
+            <button className="promote-button" onClick={handleSelectAll}>
               Select All
             </button>
-            <button className="button" onClick={handlePromote}>
+            <button className="promote-button" onClick={handlePromote}>
               Promote
             </button>
           </div>
@@ -201,8 +181,8 @@ const PromoteStudents = () => {
               <tbody>
                 {Object.entries(students).map(([rollNo, student]) => (
                   <tr key={rollNo}>
-                    <td>{rollNo}</td>
-                    <td>{student.name}</td>
+                    <td className="rollNO">{rollNo}</td>
+                    <td className="name">{student.name}</td>
                     <td>
                       <input
                         type="checkbox"
@@ -216,6 +196,11 @@ const PromoteStudents = () => {
             </table>
           </div>
         </div>
+      )}
+      {alertBox && (
+        <Alert variant="filled" severity="success">
+          Promoted Successfully
+        </Alert>
       )}
     </div>
   );

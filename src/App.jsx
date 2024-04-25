@@ -18,7 +18,6 @@ import Modal from 'react-modal';
 import Admin from "./Pages/Admin/Admin";
 import AddSubject from "./Pages/Admin/Add Subject/AddSubject";
 import MapSubject from "./Pages/Admin/Map Subject/MapSubject";
-import AddBranches from "./Pages/Admin/Add Branches/AddBranches";
 import FacultyChoose from "./Pages/Faculty/Faculty Choose/FacultyChoose";
 import StudentChoose from "./Pages/Student/Student Choose/StudentChoose";
 import AdminLogin from "./Pages/Admin/Admin Login/AdminLogin";
@@ -26,7 +25,6 @@ import PromoteStudents from "./Pages/Admin/Promote Students/PromoteStudents";
 import AdminSignup from "./Pages/Admin/Admin Signup/AdminSignup";
 
 function App() {
-  const facultyInfo = useSelector((state) => state.facultyProfile);
   const location = useLocation();
   const showNavbar = location.pathname !== "/";
   Modal.setAppElement('#root');
@@ -42,10 +40,9 @@ function App() {
           <Route path="/admin login" element={<AdminLogin />} />
           <Route path="/admin signup" element={<AdminSignup />} />
           <Route path="/admin-panel" element={<Admin />} />
-          <Route path="/admin-panel/promote-student" element={<PromoteStudents />} />
-          <Route path="/admin-panel/add-subject" element={<AddSubject />} />
-          <Route path="/admin-panel/map-subject" element={<MapSubject />} />
-          <Route path="/admin-panel/add-branches" element={<AddBranches />} />
+          <Route path="/admin-panel/:branch/promote-student" element={<PromoteStudents />} />
+          <Route path="/admin-panel/:branch/add-subject" element={<AddSubject />} />
+          <Route path="/admin-panel/:branch/map-subject" element={<MapSubject />} />
           <Route path="/faculty login" element={<FacultyLogin />} />
           <Route path="/faculty choose" element={<FacultyChoose />} />
           <Route path="/student login" element={<StudentLogin />} />

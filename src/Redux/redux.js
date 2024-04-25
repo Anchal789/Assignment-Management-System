@@ -17,7 +17,11 @@ const initialState = {
         stream: "",
         subjectName: "",
     },
-    admin : false,
+    admin : {
+        email : "",
+        name : "",
+        branch : ""
+    },
     authentication: false,
     error: "",
 }

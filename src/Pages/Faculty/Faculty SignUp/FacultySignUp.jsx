@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Validator from "validator";
 import "./FacultySignUp.css"; // Import CSS file for styles
 import { set, ref, getDatabase } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
+import { Alert } from "@mui/material";
 
 const TeacherSignUp = () => {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ const TeacherSignUp = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const database = getDatabase(app);
+  const [alertBox, setAlertBox] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -29,7 +31,6 @@ const TeacherSignUp = () => {
       setPassword(newPassword);
     }
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,22 +51,37 @@ const TeacherSignUp = () => {
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        set(ref(database, `loginCredentials/facultyInfo/${email.replaceAll(".","_")}`), {
-          name,
-          email,
-          password,
-          subjects : {}
-        });
+        set(
+          ref(
+            database,
+            `loginCredentials/facultyInfo/${email.replaceAll(".", "_")}`
+          ),
+          {
+            name,
+            email,
+            password,
+            subjects: {},
+          }
+        );
         // Reset form data and errors after successful submission
         setName("");
         setEmail("");
         setPassword("");
         setErrors({});
+        setAlertBox(true);
       }
     } else {
       setErrors(newErrors);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
 
   return (
     <div className="teachersignup-container">
@@ -170,6 +186,11 @@ const TeacherSignUp = () => {
           </button>
         </div>
       </form>
+      {alertBox && (
+        <Alert variant="filled" severity="success">
+          Registered Successfully
+        </Alert>
+      )}
     </div>
   );
 };

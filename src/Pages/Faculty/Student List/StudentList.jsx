@@ -1,13 +1,11 @@
 import { child, get, getDatabase, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./StudentList.css";
 import { useParams } from "react-router";
 
 export const StudentList = () => {
   const [students, setStudents] = useState();
-  const facultyInfo = useSelector((state) => state.facultyProfile);
   const urlParams = useParams();
   const database = getDatabase(app);
 

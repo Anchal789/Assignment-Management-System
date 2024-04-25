@@ -3,8 +3,8 @@ import Validator from "validator";
 import { set, ref, getDatabase, child, get } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import "./StudentSignUp.css"; // Import CSS file for styles
-import { useNavigate } from "react-router";
 import StudentIcon from "../../../Assets/student-graduating-svgrepo-com.svg";
+import { Alert } from "@mui/material";
 
 const StudentSignUp = () => {
   const [rollNo, setRollNo] = useState("");
@@ -12,14 +12,13 @@ const StudentSignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [semester, setSemester] = useState("");
-  const [stream, setStream] = useState("");
-  const [subjectName, setSubjectName] = useState("");
+  const [stream, setStream] = useState("")
   const [errors, setErrors] = useState({});
+  const [alertBox, setAlertBox] = useState(false);
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [streamOptions, setStreamOptions] = useState([]);
   const [subjectOptions, setSubjectOptions] = useState([]);
   const database = getDatabase(app);
-  const navigate = useNavigate();
 
   // Load semester options on component mount
   useEffect(() => {
@@ -99,12 +98,12 @@ const StudentSignUp = () => {
   const handleSemesterChange = (e) => {
     setSemester(e.target.value);
     setStream(""); // Reset stream when semester changes
-    setSubjectName(""); // Reset subject when semester changes
+// Reset subject when semester changes
   };
 
   const handleStreamChange = (e) => {
     setStream(e.target.value);
-    setSubjectName(""); // Reset subject when stream changes
+// Reset subject when stream changes
   };
 
   const handleSubmit = (e) => {
@@ -140,7 +139,7 @@ const StudentSignUp = () => {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
         subjectOptions.map((subject, key) => {
-          set(
+        return  set(
             ref(
               database,
               `${semester}/${stream}/students/${rollNo}`
@@ -167,11 +166,20 @@ const StudentSignUp = () => {
         setPassword("");
         setErrors({});
         setRollNo("");
+        setAlertBox(true)
       }
     } else {
       setErrors(newErrors);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
 
   return (
     <div className="studentsignup-container">
@@ -278,6 +286,11 @@ const StudentSignUp = () => {
           </button>
         </div>
       </form>
+      {alertBox && (
+        <Alert variant="filled" severity="success">
+          Registered Successfully
+        </Alert>
+      )}
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 const FacultyChoose = () => {
-  const [subjectDetails, setSubjectDetails] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const facultyInfo = useSelector((state) => state.facultyProfile);
   const navigate = useNavigate();

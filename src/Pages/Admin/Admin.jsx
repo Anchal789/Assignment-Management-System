@@ -6,11 +6,12 @@ import "./Admin.css";
 import { useSelector } from "react-redux";
 
 const Admin = () => {
-  const admin = useSelector((state) => state.admin);
+  const adminInfo = useSelector((state) => state.admin);
   const navigate = useNavigate();
+  const authentication =  useSelector(state =>  state.authentication)
 
   useEffect(() => {
-    if(!admin){
+    if(!authentication){
       navigate("/admin login")
     }
   },[])
@@ -51,10 +52,9 @@ const Admin = () => {
       </div>
 
       <div className="admin-right-section">
-        <button onClick={() => navigate("/admin-panel/promote-student")}>Promote Student</button>
-        <button onClick={() => navigate("/admin-panel/add-subject")}>Add Subject</button>
-        <button onClick={() => navigate("/admin-panel/add-branches")}>Add Branches</button>
-        <button onClick={() => navigate("/admin-panel/map-subject")}>Map Subject</button>
+        <button onClick={() => navigate(`/admin-panel/${adminInfo.branch}/promote-student`)}>Promote Student</button>
+        <button onClick={() => navigate(`/admin-panel/${adminInfo.branch}/add-subject`)}>Add Subject</button>
+        <button onClick={() => navigate(`/admin-panel/${adminInfo.branch}/map-subject`)}>Map Subject</button>
       </div>
     </div>
   );

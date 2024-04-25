@@ -8,6 +8,7 @@ import { adminLogin } from "../../../Redux/redux";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
+    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // For displaying loading state
@@ -17,13 +18,18 @@ const AdminLogin = () => {
 
   const handleLogin = async () => {
     try {
-      setLoading(true);
+    //   setLoading(true);
       const snapShot = await get(
-        child(ref(database), `/loginCredentials/Admin`)
+        child(ref(database), `/loginCredentials/adminInfo/${email.replaceAll(".","_")}`)
       );
-      const savedPassword = snapShot.val();
-      if (password === savedPassword) {
-        dispatch(adminLogin(true));
+      const result = snapShot.val();
+      if (password === result.password) {
+        const details = {
+            email : email,
+            name : result.name,
+            branch : result.branch
+        }
+        dispatch(adminLogin(details));
         navigate("/admin-panel");
       } else {
         setError("Invalid Password");
@@ -40,6 +46,10 @@ const AdminLogin = () => {
     setPassword(e.target.value);
   };
 
+  const handleEmailChange = (e)=>{
+    setEmail(e.target.value);
+  }
+
   return (
     <div className="admin-login-container">
       {loading ? (
@@ -47,7 +57,16 @@ const AdminLogin = () => {
       ) : (
         <div className="admin-login">
           <h2>Welcome Admin</h2>
-          
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="abc@gmail.com"
+            className="login-input"
+          />
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"

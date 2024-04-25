@@ -83,7 +83,7 @@ const StudentHome = () => {
       fetchActiveAssignmentData();
       fetchInActiveAssignmentData();
     }
-  }, []);
+  }, [authentication]);
 
   const handleSubmissionComplete = () => {
     fetchActiveAssignmentData();
