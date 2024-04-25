@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import SubmitAssignment from "../../../Components/Student Components/Submit Assigment/SubmitAssignment";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "./StudentHome.css";
 import Modal from "react-modal";
 
@@ -13,11 +13,14 @@ const StudentHome = () => {
   const [showSubmitAssignment, setShowSubmitAssignment] = useState(false);
   const [submitAssignmentInfo, setSubmitAssignmentInfo] = useState({});
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [noActiveAssignments, setNoActiveAssignments] = useState("");
+  const [noInActiveAssignments, setNoInActiveAssignments] = useState("");
   const submitSubmissionRef = useRef(null);
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
   const navigate = useNavigate();
   const authentication = useSelector((state) => state.authentication);
+  const urlParams = useParams();
 
   useEffect(() => {
     let result =
@@ -32,18 +35,18 @@ const StudentHome = () => {
     await get(
       child(
         ref(database),
-        `${studentInfo.semester}/${studentInfo.stream}/assignments/active`
+        `${studentInfo.semester}/${studentInfo.stream}/${urlParams.subject}/assignments/active`
       )
     ).then((value) => {
       const result = value.val();
       if (result) {
         if (Object.keys(result).length === 0) {
-          setActiveAssignemnts("No Assignments Yet");
+          setNoActiveAssignments("No Assignments Yet");
         } else {
           setActiveAssignemnts(result);
         }
       } else {
-        setActiveAssignemnts(result);
+        setNoActiveAssignments(result);
       }
     });
   };
@@ -52,18 +55,18 @@ const StudentHome = () => {
     await get(
       child(
         ref(database),
-        `${studentInfo.semester}/${studentInfo.stream}/assignments/inactive`
+        `${studentInfo.semester}/${studentInfo.stream}/${urlParams.subject}/assignments/inactive`
       )
     ).then((value) => {
       const result = value.val();
       if (result) {
         if (Object.keys(result).length === 0) {
-          setInActiveAssignemnts("No Assignments Yet");
+          setNoInActiveAssignments("No Assignments Yet");
         } else {
           setInActiveAssignemnts(result);
         }
       } else {
-        setInActiveAssignemnts("No Assignments Yet");
+        setNoInActiveAssignments("No Assignments Yet");
       }
     });
   };
@@ -119,12 +122,11 @@ const StudentHome = () => {
       <div className="student-home-left-section">
         <div className="student-home-active-assignment">
           <p className="student-home-active-assignment-heading">Active</p>
-
-          {activeAssignemnts &&
-            Object.values(activeAssignemnts).map((key, index) => {
-              if (index === 0) {
-                return null;
-              }
+          {noActiveAssignments && <p>{noActiveAssignments}</p>}
+          
+          {activeAssignemnts !== undefined?
+            (Object.values(activeAssignemnts).map((key, index) => {
+              
               return (
                 <div className="assignment-card" key={index}>
                   <h4 className="student-home-assignment-heading">
@@ -178,7 +180,8 @@ const StudentHome = () => {
                 </div>
               );
               // console.log(index)
-            })}
+            })) : "No Assignments Yet"
+          }
         </div>
 
         <Modal
@@ -236,11 +239,11 @@ const StudentHome = () => {
 
         <div className="inactive-assignment">
           <p className="student-home-inactive-assignment-heading">Inactive </p>
-          {inactiveAssignemnts &&
+          {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
+          
+          {inactiveAssignemnts !== undefined?(
             Object.values(inactiveAssignemnts).map((key, index) => {
-              if (index === 0 || inactiveAssignemnts === "No Assignments Yet") {
-                return null;
-              }
+             
               return (
                 <div className="assignment-card" key={index}>
                   <h4>Assignment Name: </h4>
@@ -317,7 +320,7 @@ const StudentHome = () => {
                   })}
                 </div>
               );
-            })}
+            })) : null}
         </div>
       </div>
       <div className="student-home-right-section" ref={submitSubmissionRef}>

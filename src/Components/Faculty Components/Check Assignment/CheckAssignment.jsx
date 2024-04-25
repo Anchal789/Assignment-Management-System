@@ -18,7 +18,6 @@ const CheckAssignment = () => {
   });
   const [showSubmission, setShowSubmission] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
-  const facultyInfo = useSelector((state) => state.facultyProfile);
   const urlParams = useParams();
   const database = getDatabase(app);
   const fetchActiveData = useCallback(async () => {

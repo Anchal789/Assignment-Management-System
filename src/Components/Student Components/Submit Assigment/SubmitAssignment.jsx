@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./SubmitAssignment.css";
+import { useParams } from "react-router";
 
 const SubmitAssignment = (props) => {
   const [assignmentInfo, setAssignmentInfo] = useState({
@@ -12,6 +13,7 @@ const SubmitAssignment = (props) => {
   });
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
+  const urlParams = useParams()
 
   const handleNoteChange = (e) => {
     setAssignmentInfo({ ...assignmentInfo, assignmentNote: e.target.value });
@@ -36,7 +38,7 @@ const SubmitAssignment = (props) => {
     set(
       ref(
         database,
-        `/${studentInfo.semester}/${studentInfo.stream}/${studentInfo.subjectName}/assignments/active/${props.assignmentId}/submissions/${studentInfo.rollNo}`
+        `/${studentInfo.semester}/${studentInfo.stream}/${urlParams.subject}/assignments/active/${props.assignmentId}/submissions/${studentInfo.rollNo}`
       ),
       {
         assignmentNote: assignmentInfo.assignmentNote,
@@ -51,7 +53,7 @@ const SubmitAssignment = (props) => {
     set(
       ref(
         database,
-        `/${studentInfo.semester}/${studentInfo.stream}/${studentInfo.subjectName}/students/${studentInfo.rollNo}/submissions/${props.assignmentId}/`
+        `/${studentInfo.semester}/${studentInfo.stream}/${urlParams.subject}/students/${studentInfo.rollNo}/submissions/${props.assignmentId}/`
       ),
       {
         assignmentId: props.assignmentId,
@@ -90,7 +92,7 @@ const SubmitAssignment = (props) => {
         <div className="submit-assignment-details">
           <h5>{studentInfo.rollNo}</h5>
           <h5>{studentInfo.name}</h5>
-          <h5>{studentInfo.subjectName}</h5>
+          <h5>{urlParams.subject}</h5>
           <h5>{props.assignmentId}</h5>
         </div>
         <form action="" className="submit-assignment-form">

@@ -25,7 +25,7 @@ const StudentLogin = () => {
       // Redirect only when the redirecting flag is set and studentInfo is available
       setTimeout(() => {
         setLoader(false);
-        navigate(`/student home/${studentInfo.rollNo}`);
+        navigate(`/student choose`);
       }, 2000);
     }
   }, [redirecting, studentInfo, navigate]);
