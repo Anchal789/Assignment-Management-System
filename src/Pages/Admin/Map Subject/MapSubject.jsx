@@ -37,7 +37,6 @@ const MapSubject = () => {
       const subjectSnapshot = await get(
         child(ref(database), `/${semester}/${adminInfo.branch}`)
       );
-      console.log(subjectSnapshot.val());
       if (subjectSnapshot.exists()) {
         const subjects = [];
         subjectSnapshot.forEach((sub) => {
@@ -99,7 +98,7 @@ const MapSubject = () => {
     ).then((snapshot) => {
       if (snapshot.exists()) {
         const currentSubjects = snapshot.val().subjects || {};
-
+        const branch = adminInfo.branch;
         let newSubjects = {
           ...currentSubjects,
           [sub]: { sub, branch, semester },

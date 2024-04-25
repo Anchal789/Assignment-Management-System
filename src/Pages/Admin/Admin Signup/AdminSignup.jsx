@@ -12,10 +12,11 @@ const AdminSignup = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [alertBox, setAlertBox] = useState(false);
+  const [password, setPassword] = useState("");
   const database = getDatabase(app);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +52,7 @@ const AdminSignup = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    
     const newErrors = {};
 
     if (!Validator.isLength(name, { min: 3, max: 25 })) {
@@ -66,53 +67,51 @@ const AdminSignup = () => {
       newErrors.password = "Password must be a 5-digit number";
     }
 
-    if (!branch) {
-      newErrors.branch = "Please Enter a branch";
+    if(!branch){
+        newErrors.branch = "Please Enter a branch"
     }
 
     if (Object.keys(newErrors).length === 0) {
       const confirmSubmit = window.confirm("Everything seems perfect. Submit?");
       if (confirmSubmit) {
-        semesterOptions.map((sem) => {
-          const semesterRef = ref(database, `/${sem}/`);
+        semesterOptions.map((sem)=>{
+            const semesterRef = ref(database, `/${sem}/`);
 
-          // Fetch existing branches in the semester
-          get(semesterRef).then((snapshot) => {
-            if (snapshot.exists()) {
-              const existingBranches = snapshot.val();
-              const updatedBranches = { ...existingBranches, [branch]: true };
-              // Update the semester node with the new branch
-              update(semesterRef, updatedBranches);
-            } else {
-              // If the semester node doesn't exist, create it with the new branch
-              set(semesterRef, { [branch]: true });
-            }
-          });
+            // Fetch existing branches in the semester
+            get(semesterRef).then((snapshot) => {
+              if (snapshot.exists()) {
+                const existingBranches = snapshot.val();
+                const updatedBranches = { ...existingBranches, [branch]: true };
+                // Update the semester node with the new branch
+                update(semesterRef, updatedBranches);
+              } else {
+                // If the semester node doesn't exist, create it with the new branch
+                set(semesterRef, { [branch]: true });
+              }
+            });
         });
-        set(
-          ref(
-            database,
-            `loginCredentials/adminInfo/${email.replaceAll(".", "_")}`
-          ),
+        set(ref(database,`loginCredentials/adminInfo/${email.replaceAll(".", "_")}`),
           {
             name,
             email,
             password,
-            branch,
+            branch
           }
         );
         // Reset form data and errors after successful submission
         setName("");
         setEmail("");
         setPassword("");
-        setBranch("");
+        setBranch("")
         setErrors({});
-        setAlertBox(true);
+        setAlertBox(true)
         setTimeout(() => {
-          navigate("/");
+            
+            navigate("/")
         }, 3000);
       }
     }
+    setErrors(newErrors);
   };
 
   useEffect(() => {

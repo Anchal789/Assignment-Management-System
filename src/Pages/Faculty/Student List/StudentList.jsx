@@ -24,38 +24,40 @@ export const StudentList = () => {
       setStudents(result);
     });
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
-    <div>
-      <div className="studentList">
-        <ol className="student-list">
-        {students === undefined ? (
-            <h4>Loading...</h4>
-          ) : students === "No Students Enroll" ? (
-            <h4>No Students Enroll</h4>
-          ) : (
-            Object.values(students).map((student, index) => (
-              <li className="student-details-card" key={index}>
-                <label htmlFor="roll">Roll No:</label>
-                <h4 className="student-details" id="roll">
-                  {" "}
-                  {student?.rollNo}
-                </h4>
-                <label htmlFor="name">Name</label>
-                <h4 className="student-details" id="name">
-                  {student?.name}
-                </h4>
-                <label htmlFor="email">Email</label>
-                <h4 className="student-details" id="email">
-                  {student?.email}
-                </h4>
-              </li>
-            ))
-          )}
-        </ol>
-      </div>
+    <div className="student-list-container">
+      <h2>Student List</h2>
+      {students === undefined ? (
+        <h4 className="loading-message">Loading...</h4>
+      ) : students === "No Students Enroll" ? (
+        <h4 className="no-students-message">No Students Enroll</h4>
+      ) : (
+        <table className="student-list-table">
+          <thead>
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(students).map((student, index) => (
+              <tr key={index}>
+                <td className="rollNO">{student.rollNo}</td>
+                <td className="name">{student.name}</td>
+                <td>{student.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
+
+export default StudentList;

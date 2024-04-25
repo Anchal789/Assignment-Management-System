@@ -24,6 +24,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="section-container">
+        <div className="middle-overlay"></div>
         {/* Left Section */}
         <div className="home-left-section">
           <div className="home-content">
@@ -120,7 +121,54 @@ export const Home = () => {
           </ul>
         </div>
       </div>
-      <footer>
+
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: example@example.com</p>
+            <p>Phone: +1234567890</p>
+          </div>
+          <div className="footer-section">
+            <h3>Follow Us</h3>
+            <div className="social-icons">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FacebookIcon />
+              </a>
+
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <InstagramIcon />
+              </a>
+            </div>
+          </div>
+          <div className="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li className="footer-link">
+                <a href="/">Home</a>
+              </li>
+              <li className="footer-link">
+                <a href="https://bitsvizag.com/">About Us</a>
+              </li>
+              <li className="footer-link">
+                <a href="https://bitsvizag.com/contactus">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+      </footer>
+      {/* <footer>
         <button>
           <Link target="_blank" to={"https://bitsvizag.com/contactus"}>
             Contact US
@@ -140,7 +188,7 @@ export const Home = () => {
             <InstagramIcon />
           </Link>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };

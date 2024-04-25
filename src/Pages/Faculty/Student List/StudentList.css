@@ -1,12 +1,57 @@
-.student-list{
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    list-style: none;
-}
+/* StudentList.css */
 
-.student-details-card{
-    background-color: brown;
-    padding: 10px;
-    color: white;
-}
+/* Container styling */
+.student-list-container {
+    margin: 20px;
+  }
+  
+  /* Table styling */
+  .student-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table header styling */
+  .student-list-table th {
+    background-color: #f2f2f2;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Table data styling */
+  .student-list-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: justify;
+  }
+  
+  /* Alternate row background color */
+  .student-list-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Loading message styling */
+  .loading-message {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  /* No students message styling */
+  .no-students-message {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #777;
+  }
+  
+  /* Media query for responsiveness */
+  @media screen and (max-width: 768px) {
+    .student-list-table th,
+    .student-list-table td {
+      padding: 8px;
+    }
+  }
+  

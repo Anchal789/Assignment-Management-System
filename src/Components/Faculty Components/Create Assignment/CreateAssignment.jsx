@@ -6,14 +6,16 @@ import "react-calendar/dist/Calendar.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import "./CreateAssignment.css";
+import { Alert } from "@mui/material";
+
 
 const CreateAssignment = () => {
-  const facultyInfo = useSelector((state) => state.facultyProfile);
   const [assignmentName, setAssignmentName] = useState("");
   const [assignmentDescription, setAssignmentDescription] = useState("");
   const [assignmentId, setAssignmentId] = useState("");
   const [submissionDate, onChange] = useState(new Date());
-  const urlParams = useParams()
+  const [alertBox, setAlertBox] = useState(false);
+  const urlParams = useParams();
   const navigate = useNavigate();
   const database = getDatabase(app);
 
@@ -25,7 +27,7 @@ const CreateAssignment = () => {
       )
     ).then((value) => {
       const result = value.val();
-      if(result){
+      if (result) {
         const assignmentCount = Object.keys(result).length;
         if (assignmentCount === 0) {
           // If there's only one entry and it's "No assignment", start with DBMS-1
@@ -101,77 +103,98 @@ const CreateAssignment = () => {
       setAssignmentId("");
       setAssignmentName("");
       setAssignmentDescription("");
-      navigate(
-        `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
-      );
+      setAlertBox(true);
+      setTimeout(() => {
+        navigate(
+          `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
+        );
+      }, 3000);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
+
   return (
-    <div className="create-assignment">
-      <h1>Create Assignment</h1>
-      <div className="create-assignment-div">
-        {assignmentId && (
-          <div className="assignment-id-div">
-            <h3 className="create-assignment-id">Assignment Id</h3>
-            <h3 className="create-assignment-id">{assignmentId}</h3>
-          </div>
-        )}
-        <p className="create-assignment-info">
-          Semester : {urlParams.semester}
-        </p>
-        <p className="create-assignment-info">Class : {urlParams.branch}</p>
-        <p className="create-assignment-info">
-          Subject : {urlParams.subject}
-        </p>
-        <p className="create-assignment-info">
-          Subject Code : {urlParams.subjectCode}
-        </p>
-        <h4 className="create-assignment-info">Submit Before</h4>
-        <Calendar
-          onChange={handleDateChange}
-          value={submissionDate}
-          minDate={tomorrow}
-        />
-        <form action="" className="create-assignment-form">
-          <label htmlFor="assignment-name">Assignment Name</label>
-          <input
-            type="text"
-            id="assignment-name"
-            onChange={handleAssignmentNameChange}
-            value={assignmentName}
+    <>
+     {alertBox && (
+        <Alert variant="filled" severity="success">
+          Assignment Created Successfully
+        </Alert>
+      )}
+      <div className="create-assignment">
+        <h1>Create Assignment</h1>
+        <div className="create-assignment-div">
+          {assignmentId && (
+            <div className="assignment-id-div">
+              <h3 className="create-assignment-id">Assignment Id</h3>
+              <h3 className="create-assignment-id">{assignmentId}</h3>
+            </div>
+          )}
+          <p className="create-assignment-info">
+            Semester : {urlParams.semester}
+          </p>
+          <p className="create-assignment-info">Class : {urlParams.branch}</p>
+          <p className="create-assignment-info">
+            Subject : {urlParams.subject}
+          </p>
+          <p className="create-assignment-info">
+            Subject Code : {urlParams.subjectCode}
+          </p>
+          <h4 className="create-assignment-info">Submit Before</h4>
+          <Calendar
+            onChange={handleDateChange}
+            value={submissionDate}
+            minDate={tomorrow}
           />
-          <br />
-          <label htmlFor="assignment-description">Assignment Description</label>
-          <br />
-          <textarea
-            name="assignment-description"
-            cols="30"
-            rows="10"
-            id="assignment-description"
-            placeholder="You can enter Google Drive link if there is any PDF, Image or Video."
-            onChange={handleAssignmentDescriptionChange}
-            value={assignmentDescription}
-          ></textarea>
-          <button onClick={handleCreate} className="create">
-            Create
-          </button>
-          <button onClick={handleReset} className="reset">
-            Reset
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(
-                `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
-              );
-            }}
-            className="cancel"
-          >
-            Cancel
-          </button>
-        </form>
+          <form action="" className="create-assignment-form">
+            <label htmlFor="assignment-name">Assignment Name</label>
+            <input
+              type="text"
+              id="assignment-name"
+              onChange={handleAssignmentNameChange}
+              value={assignmentName}
+            />
+            <br />
+            <label htmlFor="assignment-description">
+              Assignment Description
+            </label>
+            <br />
+            <textarea
+              name="assignment-description"
+              cols="30"
+              rows="10"
+              id="assignment-description"
+              placeholder="You can enter Google Drive link if there is any PDF, Image or Video."
+              onChange={handleAssignmentDescriptionChange}
+              value={assignmentDescription}
+            ></textarea>
+            <button onClick={handleCreate} className="create">
+              Create
+            </button>
+            <button onClick={handleReset} className="reset">
+              Reset
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(
+                  `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
+                );
+              }}
+              className="cancel"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

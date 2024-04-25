@@ -40,7 +40,6 @@ const FacultyLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setLoader(true);
-    console.log(email, email.replaceAll(".", "_"));
     get(
       child(
         ref(database),
@@ -48,7 +47,6 @@ const FacultyLogin = () => {
       )
     ).then((snapshot) => {
       const savedPassword = snapshot.val().password;
-      console.log( snapshot.val());
       
       if (!savedPassword) {
         setError("User does not exists");

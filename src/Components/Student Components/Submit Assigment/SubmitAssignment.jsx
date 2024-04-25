@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./SubmitAssignment.css";
 import { useParams } from "react-router";
+import { Alert } from "@mui/material";
 
 const SubmitAssignment = (props) => {
   const [assignmentInfo, setAssignmentInfo] = useState({
@@ -13,7 +14,8 @@ const SubmitAssignment = (props) => {
   });
   const studentInfo = useSelector((state) => state.studentProfile);
   const database = getDatabase(app);
-  const urlParams = useParams()
+  const urlParams = useParams();
+  const [alertBox, setAlertBox] = useState(false);
 
   const handleNoteChange = (e) => {
     setAssignmentInfo({ ...assignmentInfo, assignmentNote: e.target.value });
@@ -70,8 +72,16 @@ const SubmitAssignment = (props) => {
       dateTime: "",
     });
     props.onComplete();
+    setAlertBox(true);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
   useEffect(() => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, "0");
@@ -88,6 +98,7 @@ const SubmitAssignment = (props) => {
 
   return (
     <>
+      {alertBox && <Alert severity="success" variant="filled">Assignment Submitted</Alert>}
       <div className="submit-assignment">
         <div className="submit-assignment-details">
           <h5>{studentInfo.rollNo}</h5>
@@ -126,6 +137,7 @@ const SubmitAssignment = (props) => {
             Cancel
           </button>
         </form>
+
       </div>
     </>
   );
