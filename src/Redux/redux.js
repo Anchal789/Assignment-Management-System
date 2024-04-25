@@ -17,6 +17,7 @@ const initialState = {
         stream: "",
         subjectName: "",
     },
+    admin : false,
     authentication: false,
     error: "",
 }
@@ -31,6 +32,10 @@ export const authSlice = createSlice({
         },
         facultylogin: (state, action) => {
             state.facultyProfile = action.payload
+            state.authentication = true
+        },
+        adminLogin : (state,action) => {
+            state.admin = action.payload
             state.authentication = true
         },
         logout: (state) => {
@@ -51,9 +56,10 @@ export const authSlice = createSlice({
                 subjectCode: "",
                 stream: "",
             }
+            state.admin = false
         },
     }
 })
 
-export const { studentlogin, facultylogin, logout } = authSlice.actions
+export const { studentlogin, facultylogin, logout,adminLogin } = authSlice.actions
 export default authSlice.reducer

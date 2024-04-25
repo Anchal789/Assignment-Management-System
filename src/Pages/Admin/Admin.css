@@ -1,11 +1,10 @@
-.admin{
+.admin {
     flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
     background: url("../../Assets/admin\ page\ background.jpg");
     background-size: cover;
-    /* min-height: 100vh; */
     background-repeat: no-repeat;
     height: 100vh;
     background-position: bottom;
@@ -13,8 +12,6 @@
 
 .admin-left-section,
 .admin-right-section {
-    /* width: 50%; */
-    /* margin-top: 20px; */
     padding: 50px;
     flex: 1;
     display: flex;
@@ -24,11 +21,24 @@
     margin: 50px;
     height: 300px;
     width: -webkit-fill-available;
+    gap: 30px;
+
+    border-radius: 13px;
 }
 
-.admin-right-section{
+.admin-right-section {
     display: flex;
     flex-direction: column;
+}
+
+.admin-right-section button {
+    width: 150px;
+    background: #ff5757;
+    border: 2px solid #0fe7e7;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    font-size: medium;
 }
 
 @media screen and (max-width : 576px) {
@@ -36,11 +46,13 @@
         flex-direction: column;
     }
 
-    .admin-left-section, .admin-right-section{
+    .admin-left-section,
+    .admin-right-section {
         height: max-content;
+        margin: 10px;
     }
 
-    .admin-left-section{
+    .admin-left-section {
         flex-direction: column;
         gap: 30px;
     }

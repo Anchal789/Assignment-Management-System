@@ -36,41 +36,43 @@ export const Home = () => {
               <div className="home-button-section">
                 <button
                   type="button"
-                  onClick={() => navigate("/admin-panel")}
+                  onClick={() => navigate("/admin login")}
                   className="signup-btn"
                 >
                   Login
                 </button>
               </div>
             </div>
-            <div className="faculty-div">
-              <div className="icon-heading">
-                <img className="icons" src={FacultyIcon} alt="" />
-                <h3 className="section-subheading">Faculty</h3>
+            <div className="user-section">
+              <div className="faculty-div">
+                <div className="icon-heading">
+                  <img className="icons" src={FacultyIcon} alt="" />
+                  <h3 className="section-subheading">Faculty</h3>
+                </div>
+                <div className="home-button-section">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/faculty login")}
+                    className="login-btn"
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
-              <div className="home-button-section">
-                <button
-                  type="button"
-                  onClick={() => navigate("/faculty login")}
-                  className="login-btn"
-                >
-                  Login
-                </button>
-              </div>
-            </div>
-            <div className="student-div">
-              <div className="icon-heading">
-                <img src={StudentIcon} className="icons" alt="" />
-                <h3 className="section-subheading">Student</h3>
-              </div>
-              <div className="home-button-section">
-                <button
-                  type="button"
-                  onClick={() => navigate("/student login")}
-                  className="login-btn"
-                >
-                  Login
-                </button>
+              <div className="student-div">
+                <div className="icon-heading">
+                  <img src={StudentIcon} className="icons" alt="" />
+                  <h3 className="section-subheading">Student</h3>
+                </div>
+                <div className="home-button-section">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/student login")}
+                    className="login-btn"
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
             </div>
           </div>

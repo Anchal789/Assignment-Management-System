@@ -23,7 +23,7 @@ const ShowSubmission = (props) => {
   const fetchData = async () => {
     const submissionRef = ref(
       database,
-      `${urlParams.semester}/${urlParams.stream}/${urlParams.subjectName}/assignments/${props.submissionInfo.status}/${props.submissionInfo.assignmentId}/submissions`
+      `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/${props.submissionInfo.status}/${props.submissionInfo.assignmentId}/submissions`
     );
 
     const snapshot = await get(submissionRef);
@@ -54,7 +54,7 @@ const ShowSubmission = (props) => {
     e.preventDefault();
     const submissionRef = ref(
       database,
-      `${urlParams.semester}/${urlParams.stream}/${urlParams.subjectName}/assignments/${props.submissionInfo.status}/${props.submissionInfo.assignmentId}/submissions/${studentRollNo}`
+      `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/${props.submissionInfo.status}/${props.submissionInfo.assignmentId}/submissions/${studentRollNo}`
     );
 
     const updateData = { marks: evaluation.marks, remarks: evaluation.remark };
@@ -94,56 +94,63 @@ const ShowSubmission = (props) => {
               <tbody>
                 {submissions !== "No Submissions" &&
                   Object.values(submissions).map((key, index) => (
-                    <tr key={index}>
-                      <td>{key?.name}</td>
-                      <td>{key?.rollNo}</td>
-                      <td>
-                        {key?.dateTime?.date} {key?.dateTime?.time}
-                      </td>
-                      <td>{key?.assignmentNote}</td>
-                      <td>
-                        <textarea
-                          disabled
-                          cols={"30"}
-                          rows={"10"}
-                          value={key?.assignmentDescription}
-                          className="description"
-                        />
-                      </td>
-                      <td>
-                        <textarea
-                          disabled
-                          cols={"30"}
-                          rows={"10"}
-                          value={key?.remarks}
-                          className="description"
-                        />
-                      </td>
-                      <td>{key?.marks}</td>
-                      <td>
-                        {props.submissionInfo.status === "inactive" ? (
-                          <button disabled>Evaluate</button>
-                        ) : (
-                          <button
-                            onClick={() => {
-                              handleClickEvaluate(key?.rollNo);
-                            }}
-                            className="show-submission-evaluate-btn"
-                          >
-                            Evaluate
-                          </button>
-                        )}
-                        {studentRollNo === key.rollNo && showEvaluation && (
-                          <EvaluationForm
-                            ref={showEvaluationRef}
-                            rollNo={key.rollNo}
-                            assignmentId={props.submissionInfo.assignmentId}
-                            status={props.submissionInfo.status}
-                            onCancel={() => handleCancelEvaluation(key.rollNo)}
-                          />
-                        )}
-                      </td>
-                    </tr>
+                    <>
+                      {key === "No Submission Yet" ? (
+                        <></>
+                      ) : (
+                        <tr key={index}>
+                          <td>{key?.name}</td>
+                          <td>{key?.rollNo}</td>
+                          <td>
+                            {key?.dateTime?.date} {key?.dateTime?.time}
+                          </td>
+                          <td>{key?.assignmentNote}</td>
+                          <td className="description">
+                            <textarea
+                              disabled
+                              cols={"10"}
+                              rows={"10"}
+                              value={key?.assignmentDescription}
+                            />
+                          </td>
+                          <td className="description">
+                            <textarea
+                              disabled
+                              cols={"10"}
+                              rows={"10"}
+                              value={key?.remarks}
+                            />
+                          </td>
+                          <td>{key?.marks}</td>
+                          <td>
+                            {props.submissionInfo.status === "inactive" ? (
+                              <button disabled>Evaluate</button>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  handleClickEvaluate(key?.rollNo);
+                                }}
+                                className="show-submission-evaluate-btn"
+                              >
+                                Evaluate
+                              </button>
+                            )}
+                            {studentRollNo === key.rollNo && showEvaluation && (
+                              <EvaluationForm
+                                ref={showEvaluationRef}
+                                rollNo={key.rollNo}
+                                assignmentId={props.submissionInfo.assignmentId}
+                                status={props.submissionInfo.status}
+                                onCancel={() =>
+                                  handleCancelEvaluation(key.rollNo)
+                                }
+                                fetchData = {()=>{fetchData()}}
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      )}
+                    </>
                   ))}
               </tbody>
             </table>

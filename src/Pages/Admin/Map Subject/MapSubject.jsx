@@ -1,6 +1,7 @@
 import { child, get, getDatabase, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
+import "./MapSubjects.css"
 
 const MapSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
@@ -82,11 +83,11 @@ const MapSubject = () => {
     setBranch(e.target.value);
   };
 
-  const handleFacultyChange = (e, branch) => {
+  const handleFacultyChange = (e, sub) => {
     const { value } = e.target;
     setSelectedBranchFaculty((prevState) => ({
       ...prevState,
-      [branch]: value,
+      [sub]: value,
     }));
   };
 
@@ -135,8 +136,8 @@ const MapSubject = () => {
   };
 
   return (
-    <div>
-      <select name="" id="" value={semester} onChange={handleSemesterChange}>
+    <div className="map-subject-container">
+      <select className="select-input" value={semester} onChange={handleSemesterChange}>
         <option value={"Semester"}>Semester</option>
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
@@ -145,7 +146,7 @@ const MapSubject = () => {
         ))}
       </select>
 
-      <select name="" id="" value={branch} onChange={handleBranchChange}>
+      <select className="select-input" value={branch} onChange={handleBranchChange}>
         <option value={"Branch"}>Branch</option>
         {branchOptions.map((bra) => (
           <option key={bra} value={bra}>
@@ -155,11 +156,10 @@ const MapSubject = () => {
       </select>
 
       {subjectOptions.map((sub, key) => (
-        <div key={key}>
+        <div key={key} className="subject-option">
           <p>{sub}</p>
           <select
-            name=""
-            id=""
+            className="select-input"
             value={selectedBranchFaculty[sub] || "Faculty"}
             onChange={(e) => handleFacultyChange(e, sub)}
           >
@@ -170,7 +170,7 @@ const MapSubject = () => {
               </option>
             ))}
           </select>
-          <button onClick={() => handleAddFaculty(sub, selectedBranchFaculty)}>
+          <button onClick={() => handleAddFaculty(sub, selectedBranchFaculty)} className="add-faculty-btn">
             Add Faculty
           </button>
         </div>

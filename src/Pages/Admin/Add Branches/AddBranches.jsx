@@ -1,6 +1,7 @@
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
+import "./AddBranches.css";
 
 const AddBranches = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
@@ -60,15 +61,18 @@ const AddBranches = () => {
       set(ref(database, `${semester}/${branch}`), {
         subject: "",
       });
-      
     });
 
     setBranches([""]);
   };
 
   return (
-    <div>
-      <select name="" id="" value={semester} onChange={handleSemesterChange}>
+    <div className="add-branches-container">
+      <select
+        className="select-input"
+        value={semester}
+        onChange={handleSemesterChange}
+      >
         <option value="Semester">Semester</option>
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
@@ -77,25 +81,36 @@ const AddBranches = () => {
         ))}
       </select>
       {branches.map((branch, index) => (
-        <div key={index}>
+        <div key={index} className="branch-input-container">
           <input
             type="text"
             value={branch}
             onChange={(e) => handleChangeBranch(index, e.target.value)}
+            className="branch-input"
+            placeholder="Enter Stream Name"
           />
-          <button type="button" onClick={() => handleRemoveBranch(index)}>
+          <button
+            type="button"
+            onClick={() => handleRemoveBranch(index)}
+            className="remove-btn"
+          >
             Remove
           </button>
         </div>
       ))}
+      <div className="addbranches-buttons">
+        <button
+          type="button"
+          onClick={handleAddBranch}
+          className="add-branch-btn"
+        >
+          Add Stream
+        </button>
 
-      <button type="button" onClick={handleAddBranch}>
-        Add Stream
-      </button>
-
-      <button type="button" onClick={handleSubmit}>
-        Submit
-      </button>
+        <button type="button" onClick={handleSubmit} className="submit-btn">
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

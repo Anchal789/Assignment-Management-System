@@ -96,17 +96,7 @@ const FacultyLogin = () => {
               Login
             </button>
           </form>
-          <div className="new-user">
-            <h4>New User?</h4>
-            <button
-              onClick={() => {
-                navigate("/faculty signup");
-              }}
-              className="signup-btn"
-            >
-              Register
-            </button>
-          </div>
+          
         </>
       ) : (
         <Loading />

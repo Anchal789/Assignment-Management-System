@@ -20,12 +20,20 @@ const FacultyChoose = () => {
     }
   }, []);
   const handleButton = (subject) => {
-      navigate(`/faculty/${subject.semester}/${subject.branch}/${subject.sub}`);
-  }
+    navigate(`/faculty/${subject.semester}/${subject.branch}/${subject.sub}`);
+  };
   return (
-    <div>
+    <div className="student-choose-container">
+      <h1>Your Subjects</h1>
       {subjects.map((subject) => (
-        <button onClick={()=>{handleButton(subject)}}>{subject.sub}</button>
+        <button
+          onClick={() => {
+            handleButton(subject);
+          }}
+          className="subject-button"
+        >
+          {subject.sub}
+        </button>
       ))}
     </div>
   );

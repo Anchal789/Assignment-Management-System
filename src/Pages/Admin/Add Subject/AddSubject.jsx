@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
 import { child, get, getDatabase, ref, remove, set } from "firebase/database";
 import Alert from "@mui/material/Alert";
+import "./AddSubject.css"; // Import CSS file for styling
 
 const AddSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
@@ -90,9 +91,9 @@ const AddSubject = () => {
         set(ref(database, `${semester}/${branches}/${key}`), {
           facultyInfo: "",
           students: "",
-          assignments : {
-            active : "",
-            inactive : ""
+          assignments: {
+            active: "",
+            inactive: ""
           }
         });
         remove(ref(database, `${semester}/${branches}/subject`))
@@ -117,8 +118,8 @@ const AddSubject = () => {
   }, [alertBox]);
 
   return (
-    <div>
-      <select name="" id="" value={semester} onChange={handleSemesterChange}>
+    <div className="add-subject-container">
+      <select className="select-input" value={semester} onChange={handleSemesterChange}>
         <option value="Semester">Semester</option>
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
@@ -127,7 +128,7 @@ const AddSubject = () => {
         ))}
       </select>
 
-      <select name="" id="" value={branches} onChange={handleBranchChange}>
+      <select className="select-input" value={branches} onChange={handleBranchChange}>
         <option value="Semester">Branch</option>
         {branchesOptions.map((branch, key) => (
           <option key={key} value={branch}>
@@ -136,8 +137,8 @@ const AddSubject = () => {
         ))}
       </select>
       {fields.map((field, index) => (
-        <div key={index}>
-          <label htmlFor={`subject${index + 1}name`}>
+        <div key={index} className="subject-field">
+          <label htmlFor={`subject${index + 1}name`} className="label-input">
             Subject {index + 1} Name
           </label>
           <input
@@ -146,8 +147,9 @@ const AddSubject = () => {
             name="name"
             value={field.name}
             onChange={(e) => handleChangeInput(index, e)}
+            className="text-input"
           />
-          <label htmlFor={`subject${index + 1}code`}>
+          <label htmlFor={`subject${index + 1}code`} className="label-input">
             Subject {index + 1} Code
           </label>
           <input
@@ -156,18 +158,19 @@ const AddSubject = () => {
             name="code"
             value={field.code}
             onChange={(e) => handleChangeInput(index, e)}
+            className="text-input"
           />
           {index > 0 && (
-            <button type="button" onClick={() => handleRemoveField(index)}>
+            <button type="button" onClick={() => handleRemoveField(index)} className="remove-btn">
               Remove
             </button>
           )}
         </div>
       ))}
-      <button type="button" onClick={handleAddField}>
+      <button type="button" onClick={handleAddField} className="add-field-btn">
         Add Subject Field
       </button>
-      <button type="button" onClick={handleAddSubject}>
+      <button type="button" onClick={handleAddSubject} className="add-subject-btn">
         Submit
       </button>
 

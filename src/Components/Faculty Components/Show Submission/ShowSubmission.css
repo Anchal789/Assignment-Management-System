@@ -29,13 +29,21 @@
     border: 1px solid rgb(21 97 24);
 }
 
+th,td{
+    margin: 10px;
+    text-align: center;
+}
 
+.description{
+    margin: 5px;
+}
 
 /* Media Query for Responsive Design */
 @media only screen and (max-width: 600px) {
     .show-submission {
         padding: 10px;
         font-size: 14px;
+        width: max-content;
     }
 
     .show-submission-table-container {
@@ -100,10 +108,7 @@
 }
 
 
-.note,
-.description {
-    width: 100%;
-}
+
 
 
 .ReactModal__Overlay {

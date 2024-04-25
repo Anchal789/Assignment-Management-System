@@ -1,0 +1,72 @@
+.add-subject-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: antiquewhite;
+  }
+  
+  .select-input,
+  .text-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .label-input {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .remove-btn,
+  .add-field-btn,
+  .add-subject-btn {
+    margin: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+  }
+
+  .subject-field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    padding: 20px;
+    border-radius: 6px;
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .subject-field input{
+    width: 50%;
+  }
+  
+  .remove-btn:hover,
+  .add-field-btn:hover,
+  .add-subject-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .add-subject-container {
+      padding: 10px;
+    }
+
+    .subject-field{
+        flex-direction: column;
+    }
+
+    .subject-field input{
+        width: 50%;
+    }
+  }
+  

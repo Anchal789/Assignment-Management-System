@@ -102,15 +102,7 @@ const StudentLogin = () => {
               Login
             </button>
           </form>
-          <div>
-            <p>New User?</p>
-            <button
-              onClick={() => navigate("/student signup")}
-              className="signup-btn"
-            >
-              Signup
-            </button>
-          </div>
+         
         </>
       ) : (
         <Loading />

@@ -21,6 +21,8 @@ import MapSubject from "./Pages/Admin/Map Subject/MapSubject";
 import AddBranches from "./Pages/Admin/Add Branches/AddBranches";
 import FacultyChoose from "./Pages/Faculty/Faculty Choose/FacultyChoose";
 import StudentChoose from "./Pages/Student/Student Choose/StudentChoose";
+import AdminLogin from "./Pages/Admin/Admin Login/AdminLogin";
+import PromoteStudents from "./Pages/Admin/Promote Students/PromoteStudents";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
@@ -36,7 +38,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
+          <Route path="/admin login" element={<AdminLogin />} />
           <Route path="/admin-panel" element={<Admin />} />
+          <Route path="/admin-panel/promote-student" element={<PromoteStudents />} />
           <Route path="/admin-panel/add-subject" element={<AddSubject />} />
           <Route path="/admin-panel/map-subject" element={<MapSubject />} />
           <Route path="/admin-panel/add-branches" element={<AddBranches />} />

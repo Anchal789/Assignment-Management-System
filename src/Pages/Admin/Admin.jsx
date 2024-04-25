@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import StudentIcon from "../../Assets/student-graduating-svgrepo-com.svg";
 import FacultyIcon from "../../Assets/teacher-with-stick-svgrepo-com.svg";
 import "./Admin.css";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
+  const admin = useSelector((state) => state.admin);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!admin){
+      navigate("/admin login")
+    }
+  },[])
   return (
     <div className="admin">
       <div className="admin-left-section">
@@ -43,7 +51,7 @@ const Admin = () => {
       </div>
 
       <div className="admin-right-section">
-        <button>Promote Student</button>
+        <button onClick={() => navigate("/admin-panel/promote-student")}>Promote Student</button>
         <button onClick={() => navigate("/admin-panel/add-subject")}>Add Subject</button>
         <button onClick={() => navigate("/admin-panel/add-branches")}>Add Branches</button>
         <button onClick={() => navigate("/admin-panel/map-subject")}>Map Subject</button>

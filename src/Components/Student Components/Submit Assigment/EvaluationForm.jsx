@@ -3,21 +3,25 @@ import { update, ref } from "firebase/database";
 import { getDatabase } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-const EvaluationForm = ({ rollNo, assignmentId, status, onCancel }) => {
+const EvaluationForm = ({ rollNo, assignmentId, status, onCancel, fetchData }) => {
   const [evaluation, setEvaluation] = useState({ marks: 0, remark: "" });
   const database = getDatabase(app);
+  const urlParams = useParams();
   const facultyInfo = useSelector((state) => state.facultyProfile);
 
   const submitEvaluation = async (e) => {
     e.preventDefault();
     const submissionRef = ref(
       database,
-      `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/${status}/${assignmentId}/submissions/${rollNo}`
+      `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/${status}/${assignmentId}/submissions/${rollNo}`
     );
 
     const updateData = { marks: evaluation.marks, remarks: evaluation.remark };
     update(submissionRef, updateData);
+    onCancel();
+    fetchData()
   };
 
   const onCancelHadeler = () => {
