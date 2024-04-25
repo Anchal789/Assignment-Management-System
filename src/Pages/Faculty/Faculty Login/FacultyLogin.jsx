@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { facultylogin } from "../../../Redux/redux";
 import Loading from "../../LoadingPage";
-import "./FacultyLogin.css"
+import "./FacultyLogin.css";
 import FacultyIcon from "../../../Assets/teacher-with-stick-svgrepo-com.svg";
 
 const FacultyLogin = () => {
-  const [subjectName, setSubjectName] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
@@ -24,15 +24,13 @@ const FacultyLogin = () => {
       // Redirect only when the redirecting flag is set and studentInfo is available
       setTimeout(() => {
         setLoader(false);
-        navigate(
-          `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
-        );
+        navigate(`/faculty choose`);
       }, 2000);
     }
   }, [redirecting, facultyInfo, navigate]);
 
-  const handleSubjectNameChange = (e) => {
-    setSubjectName(e.target.value);
+  const handleemailChange = (e) => {
+    setemail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -42,34 +40,30 @@ const FacultyLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setLoader(true);
-    get(child(ref(database), `loginCredentials/faculty/${subjectName}`)).then(
-      (snapshot) => {
-        const savedPassword = snapshot.val().password;
-        if (!savedPassword) {
-          setError("User does not exists");
-          setLoader(false);
-          return;
-        }
-        if (password === savedPassword) {
-          get(
-            child(
-              ref(database),
-              `${snapshot.val().semester}/${snapshot.val().stream}/${
-                snapshot.val().subjectName
-              }/facultyInfo/`
-            )
-          ).then((value) => {
-            const result = value.val();
-            dispatch(facultylogin(result));
-            localStorage.setItem("authentication", true);
-            setRedirecting(true);
-          });
-        } else {
-          setError("Invalid Credentials");
-          setLoader(false);
-        }
+    console.log(email, email.replaceAll(".", "_"));
+    get(
+      child(
+        ref(database),
+        `/loginCredentials/facultyInfo/${email.replaceAll(".", "_")}/`
+      )
+    ).then((snapshot) => {
+      const savedPassword = snapshot.val().password;
+      console.log( snapshot.val());
+      
+      if (!savedPassword) {
+        setError("User does not exists");
+        setLoader(false);
+        return;
       }
-    );
+      if (password === savedPassword) {
+        dispatch(facultylogin(snapshot.val()));
+        localStorage.setItem("authentication", true);
+        setRedirecting(true);
+      } else {
+        setError("Invalid Credentials");
+        setLoader(false);
+      }
+    });
   };
 
   return (
@@ -80,13 +74,12 @@ const FacultyLogin = () => {
           <form action="" className="faculty-login-form">
             {error && <p className="error-message">{error}</p>}
             <div className="faculty-login-group">
-              <label htmlFor="facultylogin-subjectName">Subject Name</label>
+              <label htmlFor="facultylogin-email">Email</label>
               <input
                 type="text"
-                name="facultylogin-subjectName"
-                id="facultylogin-subjectName"
-                placeholder="ex : DBMS"
-                onChange={handleSubjectNameChange}
+                name="facultylogin-email"
+                id="facultylogin-email"
+                onChange={handleemailChange}
               />
             </div>
             <div className="faculty-login-group">

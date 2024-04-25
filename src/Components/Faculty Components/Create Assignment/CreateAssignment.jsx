@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { child, get, getDatabase, ref, set } from "firebase/database";
@@ -13,6 +13,7 @@ const CreateAssignment = () => {
   const [assignmentDescription, setAssignmentDescription] = useState("");
   const [assignmentId, setAssignmentId] = useState("");
   const [submissionDate, onChange] = useState(new Date());
+  const urlParams = useParams()
   const navigate = useNavigate();
   const database = getDatabase(app);
 
@@ -20,14 +21,14 @@ const CreateAssignment = () => {
     await get(
       child(
         ref(database),
-        `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
+        `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/active`
       )
     ).then((value) => {
       const result = value.val();
       const assignmentCount = Object.keys(result).length;
-      if (assignmentCount === 1 && "0" in result) {
+      if (assignmentCount === 0) {
         // If there's only one entry and it's "No assignment", start with DBMS-1
-        setAssignmentId(`${facultyInfo.subjectName}-1`);
+        setAssignmentId(`${urlParams.subject}-1`);
       } else {
         // Get the last assignment ID
         const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
@@ -36,7 +37,7 @@ const CreateAssignment = () => {
         // Calculate the next assignment number
         const nextAssignmentNumber = lastAssignmentNumber + 1;
         // Set the next assignment ID
-        setAssignmentId(`${facultyInfo.subjectName}-${nextAssignmentNumber}`);
+        setAssignmentId(`${urlParams.subject}-${nextAssignmentNumber}`);
       }
     });
   }, []);
@@ -74,7 +75,7 @@ const CreateAssignment = () => {
       set(
         ref(
           database,
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}`
+          `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/active/${assignmentId}`
         ),
         {
           assignmentId: assignmentId,
@@ -89,7 +90,7 @@ const CreateAssignment = () => {
       set(
         ref(
           database,
-          `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active/${assignmentId}/submissions`
+          `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/active/${assignmentId}/submissions`
         ),
         {
           0: "No Submission Yet",
@@ -99,7 +100,7 @@ const CreateAssignment = () => {
       setAssignmentName("");
       setAssignmentDescription("");
       navigate(
-        `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
+        `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
       );
     }
   };
@@ -114,14 +115,14 @@ const CreateAssignment = () => {
           </div>
         )}
         <p className="create-assignment-info">
-          Semester : {facultyInfo.semester}
+          Semester : {urlParams.semester}
         </p>
-        <p className="create-assignment-info">Class : {facultyInfo.stream}</p>
+        <p className="create-assignment-info">Class : {urlParams.branch}</p>
         <p className="create-assignment-info">
-          Subject : {facultyInfo.subjectName}
+          Subject : {urlParams.subject}
         </p>
         <p className="create-assignment-info">
-          Subject Code : {facultyInfo.subjectCode}
+          Subject Code : {urlParams.subjectCode}
         </p>
         <h4 className="create-assignment-info">Submit Before</h4>
         <Calendar
@@ -159,7 +160,7 @@ const CreateAssignment = () => {
             onClick={(e) => {
               e.preventDefault();
               navigate(
-                `/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`
+                `/faculty/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`
               );
             }}
             className="cancel"

@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import { app } from "../../../Firebase/firebase";
 import "./CheckAssignment.css";
 import ShowSubmission from "../Show Submission/ShowSubmission";
-import Modal from 'react-modal';
+import Modal from "react-modal";
+import { useParams } from "react-router";
 
 const CheckAssignment = () => {
   const [activeAssignments, setActiveAssignments] = useState();
@@ -18,50 +19,59 @@ const CheckAssignment = () => {
   const [showSubmission, setShowSubmission] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
   const facultyInfo = useSelector((state) => state.facultyProfile);
+  const urlParams = useParams();
   const database = getDatabase(app);
   const fetchActiveData = useCallback(async () => {
     await get(
       child(
         ref(database),
-        `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/active`
+        `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/active`
       )
     ).then((value) => {
       const result = value.val();
-      if (Object.keys(result).length === 1) {
-        setNoActiveAssignments("No Active Assignments");
+      if (result) {
+        if (Object.keys(result).length === 0) {
+          setNoActiveAssignments("No Active Assignments");
+        } else {
+          setActiveAssignments(result);
+        }
       } else {
-        setActiveAssignments(result);
+        setNoActiveAssignments("No Assignments");
       }
     });
-  }, []);
+  }, [database, urlParams.semester, urlParams.branch, urlParams.subject]);
 
   const fetchInActiveData = useCallback(async () => {
     await get(
       child(
         ref(database),
-        `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments/inactive`
+        `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments/inactive`
       )
     ).then((value) => {
       const result = value.val();
-      if (Object.keys(result).length === 1) {
-        setNoInActiveAssignments("No Assignments");
+      if (result) {
+        if (Object.keys(result).length === 0) {
+          setNoInActiveAssignments("No Assignments");
+        } else {
+          setInActiveAssignments(result);
+        }
       } else {
-        setInActiveAssignments(result);
+        setNoInActiveAssignments("No Assignments");
       }
     });
-  }, []);
+  }, [database, urlParams.semester, urlParams.branch, urlParams.subject]);
 
   const handleStatusChange = async (assignmentId) => {
     const assignmentRef = ref(
       database,
-      `${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}/assignments`
+      `${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/assignments`
     );
 
     const activeAssignmentSnapshot = await get(
       child(assignmentRef, `/active/${assignmentId}`)
     );
     const activeAssignmentData = activeAssignmentSnapshot.val();
-    await set(child(assignmentRef, `active/${assignmentId}`), null);
+    await set(child(assignmentRef, `active/${assignmentId}`), "");
 
     activeAssignmentData.status = "inactive";
 
@@ -101,16 +111,14 @@ const CheckAssignment = () => {
 
   const customStyles = {
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
     },
   };
-
-  
 
   return (
     <div className="check-assignment">
@@ -122,9 +130,6 @@ const CheckAssignment = () => {
             {noActiveAssignments && <p>{noActiveAssignments}</p>}
             {activeAssignments &&
               Object.values(activeAssignments).map((key, index) => {
-                if (index === 0) {
-                  return null;
-                }
                 return (
                   <div className="checkassignment-assignment-card" key={index}>
                     <p className="active-status">{key?.status.toUpperCase()}</p>
@@ -180,9 +185,6 @@ const CheckAssignment = () => {
             {noInActiveAssignments && <p>{noInActiveAssignments}</p>}
             {inactiveAssignments &&
               Object.values(inactiveAssignments).map((key, index) => {
-                if (index === 0) {
-                  return null;
-                }
                 return (
                   <div className="checkassignment-assignment-card" key={index}>
                     <p className="check-assignment-status">
@@ -216,7 +218,9 @@ const CheckAssignment = () => {
               style={customStyles}
               contentLabel="Example Modal"
             >
-              <button onClick={closeModal} className="close">close</button>
+              <button onClick={closeModal} className="close">
+                close
+              </button>
               {showSubmission && (
                 <ShowSubmission submissionInfo={submissionInfo} />
               )}

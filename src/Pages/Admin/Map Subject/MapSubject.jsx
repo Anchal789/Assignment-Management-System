@@ -1,4 +1,4 @@
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, get, getDatabase, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
 
@@ -93,13 +93,45 @@ const MapSubject = () => {
   const handleAddFaculty = (sub) => {
     let selectedFacultyString = selectedBranchFaculty[sub];
     const selectedFaculty = JSON.parse(selectedFacultyString);
-    if(!selectedFaculty){
-        console.error("Selected faculty is undefined")
-        return
-    }
-    set(ref(database, `${semester}/${branch}/${sub}/facultyInfo`), 
-        selectedFaculty
-      );
+    set(
+      ref(database, `${semester}/${branch}/${sub}/facultyInfo`),
+      selectedFaculty
+    );
+    set(ref(database, `/${semester}/${branch}/${sub}/assignments`), {
+        active : "",
+        inactive :""
+    });
+    get(
+      ref(
+        database,
+        `loginCredentials/facultyInfo/${selectedFaculty.email.replaceAll(
+          ".",
+          "_"
+        )}/`
+      )
+    ).then((snapshot) => {
+      if (snapshot.exists()) {
+        const currentSubjects = snapshot.val().subjects || {};
+
+        let newSubjects = {
+          ...currentSubjects,
+          [sub]: { sub, branch, semester },
+        };
+        
+        return update(
+          ref(
+            database,
+            `loginCredentials/facultyInfo/${selectedFaculty.email.replaceAll(
+              ".",
+              "_"
+            )}/`
+          ),
+          { subjects: newSubjects  }
+        );
+      } else {
+        console.error("Faculty data does not exist");
+      }
+    });
   };
 
   return (

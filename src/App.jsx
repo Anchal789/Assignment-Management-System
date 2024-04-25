@@ -19,6 +19,7 @@ import Admin from "./Pages/Admin/Admin";
 import AddSubject from "./Pages/Admin/Add Subject/AddSubject";
 import MapSubject from "./Pages/Admin/Map Subject/MapSubject";
 import AddBranches from "./Pages/Admin/Add Branches/AddBranches";
+import FacultyChoose from "./Pages/Faculty/Faculty Choose/FacultyChoose";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
@@ -39,18 +40,19 @@ function App() {
           <Route path="/admin-panel/map-subject" element={<MapSubject />} />
           <Route path="/admin-panel/add-branches" element={<AddBranches />} />
           <Route path="/faculty login" element={<FacultyLogin />} />
+          <Route path="/faculty choose" element={<FacultyChoose />} />
           <Route path="/student login" element={<StudentLogin />} />
           <Route path="/student home/:rollno" element={<StudentHome />} />
           <Route
-            path={`/faculty/${facultyInfo.semester}/${facultyInfo.stream}/${facultyInfo.subjectName}`}
+            path={`/faculty/:semester/:branch/:subject`}
             element={<FacultyHome />}
           />
           <Route
-            path={`/create assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`}
+            path={`/create assignment/:semester/:branch/:subject`}
             element={<CreateAssignment />}
           />
           <Route
-            path={`/check assignment/${facultyInfo.semester}/${facultyInfo.subjectName}`}
+            path={`/check assignment/:semester/:branch/:subject`}
             element={<CheckAssignment />}
           />
           <Route

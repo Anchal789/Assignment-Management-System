@@ -90,6 +90,10 @@ const AddSubject = () => {
         set(ref(database, `${semester}/${branches}/${key}`), {
           facultyInfo: "",
           students: "",
+          assignments : {
+            active : "",
+            inactive : ""
+          }
         });
         remove(ref(database, `${semester}/${branches}/subject`))
           .then(() => {

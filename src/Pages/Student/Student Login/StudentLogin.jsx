@@ -52,9 +52,7 @@ const StudentLogin = () => {
           get(
             child(
               ref(database),
-              `${snapshot.val().semester}/${snapshot.val().stream}/${
-                snapshot.val().subjectName
-              }/students/${rollNo}`
+              `${snapshot.val().semester}/${snapshot.val().stream}/students/${rollNo}`
             )
           ).then((value) => {
             const result = value.val();

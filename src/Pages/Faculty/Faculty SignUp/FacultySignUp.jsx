@@ -54,6 +54,7 @@ const TeacherSignUp = () => {
           name,
           email,
           password,
+          subjects : {}
         });
         // Reset form data and errors after successful submission
         setName("");

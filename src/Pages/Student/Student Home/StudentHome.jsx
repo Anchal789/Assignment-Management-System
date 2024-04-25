@@ -32,12 +32,16 @@ const StudentHome = () => {
     await get(
       child(
         ref(database),
-        `${studentInfo.semester}/${studentInfo.stream}/${studentInfo.subjectName}/assignments/active`
+        `${studentInfo.semester}/${studentInfo.stream}/assignments/active`
       )
     ).then((value) => {
       const result = value.val();
-      if (Object.keys(result).length === 1) {
-        setActiveAssignemnts("No Assignments Yet");
+      if (result) {
+        if (Object.keys(result).length === 0) {
+          setActiveAssignemnts("No Assignments Yet");
+        } else {
+          setActiveAssignemnts(result);
+        }
       } else {
         setActiveAssignemnts(result);
       }
@@ -48,14 +52,18 @@ const StudentHome = () => {
     await get(
       child(
         ref(database),
-        `${studentInfo.semester}/${studentInfo.stream}/${studentInfo.subjectName}/assignments/inactive`
+        `${studentInfo.semester}/${studentInfo.stream}/assignments/inactive`
       )
     ).then((value) => {
       const result = value.val();
-      if (Object.keys(result).length === 1) {
-        setInActiveAssignemnts("No Assignments Yet");
+      if (result) {
+        if (Object.keys(result).length === 0) {
+          setInActiveAssignemnts("No Assignments Yet");
+        } else {
+          setInActiveAssignemnts(result);
+        }
       } else {
-        setInActiveAssignemnts(result);
+        setInActiveAssignemnts("No Assignments Yet");
       }
     });
   };
