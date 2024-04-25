@@ -25,7 +25,7 @@ const FacultyHome = () => {
           <button onClick={()=>{navigate(`/check assignment/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}`)}}>Check Assignment</button>
         </div>
         <div className="faculty-home-buttons">
-          <button onClick={()=>{navigate(`/${urlParams.semester}/${urlParams.branch}/${urlParams.subject}/students`)}}>Students List</button>
+          <button onClick={()=>{navigate(`/student list/${urlParams.semester}/${urlParams.branch}`)}}>Students List</button>
         </div>
       </div>
 

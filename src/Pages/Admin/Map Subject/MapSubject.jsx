@@ -1,7 +1,8 @@
 import { child, get, getDatabase, ref, set, update } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { app } from "../../../Firebase/firebase";
-import "./MapSubjects.css"
+import "./MapSubjects.css";
+import { Alert } from "@mui/material";
 
 const MapSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
@@ -10,6 +11,7 @@ const MapSubject = () => {
   const [semester, setSemester] = useState("Semester");
   const [branch, setBranch] = useState("Branch");
   const [facultyOptions, setFaculyOptions] = useState([]);
+  const [alertBox, setAlertBox] = useState(false);
   const [selectedBranchFaculty, setSelectedBranchFaculty] = useState({});
   const database = getDatabase(app);
 
@@ -99,8 +101,8 @@ const MapSubject = () => {
       selectedFaculty
     );
     set(ref(database, `/${semester}/${branch}/${sub}/assignments`), {
-        active : "",
-        inactive :""
+      active: "",
+      inactive: "",
     });
     get(
       ref(
@@ -118,7 +120,7 @@ const MapSubject = () => {
           ...currentSubjects,
           [sub]: { sub, branch, semester },
         };
-        
+
         return update(
           ref(
             database,
@@ -127,17 +129,30 @@ const MapSubject = () => {
               "_"
             )}/`
           ),
-          { subjects: newSubjects  }
+          { subjects: newSubjects }
         );
       } else {
         console.error("Faculty data does not exist");
       }
     });
+    setAlertBox(true);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAlertBox(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alertBox]);
 
   return (
     <div className="map-subject-container">
-      <select className="select-input" value={semester} onChange={handleSemesterChange}>
+      <select
+        className="select-input"
+        value={semester}
+        onChange={handleSemesterChange}
+      >
         <option value={"Semester"}>Semester</option>
         {semesterOptions.map((sem) => (
           <option key={sem} value={sem}>
@@ -146,7 +161,11 @@ const MapSubject = () => {
         ))}
       </select>
 
-      <select className="select-input" value={branch} onChange={handleBranchChange}>
+      <select
+        className="select-input"
+        value={branch}
+        onChange={handleBranchChange}
+      >
         <option value={"Branch"}>Branch</option>
         {branchOptions.map((bra) => (
           <option key={bra} value={bra}>
@@ -170,11 +189,19 @@ const MapSubject = () => {
               </option>
             ))}
           </select>
-          <button onClick={() => handleAddFaculty(sub, selectedBranchFaculty)} className="add-faculty-btn">
+          <button
+            onClick={() => handleAddFaculty(sub, selectedBranchFaculty)}
+            className="add-faculty-btn"
+          >
             Add Faculty
           </button>
         </div>
       ))}
+      {alertBox && (
+        <Alert variant="filled" severity="success">
+          Successfully Added The Subject in {semester}
+        </Alert>
+      )}
     </div>
   );
 };

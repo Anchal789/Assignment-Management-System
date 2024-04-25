@@ -23,6 +23,7 @@ import FacultyChoose from "./Pages/Faculty/Faculty Choose/FacultyChoose";
 import StudentChoose from "./Pages/Student/Student Choose/StudentChoose";
 import AdminLogin from "./Pages/Admin/Admin Login/AdminLogin";
 import PromoteStudents from "./Pages/Admin/Promote Students/PromoteStudents";
+import AdminSignup from "./Pages/Admin/Admin Signup/AdminSignup";
 
 function App() {
   const facultyInfo = useSelector((state) => state.facultyProfile);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/faculty signup" element={<TeacherSignUp />} />
           <Route path="/student signup" element={<StudentSignUp />} />
           <Route path="/admin login" element={<AdminLogin />} />
+          <Route path="/admin signup" element={<AdminSignup />} />
           <Route path="/admin-panel" element={<Admin />} />
           <Route path="/admin-panel/promote-student" element={<PromoteStudents />} />
           <Route path="/admin-panel/add-subject" element={<AddSubject />} />
@@ -62,7 +64,7 @@ function App() {
             element={<CheckAssignment />}
           />
           <Route
-            path={`/${facultyInfo.semester}/${facultyInfo.subjectName}/students`}
+            path={`/student list/:semester/:branch`}
             element={<StudentList />}
           />
           <Route path="/*" element={<InvaildURL />} />

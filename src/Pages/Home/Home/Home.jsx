@@ -26,21 +26,37 @@ export const Home = () => {
       <div className="section-container">
         {/* Left Section */}
         <div className="home-left-section">
-          {/* <h2 className="section-heading">College Assignment</h2> */}
           <div className="home-content">
-            <div className="admin-div">
-              <div className="icon-heading">
-                <img src={AdminIcon} className="icons" alt="" />
-                <h3 className="section-subheading">Admin</h3>
+            <div className="user-section">
+              <div className="admin-div">
+                <div className="icon-heading">
+                  <img src={AdminIcon} className="icons" alt="" />
+                  <h3 className="section-subheading">Admin</h3>
+                </div>
+                <div className="home-button-section">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/admin signup")}
+                    className="login-btn signup-btn"
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </div>
-              <div className="home-button-section">
-                <button
-                  type="button"
-                  onClick={() => navigate("/admin login")}
-                  className="signup-btn"
-                >
-                  Login
-                </button>
+              <div className="admin-div">
+                <div className="icon-heading">
+                  <img src={AdminIcon} className="icons" alt="" />
+                  <h3 className="section-subheading">Admin</h3>
+                </div>
+                <div className="home-button-section">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/admin login")}
+                    className="login-btn"
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
             </div>
             <div className="user-section">

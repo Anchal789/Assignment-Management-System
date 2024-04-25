@@ -25,19 +25,21 @@ const CreateAssignment = () => {
       )
     ).then((value) => {
       const result = value.val();
-      const assignmentCount = Object.keys(result).length;
-      if (assignmentCount === 0) {
-        // If there's only one entry and it's "No assignment", start with DBMS-1
-        setAssignmentId(`${urlParams.subject}-1`);
-      } else {
-        // Get the last assignment ID
-        const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
-        // Extract the numeric part of the ID
-        const lastAssignmentNumber = parseInt(lastAssignmentId.split("-")[1]);
-        // Calculate the next assignment number
-        const nextAssignmentNumber = lastAssignmentNumber + 1;
-        // Set the next assignment ID
-        setAssignmentId(`${urlParams.subject}-${nextAssignmentNumber}`);
+      if(result){
+        const assignmentCount = Object.keys(result).length;
+        if (assignmentCount === 0) {
+          // If there's only one entry and it's "No assignment", start with DBMS-1
+          setAssignmentId(`${urlParams.subject}-1`);
+        } else {
+          // Get the last assignment ID
+          const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
+          // Extract the numeric part of the ID
+          const lastAssignmentNumber = parseInt(lastAssignmentId.split("-")[1]);
+          // Calculate the next assignment number
+          const nextAssignmentNumber = lastAssignmentNumber + 1;
+          // Set the next assignment ID
+          setAssignmentId(`${urlParams.subject}-${nextAssignmentNumber}`);
+        }
       }
     });
   }, []);
