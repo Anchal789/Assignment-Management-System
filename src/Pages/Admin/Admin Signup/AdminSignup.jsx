@@ -25,7 +25,7 @@ const AdminSignup = () => {
 
   return (
     <div>
-      <select name="" id="">
+      <select name="" >
         <option value="Semester">Semester</option>
         {
           semesterOptions.map((semester, key) => (
