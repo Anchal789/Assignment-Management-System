@@ -5,6 +5,7 @@ import { app } from "../../../Firebase/firebase";
 import "./StudentSignUp.css"; // Import CSS file for styles
 import StudentIcon from "../../../Assets/student-graduating-svgrepo-com.svg";
 import { Alert } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const StudentSignUp = () => {
   const [rollNo, setRollNo] = useState("");
@@ -19,6 +20,7 @@ const StudentSignUp = () => {
   const [streamOptions, setStreamOptions] = useState([]);
   const [subjectOptions, setSubjectOptions] = useState([]);
   const database = getDatabase(app);
+  const adminInfo = useSelector(state => state.admin);
 
   // Load semester options on component mount
   useEffect(() => {
@@ -142,7 +144,7 @@ const StudentSignUp = () => {
         return  set(
             ref(
               database,
-              `${semester}/${stream}/students/${rollNo}`
+              `${semester}/${adminInfo.branch}/students/${rollNo}`
             ),
             {
               name,
@@ -159,6 +161,7 @@ const StudentSignUp = () => {
           semester,
           stream,
           rollNo,
+          name
         });
         // Reset form data and errors after successful submission
         setName("");
