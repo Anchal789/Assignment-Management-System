@@ -8,7 +8,6 @@ import { app } from "../../../Firebase/firebase";
 import "./CreateAssignment.css";
 import { Alert } from "@mui/material";
 
-
 const CreateAssignment = () => {
   const [assignmentName, setAssignmentName] = useState("");
   const [assignmentDescription, setAssignmentDescription] = useState("");
@@ -20,6 +19,7 @@ const CreateAssignment = () => {
   const database = getDatabase(app);
 
   const fetchData = useCallback(async () => {
+    console.log(urlParams);
     await get(
       child(
         ref(database),
@@ -27,12 +27,19 @@ const CreateAssignment = () => {
       )
     ).then((value) => {
       const result = value.val();
-      if (result) {
+      console.log(result);
+      if (!result) {
         const assignmentCount = Object.keys(result).length;
         if (assignmentCount === 0) {
           // If there's only one entry and it's "No assignment", start with DBMS-1
           setAssignmentId(`${urlParams.subject}-1`);
-        } else {
+          console.log(`${urlParams.subject}-1`);
+        }
+      } else {
+        if (result) {
+          const assignmentCount = Object.keys(result).length;
+
+          console.log(assignmentCount);
           // Get the last assignment ID
           const lastAssignmentId = Object.keys(result)[assignmentCount - 1];
           // Extract the numeric part of the ID
@@ -122,7 +129,7 @@ const CreateAssignment = () => {
 
   return (
     <>
-     {alertBox && (
+      {alertBox && (
         <Alert variant="filled" severity="success">
           Assignment Created Successfully
         </Alert>

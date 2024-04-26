@@ -30,6 +30,7 @@
   .create-assignment-id {
     font-weight: bold;
     margin-bottom: 20px;
+    color: black !important;
   }
   
   .create-assignment-info {

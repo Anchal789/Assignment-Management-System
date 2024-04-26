@@ -161,7 +161,8 @@ const StudentSignUp = () => {
           semester,
           stream,
           rollNo,
-          name
+          name,
+          email
         });
         // Reset form data and errors after successful submission
         setName("");
