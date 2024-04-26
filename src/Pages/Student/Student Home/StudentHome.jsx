@@ -192,7 +192,7 @@ const StudentHome = () => {
           contentLabel="Example Modal"
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-          <button onClick={closeModal}>close</button>
+          <button onClick={closeModal} className="close">close</button>
           {selectedAssignment && (
             <div className="student-home-submission">
               <hr />
@@ -213,15 +213,17 @@ const StudentHome = () => {
               <div className="marks_remarks">
                 <div className="marks_remarks_content_div">
                   <h4>Submitted On: </h4>
-                  <p className="student-home-submission-date">
+                  <br />
+                  <h4 className="student-home-submission-date">
                     {selectedAssignment?.dateTime?.date}
-                  </p>
+                  </h4>
                 </div>
                 <div className="marks_remarks_content_div">
                   <h4>Mark: </h4>
-                  <p className="student-home-submission-marks">
+                  <br />
+                  <h4 className="student-home-submission-marks">
                     {selectedAssignment?.marks}
-                  </p>
+                  </h4>
                 </div>
                 <h4>Remark: </h4>
                 <textarea
