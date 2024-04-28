@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { update, ref } from "firebase/database";
 import { getDatabase } from "firebase/database";
 import { app } from "../../../Firebase/firebase";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const EvaluationForm = ({ rollNo, assignmentId, status, onCancel, fetchData }) => {
