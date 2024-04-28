@@ -9,7 +9,6 @@ const EvaluationForm = ({ rollNo, assignmentId, status, onCancel, fetchData }) =
   const [evaluation, setEvaluation] = useState({ marks: 0, remark: "" });
   const database = getDatabase(app);
   const urlParams = useParams();
-  const facultyInfo = useSelector((state) => state.facultyProfile);
 
   const submitEvaluation = async (e) => {
     e.preventDefault();
