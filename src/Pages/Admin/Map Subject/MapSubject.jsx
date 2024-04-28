@@ -9,7 +9,6 @@ const MapSubject = () => {
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [subjectOptions, setSubjectOptions] = useState([]);
   const [semester, setSemester] = useState("Semester");
-  const [branch, setBranch] = useState("Branch");
   const [facultyOptions, setFaculyOptions] = useState([]);
   const [alertBox, setAlertBox] = useState(false);
   const [selectedBranchFaculty, setSelectedBranchFaculty] = useState({});

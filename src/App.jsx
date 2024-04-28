@@ -11,7 +11,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import InvaildURL from "./Pages/ErrorBoundry/InvaildURL";
 import CreateAssignment from "./Components/Faculty Components/Create Assignment/CreateAssignment";
 import CheckAssignment from "./Components/Faculty Components/Check Assignment/CheckAssignment";
-import { useSelector } from "react-redux";
 import { StudentList } from "./Pages/Faculty/Student List/StudentList";
 import Navbar from "./Components/Navbar/Navbar";
 import Modal from 'react-modal';
