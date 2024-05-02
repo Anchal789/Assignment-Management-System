@@ -9,21 +9,23 @@ Authentication: Firebase Authentication
 Hosting Platform: Netlify
 IDE: Visual Studio Code
 Features by Portal
-1. Admin Portal
+1. ### Admin Portal
 Admin Signup: Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
 Faculty Signup: Admins can register faculty members with email, password, and name, assigning them to specific branches.
 Student Signup: Admins can register students for each semester and branch.
 Promote Students: Admins can promote students to the next semester based on exam results.
 Add Subjects: Admins can add subjects to respective branches.
 Map Subjects: Admins can assign faculty to teach specific subjects across different semesters.
+
+__Admin Signup__
 ![Admin Signup](screenshots/admin/admin%20signup.png)
 
-2. Faculty Portal
+2. ### Faculty Portal
 Subject Management: Faculty can view and manage subjects assigned to them.
 Create Assignment: Faculty can create assignments by providing submission dates, titles, and descriptions.
 Check Assignments: Faculty can view active and inactive assignments, evaluate submissions, and provide feedback and marks.
 Student List: Faculty can view a list of students in their branch and their assignment submissions.
-3. Student Portal
+3. ### Student Portal
 Subject View: Students can view subjects assigned to them for the current semester.
 Assignment Submission: Students can submit assignments for active subjects, view feedback and marks for inactive assignments.
 View Assignments: Students can view details of assignments, including submission status and faculty feedback.
