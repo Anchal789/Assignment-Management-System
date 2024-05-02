@@ -47,11 +47,11 @@ The project is deployed on Netlify for hosting. Redux with Redux Persist is util
 ## Git Repository
 The Git repository for this project contains the source code, detailed documentation, and setup instructions for better understanding and replication of the system.
 
-
+## ScreenShots
 __Main Page__
 ![Admin Signup](screenshots/admin/main%20page.png)
 
-## Admin Portal ScreenShots
+### Admin Portal 
 __Admin Signup__
 ![Admin Signup](screenshots/admin/admin%20signup.png)
 __Admin Login__
