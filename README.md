@@ -11,8 +11,6 @@ This project is an Assignment Management System designed for academic institutio
 
 ### Features by Portal
 
-__Admin Signup__
-![Admin Signup](screenshots/admin/main%20page.png)
 
 1. ### Admin Portal
 - __Admin Signup__ : Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
@@ -27,24 +25,7 @@ __Admin Signup__
 
 - __Map Subjects__ : Admins can assign faculty to teach specific subjects across different semesters.
 
-__Admin Signup__
-![Admin Signup](screenshots/admin/admin%20signup.png)
-__Admin Login__
-![Admin Signup](screenshots/admin/admin%20login.png)
-__Admin Home__
-![Admin Signup](screenshots/admin/admin%20home.png)
-__Faculty SignUp__
-![Admin Signup](screenshots/admin/faculty%20signup.png)
-__Student Signup__
-![Admin Signup](screenshots/admin/student%20signup.png)
-__Promote Students__
-![Admin Signup](screenshots/admin/promote%20students.png)
-__Add Subjects__
-![Admin Signup](screenshots/admin/add%20subjects.png)
-__Map Subjects__
-![Admin Signup](screenshots/admin/map%20subjects.png)
-__Promote Students__
-![Admin Signup](screenshots/admin/promote%20students.png)
+
 
 2. ### Faculty Portal
 __Subject Management__ : Faculty can view and manage subjects assigned to them.
@@ -67,3 +48,25 @@ The project is deployed on Netlify for hosting. Redux with Redux Persist is util
 
 Git Repository
 The Git repository for this project contains the source code, detailed documentation, and setup instructions for better understanding and replication of the system.
+
+
+__Main Page__
+![Admin Signup](screenshots/admin/main%20page.png)
+__Admin Signup__
+![Admin Signup](screenshots/admin/admin%20signup.png)
+__Admin Login__
+![Admin Signup](screenshots/admin/admin%20login.png)
+__Admin Home__
+![Admin Signup](screenshots/admin/admin%20home.png)
+__Faculty SignUp__
+![Admin Signup](screenshots/admin/faculty%20signup.png)
+__Student Signup__
+![Admin Signup](screenshots/admin/student%20signup.png)
+__Promote Students__
+![Admin Signup](screenshots/admin/promote%20students.png)
+__Add Subjects__
+![Admin Signup](screenshots/admin/add%20subjects.png)
+__Map Subjects__
+![Admin Signup](screenshots/admin/map%20subjects.png)
+__Promote Students__
+![Admin Signup](screenshots/admin/promote%20students.png)
