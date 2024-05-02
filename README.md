@@ -3,11 +3,11 @@
 This project is an Assignment Management System designed for academic institutions, specifically tailored for Baba Institute of Technology and Science in Vishakhapatnam. The system consists of three portals: Admin, Faculty, and Student, each with distinct functionalities to manage assignments efficiently.
 
 ### Technologies Used
-__Frontend__ : React, HTML, CSS, JavaScript, Redux (with Redux Persist for state persistence)
-__Database__ : Firebase Realtime Database
-__Authentication__ : Firebase Authentication
-__Hosting Platform__ : Netlify
-__IDE__ : Visual Studio Code
+- __Frontend__ : React, HTML, CSS, JavaScript, Redux (with Redux Persist for state persistence)
+- __Database__ : Firebase Realtime Database
+- __Authentication__ : Firebase Authentication
+- __Hosting Platform__ : Netlify
+- __IDE__ : Visual Studio Code
 
 ### Features by Portal
 
@@ -15,17 +15,17 @@ __Admin Signup__
 ![Admin Signup](screenshots/admin/main%20page.png)
 
 1. ### Admin Portal
-__Admin Signup__ : Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
+- __Admin Signup__ : Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
 
-__Faculty Signup__ : Admins can register faculty members with email, password, and name, assigning them to specific branches.
+- __Faculty Signup__ : Admins can register faculty members with email, password, and name, assigning them to specific branches.
 
-__Student Signup__ : Admins can register students for each semester and branch.
+- __Student Signup__ : Admins can register students for each semester and branch.
 
-__Promote Students__ : Admins can promote students to the next semester based on exam results.
+- __Promote Students__ : Admins can promote students to the next semester based on exam results.
 
-__Add Subjects__ : Admins can add subjects to respective branches.
+- __Add Subjects__ : Admins can add subjects to respective branches.
 
-__Map Subjects__ : Admins can assign faculty to teach specific subjects across different semesters.
+- __Map Subjects__ : Admins can assign faculty to teach specific subjects across different semesters.
 
 __Admin Signup__
 ![Admin Signup](screenshots/admin/admin%20signup.png)
