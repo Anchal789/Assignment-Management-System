@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+Assignment Management System for Baba Institute of Technology and Science, Vishakhapatnam
+Overview
+This project is an Assignment Management System designed for academic institutions, specifically tailored for Baba Institute of Technology and Science in Vishakhapatnam. The system consists of three portals: Admin, Faculty, and Student, each with distinct functionalities to manage assignments efficiently.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Technologies Used
+Frontend: React, HTML, CSS, JavaScript, Redux (with Redux Persist for state persistence)
+Database: Firebase Realtime Database
+Authentication: Firebase Authentication
+Hosting Platform: Netlify
+IDE: Visual Studio Code
+Features by Portal
+1. Admin Portal
+Admin Signup: Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
+Faculty Signup: Admins can register faculty members with email, password, and name, assigning them to specific branches.
+Student Signup: Admins can register students for each semester and branch.
+Promote Students: Admins can promote students to the next semester based on exam results.
+Add Subjects: Admins can add subjects to respective branches.
+Map Subjects: Admins can assign faculty to teach specific subjects across different semesters.
+2. Faculty Portal
+Subject Management: Faculty can view and manage subjects assigned to them.
+Create Assignment: Faculty can create assignments by providing submission dates, titles, and descriptions.
+Check Assignments: Faculty can view active and inactive assignments, evaluate submissions, and provide feedback and marks.
+Student List: Faculty can view a list of students in their branch and their assignment submissions.
+3. Student Portal
+Subject View: Students can view subjects assigned to them for the current semester.
+Assignment Submission: Students can submit assignments for active subjects, view feedback and marks for inactive assignments.
+View Assignments: Students can view details of assignments, including submission status and faculty feedback.
+Database Structure
+The Firebase Realtime Database is structured to store:
 
-## Available Scripts
+Admin, faculty, and student information.
+Branch-wise subjects and faculty assignments.
+Assignment details, including submissions and evaluations.
+Deployment and State Management
+The project is deployed on Netlify for hosting. Redux with Redux Persist is utilized for state management, ensuring that user sessions and data persist across page reloads.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Git Repository
+The Git repository for this project contains the source code, detailed documentation, and setup instructions for better understanding and replication of the system.
