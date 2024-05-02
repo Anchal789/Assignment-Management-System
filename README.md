@@ -16,7 +16,7 @@ Student Signup: Admins can register students for each semester and branch.
 Promote Students: Admins can promote students to the next semester based on exam results.
 Add Subjects: Admins can add subjects to respective branches.
 Map Subjects: Admins can assign faculty to teach specific subjects across different semesters.
-![Admin Signup](/screenshots/admin/admin%20signup.png)
+![Admin Signup](screenshots/admin/admin%20signup.png)
 
 2. Faculty Portal
 Subject Management: Faculty can view and manage subjects assigned to them.
