@@ -55,18 +55,52 @@ __Main Page__
 __Admin Signup__
 ![Admin Signup](screenshots/admin/admin%20signup.png)
 __Admin Login__
-![Admin Signup](screenshots/admin/admin%20login.png)
+![Admin Login](screenshots/admin/admin%20login.png)
 __Admin Home__
-![Admin Signup](screenshots/admin/admin%20home.png)
+![Admin Home](screenshots/admin/admin%20home.png)
 __Faculty SignUp__
-![Admin Signup](screenshots/admin/faculty%20signup.png)
+![Faculty Signup](screenshots/admin/faculty%20signup.png)
 __Student Signup__
-![Admin Signup](screenshots/admin/student%20signup.png)
+![Student Signup](screenshots/admin/student%20signup.png)
 __Promote Students__
-![Admin Signup](screenshots/admin/promote%20students.png)
+![Promote Student](screenshots/admin/promote%20students.png)
 __Add Subjects__
-![Admin Signup](screenshots/admin/add%20subjects.png)
+![Add Subjects](screenshots/admin/add%20subjects.png)
 __Map Subjects__
-![Admin Signup](screenshots/admin/map%20subjects.png)
+![Map Subjects](screenshots/admin/map%20subjects.png)
 __Promote Students__
-![Admin Signup](screenshots/admin/promote%20students.png)
+![Promote Students](screenshots/admin/promote%20students.png)
+
+### Faculty Portal 
+
+__Faculty Login__
+![Faculty Login](screenshots/faculty/faculty%20login.png)
+__Faculty Subjects Choosing__
+![Faculty Subjects Choosing](screenshots/faculty/faculty%20subjects.png)
+__Faculty Home__
+![Faculty Home](screenshots/faculty/faculty%20home.png)
+__Create Assignment__
+![Create Assignment](screenshots/faculty/create%20assignmentss.png)
+__Check Assignment__
+![Check Assignment](screenshots/faculty/check%20assignments.png)
+__Evaluation__
+![Evaluation](screenshots/faculty/evaluation.png)
+__Close Assignment__
+![Close Assignment](screenshots/faculty/close%20assignments.png)
+__Student List__
+![Student List](screenshots/faculty/student%20list.png)
+
+### Student Portal
+
+__Student Login__
+![Student Login](./screenshots/student/student%20login.png)
+__Student Subjects__
+![Student Subjects](./screenshots/student/student%20subject.png)
+__Active Assignments__
+![Active Assignments](./screenshots/student/active.png)
+__Inactive Assignments__
+![Inactive Assignments](./screenshots/student/inactive.png)
+__Submit Assignments__
+![Submit Assignments](./screenshots/student/submit%20assignment.png)
+__Review Assignment__
+![Review Assignment](./screenshots/student/review%20assignment.png)
