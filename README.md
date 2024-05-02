@@ -1,5 +1,5 @@
-Assignment Management System for Baba Institute of Technology and Science, Vishakhapatnam
-Overview
+# Assignment Management System for Baba Institute of Technology and Science, Vishakhapatnam
+## Overview
 This project is an Assignment Management System designed for academic institutions, specifically tailored for Baba Institute of Technology and Science in Vishakhapatnam. The system consists of three portals: Admin, Faculty, and Student, each with distinct functionalities to manage assignments efficiently.
 
 Technologies Used
@@ -16,6 +16,8 @@ Student Signup: Admins can register students for each semester and branch.
 Promote Students: Admins can promote students to the next semester based on exam results.
 Add Subjects: Admins can add subjects to respective branches.
 Map Subjects: Admins can assign faculty to teach specific subjects across different semesters.
+![Admin Signup](/screenshots/admin/admin%20signup.png)
+
 2. Faculty Portal
 Subject Management: Faculty can view and manage subjects assigned to them.
 Create Assignment: Faculty can create assignments by providing submission dates, titles, and descriptions.
