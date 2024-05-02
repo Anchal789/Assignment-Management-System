@@ -9,6 +9,10 @@ Authentication: Firebase Authentication
 Hosting Platform: Netlify
 IDE: Visual Studio Code
 Features by Portal
+
+__Admin Signup__
+![Admin Signup](screenshots/admin/main%20page.png)
+
 1. ### Admin Portal
 Admin Signup: Admins can register using their email, name, password, and stream (branch). Information is saved in Firebase Realtime Database.
 Faculty Signup: Admins can register faculty members with email, password, and name, assigning them to specific branches.
@@ -19,12 +23,29 @@ Map Subjects: Admins can assign faculty to teach specific subjects across differ
 
 __Admin Signup__
 ![Admin Signup](screenshots/admin/admin%20signup.png)
+__Admin Login__
+![Admin Signup](screenshots/admin/admin%20login.png)
+__Admin Home__
+![Admin Signup](screenshots/admin/admin%20home.png)
+__Faculty SignUp__
+![Admin Signup](screenshots/admin/faculty%20signup.png)
+__Student Signup__
+![Admin Signup](screenshots/admin/student%20signup.png)
+__Promote Students__
+![Admin Signup](screenshots/admin/promote%20students.png)
+__Add Subjects__
+![Admin Signup](screenshots/admin/add%20subjects.png)
+__Map Subjects__
+![Admin Signup](screenshots/admin/map%20subjects.png)
+__Promote Students__
+![Admin Signup](screenshots/admin/promote%20students.png)
 
 2. ### Faculty Portal
 Subject Management: Faculty can view and manage subjects assigned to them.
 Create Assignment: Faculty can create assignments by providing submission dates, titles, and descriptions.
 Check Assignments: Faculty can view active and inactive assignments, evaluate submissions, and provide feedback and marks.
 Student List: Faculty can view a list of students in their branch and their assignment submissions.
+
 3. ### Student Portal
 Subject View: Students can view subjects assigned to them for the current semester.
 Assignment Submission: Students can submit assignments for active subjects, view feedback and marks for inactive assignments.
